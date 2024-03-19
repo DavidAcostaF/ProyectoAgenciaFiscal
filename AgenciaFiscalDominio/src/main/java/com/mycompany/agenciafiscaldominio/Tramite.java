@@ -5,10 +5,15 @@
 package com.mycompany.agenciafiscaldominio;
 
 import java.io.Serializable;
+import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -16,12 +21,19 @@ import javax.persistence.Table;
  * @author af_da
  */
 @Entity
-@Table(name="tramites")
+@Table(name = "tramites")
+@Inheritance(strategy = InheritanceType.JOINED)
+@DiscriminatorColumn(name = "tipo")
 public class Tramite implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_tramite")
     private Long id;
+
+    @OneToMany()
+    @Column(name = "id_cliente")
+    private Cliente cliente;
 
     public Long getId() {
         return id;
@@ -55,5 +67,5 @@ public class Tramite implements Serializable {
     public String toString() {
         return "com.mycompany.agenciafiscaldominio.Tramite[ id=" + id + " ]";
     }
-    
+
 }
