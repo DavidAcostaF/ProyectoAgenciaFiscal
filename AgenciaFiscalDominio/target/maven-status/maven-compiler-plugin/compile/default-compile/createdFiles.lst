@@ -3,6 +3,7 @@ com\mycompany\agenciafiscaldominio\Vehiculo_.class
 com\mycompany\agenciafiscaldominio\Automovil.class
 com\mycompany\agenciafiscaldominio\Cliente_.class
 com\mycompany\agenciafiscaldominio\Tramite_.class
+pruebas\Pruebas.class
 com\mycompany\agenciafiscaldominio\Placa_.class
 com\mycompany\agenciafiscaldominio\Cliente.class
 com\mycompany\agenciafiscaldominio\Automovil_.class

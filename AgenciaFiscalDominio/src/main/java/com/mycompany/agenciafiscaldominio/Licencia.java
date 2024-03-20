@@ -43,8 +43,39 @@ public class Licencia extends Tramite implements Serializable {
     @Column(name = "Costo", nullable = false)
     private Float Costo;
 
-    @ManyToOne()
-    @JoinColumn(name = "id_cliente", nullable = false)
-    private Cliente cliente;
 
+    public Calendar getFecha_vencimiento() {
+        return fecha_vencimiento;
+    }
+
+    public void setFecha_vencimiento(Calendar fecha_vencimiento) {
+        this.fecha_vencimiento = fecha_vencimiento;
+    }
+
+    public Calendar getFecha_expedicion() {
+        return fecha_expedicion;
+    }
+
+    public void setFecha_expedicion(Calendar fecha_expedicion) {
+        this.fecha_expedicion = fecha_expedicion;
+    }
+
+    public String getVigencia() {
+        return vigencia;
+    }
+
+    public void setVigencia(String vigencia) {
+        this.vigencia = vigencia;
+    }
+
+    public Float getCosto() {
+        return Costo;
+    }
+
+    public void setCosto(Float Costo) {
+        this.Costo = Costo;
+    }
+
+
+    
 }
