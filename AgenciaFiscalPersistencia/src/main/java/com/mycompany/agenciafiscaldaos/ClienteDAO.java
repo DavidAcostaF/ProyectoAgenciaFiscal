@@ -5,6 +5,7 @@
 package com.mycompany.agenciafiscaldaos;
 
 import com.mycompany.agenciafiscaldominio.Cliente;
+import javax.persistence.EntityManager;
 
 /**
  *
@@ -12,9 +13,22 @@ import com.mycompany.agenciafiscaldominio.Cliente;
  */
 public class ClienteDAO implements IClienteDAO {
 
+    private IConexion conexion;
+
+    public ClienteDAO(IConexion conexion) {
+        this.conexion = conexion;
+    }
+
     @Override
-    public Cliente agregar() {
-        throw new UnsupportedOperationException("Not supported yet."); 
+    public Cliente agregar(Cliente cliente) {
+        EntityManager entityManager = conexion.obtenerConexion();
+
+        entityManager.getTransaction().begin();
+        entityManager.persist(cliente);
+
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        return cliente;
     }
 
 }

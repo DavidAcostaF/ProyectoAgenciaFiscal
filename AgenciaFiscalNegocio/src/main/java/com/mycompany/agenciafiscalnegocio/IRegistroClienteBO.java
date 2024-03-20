@@ -2,15 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
  */
-package com.mycompany.agenciafiscaldaos;
+package com.mycompany.agenciafiscalnegocio;
 
-import com.mycompany.agenciafiscaldominio.Cliente;
+import com.mycompany.agenciafiscaldtos.ClienteNuevoDTO;
 
 /**
  *
  * @author af_da
  */
-public interface IClienteDAO {
+public interface IRegistroClienteBO {
 
-    public Cliente agregar(Cliente cliente);
+    public ClienteNuevoDTO registraCliente(ClienteNuevoDTO clienteNuevo);
 }
