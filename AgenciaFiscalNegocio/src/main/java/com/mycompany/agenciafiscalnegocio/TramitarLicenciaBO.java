@@ -40,6 +40,11 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
 
     @Override
     public void solcicitarLicencia() {
+        //Cambiar esta madre
+        consultarCliente();
+        if (validacionTramiteVencimiento()) {
+            return;
+        }
         Calendar fechaActual = Calendar.getInstance();
         String vigencia = this.licenciaNueva.getVigencia();
         Float costo = this.licenciaNueva.getCosto();
@@ -47,12 +52,6 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
         fecha_vencimiento.add(Calendar.YEAR, 1);
         //Hardcodeado a 1 año
         Licencia licencia = new Licencia(fecha_vencimiento, fechaActual, vigencia, costo);
-        //Cambiar esta madre
-        consultarCliente();
-
-        if (validacionTramite()) {
-            return;
-        }
         licencia.setCliente(this.cliente);
         this.licenciaDAO.agregar(licencia);
         //Checar de alguna manera al mandar la vigencia hacer que sea el puro
@@ -64,7 +63,7 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
         return this.cliente;
     }
 
-    private boolean validacionTramite() {
+    private boolean validacionTramiteVencimiento() {
         Tramite tramite = new Tramite();
         tramite.setCliente(this.cliente);
         Tramite tramiteConsultado = tramiteDAO.consultarLicencias(tramite);
