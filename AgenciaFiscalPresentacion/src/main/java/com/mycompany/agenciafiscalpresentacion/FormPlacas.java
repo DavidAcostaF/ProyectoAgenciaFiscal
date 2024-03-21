@@ -5,25 +5,20 @@
 package com.mycompany.agenciafiscalpresentacion;
 
 import com.mycompany.agenciafiscaldaos.IConexion;
-import com.mycompany.agenciafiscalnegocio.IRegistroClienteBO;
-import com.mycompany.agenciafiscalnegocio.RegistroClienteBO;
 
 /**
  *
- * @author Berry
+ * @author lv1821
  */
-public class FromMenuPrincipal extends javax.swing.JFrame {
-    private IRegistroClienteBO registroClienteBo;
-    private IConexion conexion;
+public class FormPlacas extends javax.swing.JFrame {
     
+    private IConexion conexion;
     /**
-     * Creates new form FromMenuPrincipal
+     * Creates new form FormPlacas
      */
-    public FromMenuPrincipal(IConexion conexion) {
-        this.registroClienteBo = new RegistroClienteBO(conexion);
+    public FormPlacas(IConexion conexion) {
         this.conexion = conexion;
         initComponents();
-        
     }
 
     /**
@@ -40,11 +35,9 @@ public class FromMenuPrincipal extends javax.swing.JFrame {
         imgLogo = new javax.swing.JLabel();
         txtTitulo = new javax.swing.JLabel();
         btnCerrar = new javax.swing.JButton();
-        btnAgregarClientes = new javax.swing.JButton();
         panEntrar = new javax.swing.JPanel();
-        btnTramites = new javax.swing.JButton();
-        btnConsultas = new javax.swing.JButton();
-        btnReportes = new javax.swing.JButton();
+        btnCarroSinRegistrar = new javax.swing.JButton();
+        btnCarroRegistrado = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,21 +48,13 @@ public class FromMenuPrincipal extends javax.swing.JFrame {
         imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/multimedia/AgenciaFiscal.png"))); // NOI18N
 
         txtTitulo.setFont(new java.awt.Font("Comic Sans MS", 0, 36)); // NOI18N
-        txtTitulo.setText("Agencia Fiscal");
+        txtTitulo.setText("Placas");
 
         btnCerrar.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        btnCerrar.setText("Cerrar");
+        btnCerrar.setText("Atras");
         btnCerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCerrarActionPerformed(evt);
-            }
-        });
-
-        btnAgregarClientes.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        btnAgregarClientes.setText("Agregar Clientes");
-        btnAgregarClientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarClientesActionPerformed(evt);
             }
         });
 
@@ -82,9 +67,7 @@ public class FromMenuPrincipal extends javax.swing.JFrame {
                 .addComponent(imgLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
-                .addComponent(btnAgregarClientes)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnCerrar)
                 .addGap(22, 22, 22))
         );
@@ -99,50 +82,47 @@ public class FromMenuPrincipal extends javax.swing.JFrame {
                         .addGroup(panHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panHeaderLayout.createSequentialGroup()
                                 .addGap(16, 16, 16)
-                                .addGroup(panHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(btnCerrar)
-                                    .addComponent(btnAgregarClientes)))
+                                .addComponent(btnCerrar))
                             .addComponent(txtTitulo))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panEntrar.setBackground(new java.awt.Color(236, 236, 236));
 
-        btnTramites.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        btnTramites.setText("Tramites");
-        btnTramites.addActionListener(new java.awt.event.ActionListener() {
+        btnCarroSinRegistrar.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        btnCarroSinRegistrar.setText("Carro Sin registrar");
+        btnCarroSinRegistrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTramitesActionPerformed(evt);
+                btnCarroSinRegistrarActionPerformed(evt);
             }
         });
 
-        btnConsultas.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        btnConsultas.setText("Consultas");
-
-        btnReportes.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        btnReportes.setText("Reportes");
+        btnCarroRegistrado.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        btnCarroRegistrado.setText("Carro Registrado");
+        btnCarroRegistrado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCarroRegistradoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panEntrarLayout = new javax.swing.GroupLayout(panEntrar);
         panEntrar.setLayout(panEntrarLayout);
         panEntrarLayout.setHorizontalGroup(
             panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panEntrarLayout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addComponent(btnTramites)
-                .addGap(158, 158, 158)
-                .addComponent(btnConsultas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnReportes)
-                .addGap(59, 59, 59))
+                .addContainerGap(126, Short.MAX_VALUE)
+                .addComponent(btnCarroSinRegistrar)
+                .addGap(67, 67, 67)
+                .addComponent(btnCarroRegistrado)
+                .addGap(180, 180, 180))
         );
         panEntrarLayout.setVerticalGroup(
             panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panEntrarLayout.createSequentialGroup()
-                .addContainerGap(302, Short.MAX_VALUE)
+                .addContainerGap(304, Short.MAX_VALUE)
                 .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnTramites)
-                    .addComponent(btnConsultas)
-                    .addComponent(btnReportes))
+                    .addComponent(btnCarroSinRegistrar)
+                    .addComponent(btnCarroRegistrado))
                 .addGap(28, 28, 28))
         );
 
@@ -179,27 +159,28 @@ public class FromMenuPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnTramitesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTramitesActionPerformed
+    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         FormTramites ftl = new FormTramites(conexion);
         ftl.setVisible(true);
         this.dispose();
-    }//GEN-LAST:event_btnTramitesActionPerformed
-
-    private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-        this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
-    private void btnAgregarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClientesActionPerformed
-        registroClienteBo.poblarClientes();
-    }//GEN-LAST:event_btnAgregarClientesActionPerformed
+    private void btnCarroRegistradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarroRegistradoActionPerformed
+        FormPlacasCarroRegistrado fpcr = new FormPlacasCarroRegistrado(conexion);
+        fpcr.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCarroRegistradoActionPerformed
 
+    private void btnCarroSinRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarroSinRegistrarActionPerformed
+        FormPlacasCarroSinRegistrar fpcsr = new FormPlacasCarroSinRegistrar(conexion);
+        fpcsr.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnCarroSinRegistrarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregarClientes;
+    private javax.swing.JButton btnCarroRegistrado;
+    private javax.swing.JButton btnCarroSinRegistrar;
     private javax.swing.JButton btnCerrar;
-    private javax.swing.JButton btnConsultas;
-    private javax.swing.JButton btnReportes;
-    private javax.swing.JButton btnTramites;
     private javax.swing.JLabel imgLogo;
     private javax.swing.JPanel panEntrar;
     private javax.swing.JPanel panFondoBlanco;

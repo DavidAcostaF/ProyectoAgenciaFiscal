@@ -44,10 +44,10 @@ private IConexion conexion;
 
         panHeader.setBackground(new java.awt.Color(217, 217, 217));
 
-        imgLogo.setIcon(new javax.swing.ImageIcon("D:\\Archivos de programa\\GitHub\\Proyectos\\Repo\\ASD\\ProyectoAgenciaFiscal\\AgenciaFiscalPresentacion\\src\\main\\resources\\multimedia\\AgenciaFiscal.png")); // NOI18N
+        imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/multimedia/AgenciaFiscal.png"))); // NOI18N
 
         txtTitulo.setFont(new java.awt.Font("Comic Sans MS", 0, 36)); // NOI18N
-        txtTitulo.setText("Agencia Fiscal");
+        txtTitulo.setText("Tramites");
 
         btnCerrar.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnCerrar.setText("Atras");
@@ -90,6 +90,11 @@ private IConexion conexion;
 
         btnPlacas.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
         btnPlacas.setText("Placas");
+        btnPlacas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPlacasActionPerformed(evt);
+            }
+        });
 
         btnLicencias.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
         btnLicencias.setText("Licencias");
@@ -164,6 +169,12 @@ private IConexion conexion;
         fmp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
+
+    private void btnPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlacasActionPerformed
+        FormPlacas fp = new FormPlacas(conexion);
+        fp.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnPlacasActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;

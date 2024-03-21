@@ -5,25 +5,20 @@
 package com.mycompany.agenciafiscalpresentacion;
 
 import com.mycompany.agenciafiscaldaos.IConexion;
-import com.mycompany.agenciafiscalnegocio.IRegistroClienteBO;
-import com.mycompany.agenciafiscalnegocio.RegistroClienteBO;
 
 /**
  *
- * @author Berry
+ * @author lv1821
  */
-public class FromMenuPrincipal extends javax.swing.JFrame {
-    private IRegistroClienteBO registroClienteBo;
+public class FormPago extends javax.swing.JFrame {
+
     private IConexion conexion;
-    
     /**
-     * Creates new form FromMenuPrincipal
+     * Creates new form FormPago
      */
-    public FromMenuPrincipal(IConexion conexion) {
-        this.registroClienteBo = new RegistroClienteBO(conexion);
+    public FormPago(IConexion conexion) {
         this.conexion = conexion;
         initComponents();
-        
     }
 
     /**
@@ -40,11 +35,12 @@ public class FromMenuPrincipal extends javax.swing.JFrame {
         imgLogo = new javax.swing.JLabel();
         txtTitulo = new javax.swing.JLabel();
         btnCerrar = new javax.swing.JButton();
-        btnAgregarClientes = new javax.swing.JButton();
         panEntrar = new javax.swing.JPanel();
-        btnTramites = new javax.swing.JButton();
-        btnConsultas = new javax.swing.JButton();
-        btnReportes = new javax.swing.JButton();
+        btnAceptar = new javax.swing.JButton();
+        txtNumSerie = new javax.swing.JLabel();
+        txtNumSerie1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        ListDatosCliente = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,21 +51,13 @@ public class FromMenuPrincipal extends javax.swing.JFrame {
         imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/multimedia/AgenciaFiscal.png"))); // NOI18N
 
         txtTitulo.setFont(new java.awt.Font("Comic Sans MS", 0, 36)); // NOI18N
-        txtTitulo.setText("Agencia Fiscal");
+        txtTitulo.setText("Pago");
 
         btnCerrar.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        btnCerrar.setText("Cerrar");
+        btnCerrar.setText("Atras");
         btnCerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCerrarActionPerformed(evt);
-            }
-        });
-
-        btnAgregarClientes.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        btnAgregarClientes.setText("Agregar Clientes");
-        btnAgregarClientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarClientesActionPerformed(evt);
             }
         });
 
@@ -82,9 +70,7 @@ public class FromMenuPrincipal extends javax.swing.JFrame {
                 .addComponent(imgLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
-                .addComponent(btnAgregarClientes)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnCerrar)
                 .addGap(22, 22, 22))
         );
@@ -99,51 +85,68 @@ public class FromMenuPrincipal extends javax.swing.JFrame {
                         .addGroup(panHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panHeaderLayout.createSequentialGroup()
                                 .addGap(16, 16, 16)
-                                .addGroup(panHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(btnCerrar)
-                                    .addComponent(btnAgregarClientes)))
+                                .addComponent(btnCerrar))
                             .addComponent(txtTitulo))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panEntrar.setBackground(new java.awt.Color(236, 236, 236));
 
-        btnTramites.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        btnTramites.setText("Tramites");
-        btnTramites.addActionListener(new java.awt.event.ActionListener() {
+        btnAceptar.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        btnAceptar.setText("Aceptar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTramitesActionPerformed(evt);
+                btnAceptarActionPerformed(evt);
             }
         });
 
-        btnConsultas.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        btnConsultas.setText("Consultas");
+        txtNumSerie.setFont(new java.awt.Font("Comic Sans MS", 0, 36)); // NOI18N
+        txtNumSerie.setText("Tramite:");
 
-        btnReportes.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        btnReportes.setText("Reportes");
+        txtNumSerie1.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
+        txtNumSerie1.setText("Tramite");
+
+        ListDatosCliente.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        ListDatosCliente.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Numero de serie:", "Marca:", "Linea:", "Modelo:", "Color:", "RFC del dueño:" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        jScrollPane2.setViewportView(ListDatosCliente);
 
         javax.swing.GroupLayout panEntrarLayout = new javax.swing.GroupLayout(panEntrar);
         panEntrar.setLayout(panEntrarLayout);
         panEntrarLayout.setHorizontalGroup(
             panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panEntrarLayout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addComponent(btnTramites)
-                .addGap(158, 158, 158)
-                .addComponent(btnConsultas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnReportes)
-                .addGap(59, 59, 59))
+                .addGap(372, 372, 372)
+                .addComponent(btnAceptar)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(panEntrarLayout.createSequentialGroup()
+                .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panEntrarLayout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addComponent(txtNumSerie))
+                    .addGroup(panEntrarLayout.createSequentialGroup()
+                        .addGap(87, 87, 87)
+                        .addComponent(txtNumSerie1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 229, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(25, 25, 25))
         );
         panEntrarLayout.setVerticalGroup(
             panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panEntrarLayout.createSequentialGroup()
-                .addContainerGap(302, Short.MAX_VALUE)
-                .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnTramites)
-                    .addComponent(btnConsultas)
-                    .addComponent(btnReportes))
-                .addGap(28, 28, 28))
+            .addGroup(panEntrarLayout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panEntrarLayout.createSequentialGroup()
+                        .addComponent(txtNumSerie)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtNumSerie1))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+                .addComponent(btnAceptar)
+                .addGap(26, 26, 26))
         );
 
         javax.swing.GroupLayout panFondoBlancoLayout = new javax.swing.GroupLayout(panFondoBlanco);
@@ -179,31 +182,29 @@ public class FromMenuPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnTramitesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTramitesActionPerformed
-        FormTramites ftl = new FormTramites(conexion);
-        ftl.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnTramitesActionPerformed
-
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
+        FormPlacas fp = new FormPlacas(conexion);
+        fp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
-    private void btnAgregarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClientesActionPerformed
-        registroClienteBo.poblarClientes();
-    }//GEN-LAST:event_btnAgregarClientesActionPerformed
-
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        FormPago fpa = new FormPago(conexion);
+        fpa.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAceptarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregarClientes;
+    private javax.swing.JList<String> ListDatosCliente;
+    private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCerrar;
-    private javax.swing.JButton btnConsultas;
-    private javax.swing.JButton btnReportes;
-    private javax.swing.JButton btnTramites;
     private javax.swing.JLabel imgLogo;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JPanel panEntrar;
     private javax.swing.JPanel panFondoBlanco;
     private javax.swing.JPanel panHeader;
+    private javax.swing.JLabel txtNumSerie;
+    private javax.swing.JLabel txtNumSerie1;
     private javax.swing.JLabel txtTitulo;
     // End of variables declaration//GEN-END:variables
 }

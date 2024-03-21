@@ -5,25 +5,20 @@
 package com.mycompany.agenciafiscalpresentacion;
 
 import com.mycompany.agenciafiscaldaos.IConexion;
-import com.mycompany.agenciafiscalnegocio.IRegistroClienteBO;
-import com.mycompany.agenciafiscalnegocio.RegistroClienteBO;
 
 /**
  *
- * @author Berry
+ * @author lv1821
  */
-public class FromMenuPrincipal extends javax.swing.JFrame {
-    private IRegistroClienteBO registroClienteBo;
+public class FormPlacasCarroRegistrado extends javax.swing.JFrame {
+
     private IConexion conexion;
-    
     /**
-     * Creates new form FromMenuPrincipal
+     * Creates new form FormPlacasCarroRegistrado
      */
-    public FromMenuPrincipal(IConexion conexion) {
-        this.registroClienteBo = new RegistroClienteBO(conexion);
+    public FormPlacasCarroRegistrado(IConexion conexion) {
         this.conexion = conexion;
         initComponents();
-        
     }
 
     /**
@@ -40,11 +35,13 @@ public class FromMenuPrincipal extends javax.swing.JFrame {
         imgLogo = new javax.swing.JLabel();
         txtTitulo = new javax.swing.JLabel();
         btnCerrar = new javax.swing.JButton();
-        btnAgregarClientes = new javax.swing.JButton();
+        txtTitulo1 = new javax.swing.JLabel();
         panEntrar = new javax.swing.JPanel();
-        btnTramites = new javax.swing.JButton();
-        btnConsultas = new javax.swing.JButton();
-        btnReportes = new javax.swing.JButton();
+        txfNumPlacasAnteriores = new javax.swing.JTextField();
+        txtNumPlacasAnteriores = new javax.swing.JLabel();
+        txfRfcNuevoDueño = new javax.swing.JTextField();
+        txtRfcNuevoDueño = new javax.swing.JLabel();
+        btnAceptar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,23 +52,18 @@ public class FromMenuPrincipal extends javax.swing.JFrame {
         imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/multimedia/AgenciaFiscal.png"))); // NOI18N
 
         txtTitulo.setFont(new java.awt.Font("Comic Sans MS", 0, 36)); // NOI18N
-        txtTitulo.setText("Agencia Fiscal");
+        txtTitulo.setText("Placas");
 
         btnCerrar.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        btnCerrar.setText("Cerrar");
+        btnCerrar.setText("Atras");
         btnCerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCerrarActionPerformed(evt);
             }
         });
 
-        btnAgregarClientes.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        btnAgregarClientes.setText("Agregar Clientes");
-        btnAgregarClientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAgregarClientesActionPerformed(evt);
-            }
-        });
+        txtTitulo1.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        txtTitulo1.setText("Carro registrado");
 
         javax.swing.GroupLayout panHeaderLayout = new javax.swing.GroupLayout(panHeader);
         panHeader.setLayout(panHeaderLayout);
@@ -82,9 +74,9 @@ public class FromMenuPrincipal extends javax.swing.JFrame {
                 .addComponent(imgLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
-                .addComponent(btnAgregarClientes)
                 .addGap(18, 18, 18)
+                .addComponent(txtTitulo1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnCerrar)
                 .addGap(22, 22, 22))
         );
@@ -99,51 +91,67 @@ public class FromMenuPrincipal extends javax.swing.JFrame {
                         .addGroup(panHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panHeaderLayout.createSequentialGroup()
                                 .addGap(16, 16, 16)
-                                .addGroup(panHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(btnCerrar)
-                                    .addComponent(btnAgregarClientes)))
-                            .addComponent(txtTitulo))))
+                                .addComponent(btnCerrar))
+                            .addGroup(panHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtTitulo)
+                                .addComponent(txtTitulo1)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         panEntrar.setBackground(new java.awt.Color(236, 236, 236));
 
-        btnTramites.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        btnTramites.setText("Tramites");
-        btnTramites.addActionListener(new java.awt.event.ActionListener() {
+        txfNumPlacasAnteriores.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+
+        txtNumPlacasAnteriores.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
+        txtNumPlacasAnteriores.setText("Numero de placas anteriores:");
+
+        txfRfcNuevoDueño.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+
+        txtRfcNuevoDueño.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
+        txtRfcNuevoDueño.setText("Rfc del Nuevo dueño:");
+
+        btnAceptar.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        btnAceptar.setText("Aceptar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnTramitesActionPerformed(evt);
+                btnAceptarActionPerformed(evt);
             }
         });
-
-        btnConsultas.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        btnConsultas.setText("Consultas");
-
-        btnReportes.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        btnReportes.setText("Reportes");
 
         javax.swing.GroupLayout panEntrarLayout = new javax.swing.GroupLayout(panEntrar);
         panEntrar.setLayout(panEntrarLayout);
         panEntrarLayout.setHorizontalGroup(
             panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panEntrarLayout.createSequentialGroup()
-                .addGap(58, 58, 58)
-                .addComponent(btnTramites)
-                .addGap(158, 158, 158)
-                .addComponent(btnConsultas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnReportes)
-                .addGap(59, 59, 59))
+                .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panEntrarLayout.createSequentialGroup()
+                        .addGap(372, 372, 372)
+                        .addComponent(btnAceptar))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, panEntrarLayout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtNumPlacasAnteriores)
+                            .addComponent(txtRfcNuevoDueño))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txfRfcNuevoDueño, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txfNumPlacasAnteriores, javax.swing.GroupLayout.PREFERRED_SIZE, 458, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
         panEntrarLayout.setVerticalGroup(
             panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panEntrarLayout.createSequentialGroup()
-                .addContainerGap(302, Short.MAX_VALUE)
+            .addGroup(panEntrarLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
                 .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnTramites)
-                    .addComponent(btnConsultas)
-                    .addComponent(btnReportes))
-                .addGap(28, 28, 28))
+                    .addComponent(txtNumPlacasAnteriores)
+                    .addComponent(txfNumPlacasAnteriores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtRfcNuevoDueño)
+                    .addComponent(txfRfcNuevoDueño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 198, Short.MAX_VALUE)
+                .addComponent(btnAceptar)
+                .addGap(26, 26, 26))
         );
 
         javax.swing.GroupLayout panFondoBlancoLayout = new javax.swing.GroupLayout(panFondoBlanco);
@@ -179,31 +187,30 @@ public class FromMenuPrincipal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnTramitesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTramitesActionPerformed
-        FormTramites ftl = new FormTramites(conexion);
-        ftl.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnTramitesActionPerformed
-
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
+        FormPlacas fp = new FormPlacas(conexion);
+        fp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
-    private void btnAgregarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClientesActionPerformed
-        registroClienteBo.poblarClientes();
-    }//GEN-LAST:event_btnAgregarClientesActionPerformed
-
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        FormPago fpa = new FormPago(conexion);
+        fpa.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAceptarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAgregarClientes;
+    private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCerrar;
-    private javax.swing.JButton btnConsultas;
-    private javax.swing.JButton btnReportes;
-    private javax.swing.JButton btnTramites;
     private javax.swing.JLabel imgLogo;
     private javax.swing.JPanel panEntrar;
     private javax.swing.JPanel panFondoBlanco;
     private javax.swing.JPanel panHeader;
+    private javax.swing.JTextField txfNumPlacasAnteriores;
+    private javax.swing.JTextField txfRfcNuevoDueño;
+    private javax.swing.JLabel txtNumPlacasAnteriores;
+    private javax.swing.JLabel txtRfcNuevoDueño;
     private javax.swing.JLabel txtTitulo;
+    private javax.swing.JLabel txtTitulo1;
     // End of variables declaration//GEN-END:variables
 }
