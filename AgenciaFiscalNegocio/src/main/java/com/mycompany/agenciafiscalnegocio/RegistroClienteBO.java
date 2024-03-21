@@ -39,7 +39,6 @@ public class RegistroClienteBO implements IRegistroClienteBO {
         ArrayList<Cliente> listaClientes = new ArrayList<>();
         Calendar fechaNacimiento = Calendar.getInstance();
         fechaNacimiento.set(1990, Calendar.JANUARY, 1);
-        // Añadir clientes a la lista
         listaClientes.add(new Cliente("ABC123456DEF", "Juan", "Pérez", "Gómez", false, fechaNacimiento, "555-123-4567"));
         listaClientes.add(new Cliente("DEF789012GHI", "María", "López", "Martínez", true, fechaNacimiento, "555-987-6543"));
         listaClientes.add(new Cliente("GHI345678JKL", "Carlos", "González", "Sánchez", false, fechaNacimiento, "555-567-8901"));
