@@ -7,6 +7,7 @@ package com.mycompany.agenciafiscaldaos;
 import com.mycompany.agenciafiscaldominio.Cliente;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
@@ -43,6 +44,22 @@ public class ClienteDAO implements IClienteDAO {
         entityManager.getTransaction().commit();
         entityManager.close();
         return clientes;
+    }
+
+    @Override
+    public Cliente consultar(String rfc) {
+        EntityManager entityManager = conexion.obtenerConexion();
+
+        Query query = entityManager.createNativeQuery("SELECT * FROM Cliente WHERE rfc = ?", Cliente.class);
+        query.setParameter(1, rfc);
+
+        Cliente cliente = null;
+//        try {
+        cliente = (Cliente) query.getSingleResult();
+//        } catch () {
+//            // Manejar la excepción si no se encuentra ningún cliente con el RFC dado
+//        }
+        return cliente;
     }
 
 }

@@ -14,6 +14,8 @@ import java.util.List;
 public interface IClienteDAO {
 
     public Cliente agregar(Cliente cliente);
-    
-    public List<Cliente>consultarClientes();
+
+    public List<Cliente> consultarClientes();
+
+    public Cliente consultar(String rfc);
 }
