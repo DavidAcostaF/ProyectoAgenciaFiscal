@@ -31,6 +31,8 @@ public class pruebas {
         tramite.setCliente(clienteDTO);
         tramite.setLicencia(licenciaNueva);
         tramite.solcicitarLicencia();
+        
+        
     }
 
 }

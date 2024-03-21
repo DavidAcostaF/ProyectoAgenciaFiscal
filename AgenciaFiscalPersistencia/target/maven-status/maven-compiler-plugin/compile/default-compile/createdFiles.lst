@@ -1,6 +1,7 @@
 com\mycompany\agenciafiscaldominio\Licencia.class
 com\mycompany\agenciafiscaldominio\Vehiculo_.class
 com\mycompany\agenciafiscaldominio\Automovil.class
+com\mycompany\agenciafiscaldaos\TramiteDAO.class
 com\mycompany\agenciafiscaldaos\LicenciaDAO.class
 com\mycompany\agenciafiscaldominio\Cliente_.class
 com\mycompany\agenciafiscaldominio\Tramite_.class
@@ -13,6 +14,7 @@ com\mycompany\agenciafiscaldaos\IClienteDAO.class
 com\mycompany\agenciafiscaldominio\Automovil_.class
 com\mycompany\agenciafiscaldaos\ILicenciaDAO.class
 com\mycompany\agenciafiscaldominio\Tramite.class
+com\mycompany\agenciafiscaldaos\ITramiteDAO.class
 com\mycompany\agenciafiscaldaos\Conexion.class
 com\mycompany\agenciafiscaldominio\Vehiculo.class
 com\mycompany\agenciafiscaldominio\Licencia_.class

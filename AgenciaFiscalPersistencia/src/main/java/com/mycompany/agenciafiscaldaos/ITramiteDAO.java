@@ -4,13 +4,14 @@
  */
 package com.mycompany.agenciafiscaldaos;
 
-import com.mycompany.agenciafiscaldominio.Licencia;
+import com.mycompany.agenciafiscaldominio.Tramite;
 
 /**
  *
  * @author af_da
  */
-public interface ILicenciaDAO {
-    public Licencia agregar(Licencia licencia);
-    public Licencia consultar(Long id);
+public interface ITramiteDAO {
+
+    public Tramite consultarLicencias(Tramite tramite);
+    
 }

@@ -30,4 +30,13 @@ public class LicenciaDAO implements ILicenciaDAO {
         return licencia;
     }
 
+    @Override
+    public Licencia consultar(Long id) {
+        EntityManager entityManager = conexion.obtenerConexion();
+        Licencia licencia = entityManager.find(Licencia.class, id);
+        entityManager.getTransaction().begin();
+        entityManager.close();
+        return licencia;
+    }
+
 }
