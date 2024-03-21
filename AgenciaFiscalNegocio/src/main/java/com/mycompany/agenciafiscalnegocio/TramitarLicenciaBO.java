@@ -41,7 +41,7 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
     }
 
     @Override
-    public void solicitarLicencia(int años) {
+    public boolean solicitarLicencia(int años) {
 //        if (validacionTramiteVencimiento()) {
 //            return;
 //        }
@@ -52,7 +52,11 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
         fecha_vencimiento.add(Calendar.YEAR, años);
         Licencia licencia = new Licencia(fecha_vencimiento, fechaActual, vigencia, costo);
         licencia.setCliente(this.cliente);
-        this.licenciaDAO.agregar(licencia);
+        Licencia licenciaCreada = this.licenciaDAO.agregar(licencia);
+        if (licenciaCreada.getId() != null) {
+            return true;
+        }
+        return false;
         //Checar de alguna manera al mandar la vigencia hacer que sea el puro
         //numero para sumarlo a la fecha actual para asi que sea mas simple saber cuando vencera
     }
@@ -97,21 +101,18 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
         costosNormal.put("1 Año", 600.0F);
         costosNormal.put("2 Años", 900.0F);
         costosNormal.put("3 Años", 1100.0F);
-        
+
         Map<String, Float> costosDiscapacitado = new HashMap<>();
         costosDiscapacitado.put("1 Año", 200.0F);
         costosDiscapacitado.put("2 Años", 500.0F);
         costosDiscapacitado.put("3 Años", 700.0F);
-        
-        if(cliente.getDiscapacitado()){
-            System.out.println(costosDiscapacitado.get(año));
+
+        if (cliente.getDiscapacitado()) {
             return costosDiscapacitado.get(año);
-        }
-        else{
-            System.out.println(costosNormal.get(año));
+        } else {
             return costosNormal.get(año);
         }
-        
+
     }
 
 }

@@ -20,11 +20,12 @@ import javax.swing.JOptionPane;
  * @author Berry
  */
 public class FormLicencias extends javax.swing.JFrame {
-    
+
     private DefaultListModel<String> modeloLista = new DefaultListModel<>();
     private IConexion conexion;
     private ITramitarLicenciaBO tramitarLicenciaBO;
-    
+    ClienteDTO clienteDTO;
+
     /**
      * Creates new form FormRenovarLicencias
      */
@@ -33,7 +34,7 @@ public class FormLicencias extends javax.swing.JFrame {
         this.tramitarLicenciaBO = new TramitarLicenciaBO(conexion);
 
         initComponents();
-        
+
     }
 
     /**
@@ -291,59 +292,80 @@ public class FormLicencias extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
-        ClienteDTO clienteDTO = new ClienteDTO(txfRfc.getText());
-        tramitarLicenciaBO.setCliente(clienteDTO);
+        if (txfRfc.getText().equalsIgnoreCase("")) {
+            JOptionPane.showMessageDialog(this, "El RFC tiene que estar lleno");
+            return;
+        }
+        ClienteDTO clienteRFC = new ClienteDTO(txfRfc.getText());
+        tramitarLicenciaBO.setCliente(clienteRFC);
         clienteDTO = tramitarLicenciaBO.consultarCliente();
         llenarListDatosClientes(clienteDTO);
-        
-        actualizarCosto((String)cbxVigencia.getSelectedItem());
+        if (clienteDTO == null) {
+            JOptionPane.showMessageDialog(this, "No se ha encontrado cliente con RFC " + txfRfc.getText());
+            return;
+        }
+        actualizarCosto((String) cbxVigencia.getSelectedItem());
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void cbxVigenciaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxVigenciaItemStateChanged
-        actualizarCosto((String)cbxVigencia.getSelectedItem());
+        if (clienteDTO == null) {
+            return;
+        }
+        actualizarCosto((String) cbxVigencia.getSelectedItem());
     }//GEN-LAST:event_cbxVigenciaItemStateChanged
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+
         String montoTexto = txtMonto.getText().substring(1);
         float monto = Float.parseFloat(montoTexto);
+        if (monto <= 0) {
+            return;
+        }
+        LicenciaNuevaDTO licenciaNueva = new LicenciaNuevaDTO((String) cbxVigencia.getSelectedItem(), monto);
 
-        LicenciaNuevaDTO licenciaNueva = new LicenciaNuevaDTO((String)cbxVigencia.getSelectedItem(), monto);
-        
         tramitarLicenciaBO.setLicencia(licenciaNueva);
-        tramitarLicenciaBO.solicitarLicencia((int)((String)cbxVigencia.getSelectedItem()).charAt(0));
+        boolean creado = tramitarLicenciaBO.solicitarLicencia((int) ((String) cbxVigencia.getSelectedItem()).charAt(0));
+        if (creado) {
+            JOptionPane.showMessageDialog(this, "Licencia creada");
+        } else {
+            JOptionPane.showMessageDialog(this, "No se ha podido crear la licencia");
+
+        }
     }//GEN-LAST:event_btnAceptarActionPerformed
 
-    public void actualizarCosto(String año){
-       txtMonto.setText("$"+tramitarLicenciaBO.calcularCosto(año));
+    public void actualizarCosto(String año) {
+        if (clienteDTO == null) {
+            return;
+        }
+        txtMonto.setText("$" + tramitarLicenciaBO.calcularCosto(año));
     }
-    
-    public void limpiarListaDatosCliente(){
+
+    public void limpiarListaDatosCliente() {
         modeloLista.clear();
     }
-    
-    public void llenarListDatosClientes(ClienteDTO clienteDTO){
+
+    public void llenarListDatosClientes(ClienteDTO clienteDTO) {
         limpiarListaDatosCliente();
-        modeloLista.addElement("Nombre: "+ clienteDTO.getNombre()+ " "+clienteDTO.getApellido_paterno()+ " "+ clienteDTO.getApellido_materno());
-        modeloLista.addElement("RFC: "+ clienteDTO.getRfc());
-        modeloLista.addElement("Telefono: "+ clienteDTO.getTelefono());
-        modeloLista.addElement("Fecha de Nacimiento: "+ formatoFecha(clienteDTO.getFecha_nacimiento()));
-        if (clienteDTO.getDiscapacitado()){
+        modeloLista.addElement("Nombre: " + clienteDTO.getNombre() + " " + clienteDTO.getApellido_paterno() + " " + clienteDTO.getApellido_materno());
+        modeloLista.addElement("RFC: " + clienteDTO.getRfc());
+        modeloLista.addElement("Telefono: " + clienteDTO.getTelefono());
+        modeloLista.addElement("Fecha de Nacimiento: " + formatoFecha(clienteDTO.getFecha_nacimiento()));
+        if (clienteDTO.getDiscapacitado()) {
             modeloLista.addElement("Discapacitado: Si");
-        }
-        else{
+        } else {
             modeloLista.addElement("Discapacitado: No");
         }
-       
+
         ListDatosCliente.setModel(modeloLista);
         jScrollPane2.setViewportView(ListDatosCliente);
     }
-    
-    public String formatoFecha(Calendar calendar){
+
+    public String formatoFecha(Calendar calendar) {
         SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
         String fechaFormateada = formatoFecha.format(calendar.getTime());
         return fechaFormateada;
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList<String> ListDatosCliente;
     private javax.swing.JButton btnAceptar;
