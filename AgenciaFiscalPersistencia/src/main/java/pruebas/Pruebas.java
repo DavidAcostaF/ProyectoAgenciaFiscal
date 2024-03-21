@@ -34,7 +34,7 @@ public class Pruebas {
         Cliente cliente = new Cliente("ABC123456DEF", "Juan", "Pérez", "Gómez", false, fechaNacimiento, "555-123-4567");
         entityManager.persist(cliente);
 
-        Cliente cliente2 = new Cliente("ABC123456DEF", "David", "Acosta", "Fajardo", false, fechaNacimiento, "555-123-4567");
+        Cliente cliente2 = new Cliente("ABC123456DEX", "David", "Acosta", "Fajardo", false, fechaNacimiento, "555-123-4567");
         entityManager.persist(cliente2);
 
         // Crear una instancia de Calendar para las fechas

@@ -40,9 +40,11 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
         String vigencia = this.licenciaNueva.getVigencia();
         Float costo = this.licenciaNueva.getCosto();
         Calendar fecha_vencimiento = Calendar.getInstance();
-        fechaActual.add(Calendar.YEAR, 1);
+        fecha_vencimiento.add(Calendar.YEAR, 1);
         //Hardcodeado a 1 año
         Licencia licencia = new Licencia(fecha_vencimiento, fechaActual, vigencia, costo);
+        //Cambiar esta madre
+        consultarCliente();
         licencia.setCliente(this.cliente);
         this.licenciaDAO.agregar(licencia);
         //Checar de alguna manera al mandar la vigencia hacer que sea el puro
