@@ -4,17 +4,36 @@
  */
 package com.mycompany.agenciafiscalpresentacion;
 
+import com.mycompany.agenciafiscaldaos.IConexion;
+import static com.mycompany.agenciafiscaldominio.Tramite_.cliente;
+import com.mycompany.agenciafiscaldtos.ClienteDTO;
+import com.mycompany.agenciafiscaldtos.LicenciaNuevaDTO;
+import com.mycompany.agenciafiscalnegocio.ITramitarLicenciaBO;
+import com.mycompany.agenciafiscalnegocio.TramitarLicenciaBO;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Berry
  */
 public class FormLicencias extends javax.swing.JFrame {
-
+    
+    private DefaultListModel<String> modeloLista = new DefaultListModel<>();
+    private IConexion conexion;
+    private ITramitarLicenciaBO tramitarLicenciaBO;
+    
     /**
      * Creates new form FormRenovarLicencias
      */
-    public FormLicencias() {
+    public FormLicencias(IConexion conexion) {
+        this.conexion = conexion;
+        this.tramitarLicenciaBO = new TramitarLicenciaBO(conexion);
+
         initComponents();
+        
     }
 
     /**
@@ -42,9 +61,9 @@ public class FormLicencias extends javax.swing.JFrame {
         panCosto = new javax.swing.JPanel();
         txtCosto = new javax.swing.JLabel();
         txtMonto = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbxVigencia = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        ListDatosCliente = new javax.swing.JList<>();
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -99,11 +118,11 @@ public class FormLicencias extends javax.swing.JFrame {
                     .addComponent(imgLogo)
                     .addGroup(panHeaderLayout.createSequentialGroup()
                         .addGap(11, 11, 11)
-                        .addGroup(panHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtTitulo)
+                        .addGroup(panHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panHeaderLayout.createSequentialGroup()
                                 .addGap(16, 16, 16)
-                                .addComponent(btnCerrar)))))
+                                .addComponent(btnCerrar))
+                            .addComponent(txtTitulo))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -111,6 +130,11 @@ public class FormLicencias extends javax.swing.JFrame {
 
         btnAceptar.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
         btnAceptar.setText("Aceptar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
 
         txtRfc.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
         txtRfc.setText("RFC:");
@@ -122,6 +146,13 @@ public class FormLicencias extends javax.swing.JFrame {
 
         btnBuscar.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
+
+        panCosto.setBackground(new java.awt.Color(217, 217, 217));
 
         txtCosto.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
         txtCosto.setText("Costo:");
@@ -153,16 +184,21 @@ public class FormLicencias extends javax.swing.JFrame {
                 .addContainerGap(20, Short.MAX_VALUE))
         );
 
-        jComboBox1.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 Año", "2 Años", "3 Años" }));
+        cbxVigencia.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        cbxVigencia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1 Año", "2 Años", "3 Años" }));
+        cbxVigencia.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbxVigenciaItemStateChanged(evt);
+            }
+        });
 
-        jList1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Nombre:", "RFC", "Telefono", "Fecha de Nacimiento:" };
+        ListDatosCliente.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        ListDatosCliente.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Nombre:", "RFC", "Telefono", "Fecha de Nacimiento:", "Discapacitado:" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(jList1);
+        jScrollPane2.setViewportView(ListDatosCliente);
 
         javax.swing.GroupLayout panEntrarLayout = new javax.swing.GroupLayout(panEntrar);
         panEntrar.setLayout(panEntrarLayout);
@@ -185,7 +221,7 @@ public class FormLicencias extends javax.swing.JFrame {
                                 .addComponent(txfRfc, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnBuscar))
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(cbxVigencia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -205,11 +241,12 @@ public class FormLicencias extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtVigencia, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(cbxVigencia, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE))
                     .addGroup(panEntrarLayout.createSequentialGroup()
                         .addGap(29, 29, 29)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)))
                 .addComponent(btnAceptar)
                 .addGap(36, 36, 36))
         );
@@ -248,18 +285,72 @@ public class FormLicencias extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-        FormTramites ftl = new FormTramites();
+        FormTramites ftl = new FormTramites(conexion);
         ftl.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        ClienteDTO clienteDTO = new ClienteDTO(txfRfc.getText());
+        tramitarLicenciaBO.setCliente(clienteDTO);
+        clienteDTO = tramitarLicenciaBO.consultarCliente();
+        llenarListDatosClientes(clienteDTO);
+        
+        actualizarCosto((String)cbxVigencia.getSelectedItem());
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void cbxVigenciaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxVigenciaItemStateChanged
+        actualizarCosto((String)cbxVigencia.getSelectedItem());
+    }//GEN-LAST:event_cbxVigenciaItemStateChanged
+
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        String montoTexto = txtMonto.getText().substring(1);
+        float monto = Float.parseFloat(montoTexto);
+
+        LicenciaNuevaDTO licenciaNueva = new LicenciaNuevaDTO((String)cbxVigencia.getSelectedItem(), monto);
+        
+        tramitarLicenciaBO.setLicencia(licenciaNueva);
+        tramitarLicenciaBO.solicitarLicencia((int)((String)cbxVigencia.getSelectedItem()).charAt(0));
+    }//GEN-LAST:event_btnAceptarActionPerformed
+
+    public void actualizarCosto(String año){
+       txtMonto.setText("$"+tramitarLicenciaBO.calcularCosto(año));
+    }
+    
+    public void limpiarListaDatosCliente(){
+        modeloLista.clear();
+    }
+    
+    public void llenarListDatosClientes(ClienteDTO clienteDTO){
+        limpiarListaDatosCliente();
+        modeloLista.addElement("Nombre: "+ clienteDTO.getNombre()+ " "+clienteDTO.getApellido_paterno()+ " "+ clienteDTO.getApellido_materno());
+        modeloLista.addElement("RFC: "+ clienteDTO.getRfc());
+        modeloLista.addElement("Telefono: "+ clienteDTO.getTelefono());
+        modeloLista.addElement("Fecha de Nacimiento: "+ formatoFecha(clienteDTO.getFecha_nacimiento()));
+        if (clienteDTO.getDiscapacitado()){
+            modeloLista.addElement("Discapacitado: Si");
+        }
+        else{
+            modeloLista.addElement("Discapacitado: No");
+        }
+       
+        ListDatosCliente.setModel(modeloLista);
+        jScrollPane2.setViewportView(ListDatosCliente);
+    }
+    
+    public String formatoFecha(Calendar calendar){
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+        String fechaFormateada = formatoFecha.format(calendar.getTime());
+        return fechaFormateada;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JList<String> ListDatosCliente;
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCerrar;
+    private javax.swing.JComboBox<String> cbxVigencia;
     private javax.swing.JLabel imgLogo;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable1;

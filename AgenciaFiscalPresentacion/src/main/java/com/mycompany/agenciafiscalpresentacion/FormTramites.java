@@ -4,16 +4,19 @@
  */
 package com.mycompany.agenciafiscalpresentacion;
 
+import com.mycompany.agenciafiscaldaos.IConexion;
+
 /**
  *
  * @author Berry
  */
 public class FormTramites extends javax.swing.JFrame {
-
+private IConexion conexion;
     /**
      * Creates new form FormTramites
      */
-    public FormTramites() {
+    public FormTramites(IConexion conexion) {
+        this.conexion = conexion;
         initComponents();
     }
 
@@ -75,11 +78,11 @@ public class FormTramites extends javax.swing.JFrame {
                     .addComponent(imgLogo)
                     .addGroup(panHeaderLayout.createSequentialGroup()
                         .addGap(11, 11, 11)
-                        .addGroup(panHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtTitulo)
+                        .addGroup(panHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panHeaderLayout.createSequentialGroup()
                                 .addGap(16, 16, 16)
-                                .addComponent(btnCerrar)))))
+                                .addComponent(btnCerrar))
+                            .addComponent(txtTitulo))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -151,13 +154,13 @@ public class FormTramites extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLicenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLicenciasActionPerformed
-        FormLicencias frl = new FormLicencias();
+        FormLicencias frl = new FormLicencias(conexion);
         frl.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnLicenciasActionPerformed
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-        FromMenuPrincipal fmp = new FromMenuPrincipal();
+        FromMenuPrincipal fmp = new FromMenuPrincipal(conexion);
         fmp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed

@@ -4,17 +4,26 @@
  */
 package com.mycompany.agenciafiscalpresentacion;
 
+import com.mycompany.agenciafiscaldaos.IConexion;
+import com.mycompany.agenciafiscalnegocio.IRegistroClienteBO;
+import com.mycompany.agenciafiscalnegocio.RegistroClienteBO;
+
 /**
  *
  * @author Berry
  */
 public class FromMenuPrincipal extends javax.swing.JFrame {
-
+    private IRegistroClienteBO registroClienteBo;
+    private IConexion conexion;
+    
     /**
      * Creates new form FromMenuPrincipal
      */
-    public FromMenuPrincipal() {
+    public FromMenuPrincipal(IConexion conexion) {
+        this.registroClienteBo = new RegistroClienteBO(conexion);
+        this.conexion = conexion;
         initComponents();
+        
     }
 
     /**
@@ -58,6 +67,11 @@ public class FromMenuPrincipal extends javax.swing.JFrame {
 
         btnAgregarClientes.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnAgregarClientes.setText("Agregar Clientes");
+        btnAgregarClientes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarClientesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panHeaderLayout = new javax.swing.GroupLayout(panHeader);
         panHeader.setLayout(panHeaderLayout);
@@ -82,13 +96,13 @@ public class FromMenuPrincipal extends javax.swing.JFrame {
                     .addComponent(imgLogo)
                     .addGroup(panHeaderLayout.createSequentialGroup()
                         .addGap(11, 11, 11)
-                        .addGroup(panHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtTitulo)
+                        .addGroup(panHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panHeaderLayout.createSequentialGroup()
                                 .addGap(16, 16, 16)
                                 .addGroup(panHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(btnCerrar)
-                                    .addComponent(btnAgregarClientes))))))
+                                    .addComponent(btnAgregarClientes)))
+                            .addComponent(txtTitulo))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -166,7 +180,7 @@ public class FromMenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTramitesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTramitesActionPerformed
-        FormTramites ftl = new FormTramites();
+        FormTramites ftl = new FormTramites(conexion);
         ftl.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnTramitesActionPerformed
@@ -174,6 +188,10 @@ public class FromMenuPrincipal extends javax.swing.JFrame {
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
+
+    private void btnAgregarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClientesActionPerformed
+        registroClienteBo.poblarClientes();
+    }//GEN-LAST:event_btnAgregarClientesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

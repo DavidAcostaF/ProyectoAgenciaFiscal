@@ -14,9 +14,11 @@ import com.mycompany.agenciafiscaldtos.LicenciaNuevaDTO;
  */
 public interface ITramitarLicenciaBO {
 
-    public void solcicitarLicencia();
+    public void solicitarLicencia(int años);
 
-    public Cliente consultarCliente();
+    public Float calcularCosto(String string);
+    
+    public ClienteDTO consultarCliente();
 
     public Cliente clientePendiente();
 

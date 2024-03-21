@@ -17,6 +17,8 @@ import com.mycompany.agenciafiscaldominio.Tramite;
 import com.mycompany.agenciafiscaldtos.ClienteDTO;
 import com.mycompany.agenciafiscaldtos.LicenciaNuevaDTO;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -39,18 +41,15 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
     }
 
     @Override
-    public void solcicitarLicencia() {
-        //Cambiar esta madre
-        consultarCliente();
-        if (validacionTramiteVencimiento()) {
-            return;
-        }
+    public void solicitarLicencia(int años) {
+//        if (validacionTramiteVencimiento()) {
+//            return;
+//        }
         Calendar fechaActual = Calendar.getInstance();
         String vigencia = this.licenciaNueva.getVigencia();
         Float costo = this.licenciaNueva.getCosto();
         Calendar fecha_vencimiento = Calendar.getInstance();
-        fecha_vencimiento.add(Calendar.YEAR, 1);
-        //Hardcodeado a 1 año
+        fecha_vencimiento.add(Calendar.YEAR, años);
         Licencia licencia = new Licencia(fecha_vencimiento, fechaActual, vigencia, costo);
         licencia.setCliente(this.cliente);
         this.licenciaDAO.agregar(licencia);
@@ -79,14 +78,40 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
     }
 
     @Override
-    public Cliente consultarCliente() {
+    public ClienteDTO consultarCliente() {
         this.cliente = clienteDAO.consultar(clienteDTO.getRfc());
-        return cliente;
+        ClienteDTO clienteDTO = new ClienteDTO(cliente.getRfc(), cliente.getNombre(), cliente.getApellido_paterno(), cliente.getApellido_materno(), cliente.getDiscapacitado(), cliente.getFecha_nacimiento(), cliente.getTelefono());
+        return clienteDTO;
     }
 
     @Override
     public void setLicencia(LicenciaNuevaDTO licenciaNueva) {
         this.licenciaNueva = licenciaNueva;
+    }
+
+    @Override
+    public Float calcularCosto(String año) {
+        System.out.println(año);
+        Map<String, Float> costosNormal = new HashMap<>();
+
+        costosNormal.put("1 Año", 600.0F);
+        costosNormal.put("2 Años", 900.0F);
+        costosNormal.put("3 Años", 1100.0F);
+        
+        Map<String, Float> costosDiscapacitado = new HashMap<>();
+        costosDiscapacitado.put("1 Año", 200.0F);
+        costosDiscapacitado.put("2 Años", 500.0F);
+        costosDiscapacitado.put("3 Años", 700.0F);
+        
+        if(cliente.getDiscapacitado()){
+            System.out.println(costosDiscapacitado.get(año));
+            return costosDiscapacitado.get(año);
+        }
+        else{
+            System.out.println(costosNormal.get(año));
+            return costosNormal.get(año);
+        }
+        
     }
 
 }

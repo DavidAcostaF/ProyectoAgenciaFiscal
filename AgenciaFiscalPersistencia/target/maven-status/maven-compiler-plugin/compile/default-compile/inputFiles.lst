@@ -1,15 +1,15 @@
-C:\Users\af_da\OneDrive\Documentos\NetBeansProjects\ProyectoAgenciaFiscal\AgenciaFiscalPersistencia\src\main\java\com\mycompany\agenciafiscaldaos\LicenciaDAO.java
-C:\Users\af_da\OneDrive\Documentos\NetBeansProjects\ProyectoAgenciaFiscal\AgenciaFiscalPersistencia\src\main\java\com\mycompany\agenciafiscaldominio\Tramite.java
-C:\Users\af_da\OneDrive\Documentos\NetBeansProjects\ProyectoAgenciaFiscal\AgenciaFiscalPersistencia\src\main\java\com\mycompany\agenciafiscaldominio\Automovil.java
-C:\Users\af_da\OneDrive\Documentos\NetBeansProjects\ProyectoAgenciaFiscal\AgenciaFiscalPersistencia\src\main\java\com\mycompany\agenciafiscaldaos\Conexion.java
-C:\Users\af_da\OneDrive\Documentos\NetBeansProjects\ProyectoAgenciaFiscal\AgenciaFiscalPersistencia\src\main\java\com\mycompany\agenciafiscaldaos\ITramiteDAO.java
-C:\Users\af_da\OneDrive\Documentos\NetBeansProjects\ProyectoAgenciaFiscal\AgenciaFiscalPersistencia\src\main\java\com\mycompany\agenciafiscaldaos\ClienteDAO.java
-C:\Users\af_da\OneDrive\Documentos\NetBeansProjects\ProyectoAgenciaFiscal\AgenciaFiscalPersistencia\src\main\java\com\mycompany\agenciafiscaldaos\IConexion.java
-C:\Users\af_da\OneDrive\Documentos\NetBeansProjects\ProyectoAgenciaFiscal\AgenciaFiscalPersistencia\src\main\java\com\mycompany\agenciafiscaldaos\ILicenciaDAO.java
-C:\Users\af_da\OneDrive\Documentos\NetBeansProjects\ProyectoAgenciaFiscal\AgenciaFiscalPersistencia\src\main\java\com\mycompany\agenciafiscaldominio\Vehiculo.java
-C:\Users\af_da\OneDrive\Documentos\NetBeansProjects\ProyectoAgenciaFiscal\AgenciaFiscalPersistencia\src\main\java\com\mycompany\agenciafiscaldaos\TramiteDAO.java
-C:\Users\af_da\OneDrive\Documentos\NetBeansProjects\ProyectoAgenciaFiscal\AgenciaFiscalPersistencia\src\main\java\com\mycompany\agenciafiscaldominio\Licencia.java
-C:\Users\af_da\OneDrive\Documentos\NetBeansProjects\ProyectoAgenciaFiscal\AgenciaFiscalPersistencia\src\main\java\com\mycompany\agenciafiscaldominio\Cliente.java
-C:\Users\af_da\OneDrive\Documentos\NetBeansProjects\ProyectoAgenciaFiscal\AgenciaFiscalPersistencia\src\main\java\pruebas\Pruebas.java
-C:\Users\af_da\OneDrive\Documentos\NetBeansProjects\ProyectoAgenciaFiscal\AgenciaFiscalPersistencia\src\main\java\com\mycompany\agenciafiscaldaos\IClienteDAO.java
-C:\Users\af_da\OneDrive\Documentos\NetBeansProjects\ProyectoAgenciaFiscal\AgenciaFiscalPersistencia\src\main\java\com\mycompany\agenciafiscaldominio\Placa.java
+D:\Archivos de programa\GitHub\Proyectos\Repo\ASD\ProyectoAgenciaFiscal\AgenciaFiscalPersistencia\src\main\java\com\mycompany\agenciafiscaldominio\Licencia.java
+D:\Archivos de programa\GitHub\Proyectos\Repo\ASD\ProyectoAgenciaFiscal\AgenciaFiscalPersistencia\src\main\java\com\mycompany\agenciafiscaldominio\Tramite.java
+D:\Archivos de programa\GitHub\Proyectos\Repo\ASD\ProyectoAgenciaFiscal\AgenciaFiscalPersistencia\src\main\java\pruebas\Pruebas.java
+D:\Archivos de programa\GitHub\Proyectos\Repo\ASD\ProyectoAgenciaFiscal\AgenciaFiscalPersistencia\src\main\java\com\mycompany\agenciafiscaldominio\Vehiculo.java
+D:\Archivos de programa\GitHub\Proyectos\Repo\ASD\ProyectoAgenciaFiscal\AgenciaFiscalPersistencia\src\main\java\com\mycompany\agenciafiscaldominio\Placa.java
+D:\Archivos de programa\GitHub\Proyectos\Repo\ASD\ProyectoAgenciaFiscal\AgenciaFiscalPersistencia\src\main\java\com\mycompany\agenciafiscaldaos\ILicenciaDAO.java
+D:\Archivos de programa\GitHub\Proyectos\Repo\ASD\ProyectoAgenciaFiscal\AgenciaFiscalPersistencia\src\main\java\com\mycompany\agenciafiscaldaos\ITramiteDAO.java
+D:\Archivos de programa\GitHub\Proyectos\Repo\ASD\ProyectoAgenciaFiscal\AgenciaFiscalPersistencia\src\main\java\com\mycompany\agenciafiscaldominio\Cliente.java
+D:\Archivos de programa\GitHub\Proyectos\Repo\ASD\ProyectoAgenciaFiscal\AgenciaFiscalPersistencia\src\main\java\com\mycompany\agenciafiscaldaos\IConexion.java
+D:\Archivos de programa\GitHub\Proyectos\Repo\ASD\ProyectoAgenciaFiscal\AgenciaFiscalPersistencia\src\main\java\com\mycompany\agenciafiscaldaos\LicenciaDAO.java
+D:\Archivos de programa\GitHub\Proyectos\Repo\ASD\ProyectoAgenciaFiscal\AgenciaFiscalPersistencia\src\main\java\com\mycompany\agenciafiscaldominio\Automovil.java
+D:\Archivos de programa\GitHub\Proyectos\Repo\ASD\ProyectoAgenciaFiscal\AgenciaFiscalPersistencia\src\main\java\com\mycompany\agenciafiscaldaos\ClienteDAO.java
+D:\Archivos de programa\GitHub\Proyectos\Repo\ASD\ProyectoAgenciaFiscal\AgenciaFiscalPersistencia\src\main\java\com\mycompany\agenciafiscaldaos\Conexion.java
+D:\Archivos de programa\GitHub\Proyectos\Repo\ASD\ProyectoAgenciaFiscal\AgenciaFiscalPersistencia\src\main\java\com\mycompany\agenciafiscaldaos\IClienteDAO.java
+D:\Archivos de programa\GitHub\Proyectos\Repo\ASD\ProyectoAgenciaFiscal\AgenciaFiscalPersistencia\src\main\java\com\mycompany\agenciafiscaldaos\TramiteDAO.java
