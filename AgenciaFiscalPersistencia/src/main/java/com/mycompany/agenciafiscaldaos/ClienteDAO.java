@@ -7,6 +7,7 @@ package com.mycompany.agenciafiscaldaos;
 import com.mycompany.agenciafiscaldominio.Cliente;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
@@ -54,11 +55,11 @@ public class ClienteDAO implements IClienteDAO {
         query.setParameter(1, rfc);
 
         Cliente cliente = null;
-//        try {
-        cliente = (Cliente) query.getSingleResult();
-//        } catch () {
-//            // Manejar la excepción si no se encuentra ningún cliente con el RFC dado
-//        }
+        try {
+            cliente = (Cliente) query.getSingleResult();
+        } catch (NoResultException e) {
+            cliente = null;
+        }
         return cliente;
     }
 

@@ -83,7 +83,11 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
 
     @Override
     public ClienteDTO consultarCliente() {
+
         this.cliente = clienteDAO.consultar(clienteDTO.getRfc());
+        if (cliente == null) {
+            return null;
+        }
         ClienteDTO clienteDTO = new ClienteDTO(cliente.getRfc(), cliente.getNombre(), cliente.getApellido_paterno(), cliente.getApellido_materno(), cliente.getDiscapacitado(), cliente.getFecha_nacimiento(), cliente.getTelefono());
         return clienteDTO;
     }

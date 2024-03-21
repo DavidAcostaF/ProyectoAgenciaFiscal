@@ -299,11 +299,11 @@ public class FormLicencias extends javax.swing.JFrame {
         ClienteDTO clienteRFC = new ClienteDTO(txfRfc.getText());
         tramitarLicenciaBO.setCliente(clienteRFC);
         clienteDTO = tramitarLicenciaBO.consultarCliente();
-        llenarListDatosClientes(clienteDTO);
         if (clienteDTO == null) {
             JOptionPane.showMessageDialog(this, "No se ha encontrado cliente con RFC " + txfRfc.getText());
             return;
         }
+        llenarListDatosClientes(clienteDTO);
         actualizarCosto((String) cbxVigencia.getSelectedItem());
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -327,11 +327,19 @@ public class FormLicencias extends javax.swing.JFrame {
         boolean creado = tramitarLicenciaBO.solicitarLicencia((int) ((String) cbxVigencia.getSelectedItem()).charAt(0));
         if (creado) {
             JOptionPane.showMessageDialog(this, "Licencia creada");
+            limpiarDatos();
         } else {
             JOptionPane.showMessageDialog(this, "No se ha podido crear la licencia");
 
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
+    public void limpiarDatos() {
+        txtMonto.setText("$");
+        txtRfc.setText("");
+        cbxVigencia.setSelectedIndex(0);
+        modeloLista.clear();
+
+    }
 
     public void actualizarCosto(String año) {
         if (clienteDTO == null) {
