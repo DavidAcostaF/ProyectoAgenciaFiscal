@@ -4,10 +4,12 @@
  */
 package com.mycompany.agenciafiscaldaos;
 
+import com.mycompany.agenciafiscaldominio.Licencia;
+
 /**
  *
  * @author af_da
  */
 public interface ILicenciaDAO {
-    
+    public Licencia agregar(Licencia licencia);
 }
