@@ -5,7 +5,9 @@
 package com.mycompany.agenciafiscalnegocio;
 
 import com.mycompany.agenciafiscaldominio.Cliente;
+import com.mycompany.agenciafiscaldominio.Licencia;
 import com.mycompany.agenciafiscaldtos.ClienteDTO;
+import com.mycompany.agenciafiscaldtos.LicenciaDTO;
 import com.mycompany.agenciafiscaldtos.LicenciaNuevaDTO;
 
 /**
@@ -14,7 +16,7 @@ import com.mycompany.agenciafiscaldtos.LicenciaNuevaDTO;
  */
 public interface ITramitarLicenciaBO {
 
-    public boolean solicitarLicencia(int años);
+    public LicenciaDTO solicitarLicencia(int años);
 
     public Float calcularCosto(String string);
 

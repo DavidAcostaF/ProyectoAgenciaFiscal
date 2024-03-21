@@ -7,6 +7,7 @@ package com.mycompany.agenciafiscalpresentacion;
 import com.mycompany.agenciafiscaldaos.IConexion;
 import static com.mycompany.agenciafiscaldominio.Tramite_.cliente;
 import com.mycompany.agenciafiscaldtos.ClienteDTO;
+import com.mycompany.agenciafiscaldtos.LicenciaDTO;
 import com.mycompany.agenciafiscaldtos.LicenciaNuevaDTO;
 import com.mycompany.agenciafiscalnegocio.ITramitarLicenciaBO;
 import com.mycompany.agenciafiscalnegocio.TramitarLicenciaBO;
@@ -324,21 +325,22 @@ public class FormLicencias extends javax.swing.JFrame {
         LicenciaNuevaDTO licenciaNueva = new LicenciaNuevaDTO((String) cbxVigencia.getSelectedItem(), monto);
 
         tramitarLicenciaBO.setLicencia(licenciaNueva);
-        boolean creado = tramitarLicenciaBO.solicitarLicencia((int) ((String) cbxVigencia.getSelectedItem()).charAt(0));
-        if (creado) {
+        char anios = String.valueOf(cbxVigencia.getSelectedItem()).charAt(0);
+        LicenciaDTO licencia = tramitarLicenciaBO.solicitarLicencia(Integer.parseInt(String.valueOf(anios)));
+        if (licencia == null) {
             JOptionPane.showMessageDialog(this, "Licencia creada");
             limpiarDatos();
         } else {
-            JOptionPane.showMessageDialog(this, "No se ha podido crear la licencia");
-
+            JOptionPane.showMessageDialog(this, "Existe una licencia vigente hasta " + formatoFecha(licencia.getFecha_vencimiento()));
+            limpiarDatos();
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
     public void limpiarDatos() {
-        txtMonto.setText("$");
+        txtMonto.setText("$0.0");
         txtRfc.setText("");
         cbxVigencia.setSelectedIndex(0);
         modeloLista.clear();
-
+        clienteDTO = null;
     }
 
     public void actualizarCosto(String año) {

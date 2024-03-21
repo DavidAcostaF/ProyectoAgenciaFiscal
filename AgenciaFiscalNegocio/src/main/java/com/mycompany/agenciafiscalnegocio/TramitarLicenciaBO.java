@@ -15,6 +15,7 @@ import com.mycompany.agenciafiscaldominio.Cliente;
 import com.mycompany.agenciafiscaldominio.Licencia;
 import com.mycompany.agenciafiscaldominio.Tramite;
 import com.mycompany.agenciafiscaldtos.ClienteDTO;
+import com.mycompany.agenciafiscaldtos.LicenciaDTO;
 import com.mycompany.agenciafiscaldtos.LicenciaNuevaDTO;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -41,10 +42,15 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
     }
 
     @Override
-    public boolean solicitarLicencia(int años) {
-//        if (validacionTramiteVencimiento()) {
-//            return;
-//        }
+    public LicenciaDTO solicitarLicencia(int años) {
+        Licencia licenciaExistencia = validacionLicenciaExistencia();
+        LicenciaDTO licenciaDTO = null;
+
+        if (licenciaExistencia != null) {
+            licenciaDTO = new LicenciaDTO();
+            licenciaDTO.setFecha_vencimiento(licenciaExistencia.getFecha_vencimiento());
+            return licenciaDTO;
+        }
         Calendar fechaActual = Calendar.getInstance();
         String vigencia = this.licenciaNueva.getVigencia();
         Float costo = this.licenciaNueva.getCosto();
@@ -53,10 +59,7 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
         Licencia licencia = new Licencia(fecha_vencimiento, fechaActual, vigencia, costo);
         licencia.setCliente(this.cliente);
         Licencia licenciaCreada = this.licenciaDAO.agregar(licencia);
-        if (licenciaCreada.getId() != null) {
-            return true;
-        }
-        return false;
+        return licenciaDTO;
         //Checar de alguna manera al mandar la vigencia hacer que sea el puro
         //numero para sumarlo a la fecha actual para asi que sea mas simple saber cuando vencera
     }
@@ -66,14 +69,18 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
         return this.cliente;
     }
 
-    private boolean validacionTramiteVencimiento() {
+    private Licencia validacionLicenciaExistencia() {
         Tramite tramite = new Tramite();
         tramite.setCliente(this.cliente);
         Tramite tramiteConsultado = tramiteDAO.consultarLicencias(tramite);
-
-        Calendar fecha_vencimiento = licenciaDAO.consultar(tramiteConsultado.getId()).getFecha_vencimiento();
-        Calendar fechaActual = Calendar.getInstance();
-        return fecha_vencimiento.before(fechaActual);
+        if (tramiteConsultado == null) {
+            return null;
+        }
+        Licencia licencia = licenciaDAO.consultar(tramiteConsultado.getId());
+        //Validacion de la fecha
+//        Calendar fechaActual = Calendar.getInstance();
+//        return fecha_vencimiento.before(fechaActual);
+        return licencia;
     }
 
     @Override
