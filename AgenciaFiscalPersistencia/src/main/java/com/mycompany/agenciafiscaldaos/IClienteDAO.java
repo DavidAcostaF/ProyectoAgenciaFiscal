@@ -5,6 +5,7 @@
 package com.mycompany.agenciafiscaldaos;
 
 import com.mycompany.agenciafiscaldominio.Cliente;
+import java.util.List;
 
 /**
  *
@@ -13,4 +14,6 @@ import com.mycompany.agenciafiscaldominio.Cliente;
 public interface IClienteDAO {
 
     public Cliente agregar(Cliente cliente);
+    
+    public List<Cliente>consultarClientes();
 }

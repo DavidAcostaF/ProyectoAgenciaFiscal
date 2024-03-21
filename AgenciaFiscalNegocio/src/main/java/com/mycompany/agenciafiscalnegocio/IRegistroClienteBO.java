@@ -4,7 +4,9 @@
  */
 package com.mycompany.agenciafiscalnegocio;
 
+import com.mycompany.agenciafiscaldominio.Cliente;
 import com.mycompany.agenciafiscaldtos.ClienteNuevoDTO;
+import java.util.List;
 
 /**
  *
@@ -12,5 +14,6 @@ import com.mycompany.agenciafiscaldtos.ClienteNuevoDTO;
  */
 public interface IRegistroClienteBO {
 
-    public ClienteNuevoDTO registraCliente(ClienteNuevoDTO clienteNuevo);
+    public void poblarClientes();
+    public List<Cliente> listaClientes();
 }
