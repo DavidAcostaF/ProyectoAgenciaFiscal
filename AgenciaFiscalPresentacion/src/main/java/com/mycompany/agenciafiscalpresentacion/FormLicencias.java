@@ -25,7 +25,7 @@ public class FormLicencias extends javax.swing.JFrame {
     private DefaultListModel<String> modeloLista = new DefaultListModel<>();
     private IConexion conexion;
     private ITramitarLicenciaBO tramitarLicenciaBO;
-    ClienteDTO clienteDTO;
+    private ClienteDTO clienteDTO;
 
     /**
      * Creates new form FormRenovarLicencias
@@ -86,7 +86,7 @@ public class FormLicencias extends javax.swing.JFrame {
 
         panHeader.setBackground(new java.awt.Color(217, 217, 217));
 
-        imgLogo.setIcon(new javax.swing.ImageIcon("D:\\Archivos de programa\\GitHub\\Proyectos\\Repo\\ASD\\ProyectoAgenciaFiscal\\AgenciaFiscalPresentacion\\src\\main\\resources\\multimedia\\AgenciaFiscal.png")); // NOI18N
+        imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/multimedia/AgenciaFiscal.png"))); // NOI18N
 
         txtTitulo.setFont(new java.awt.Font("Comic Sans MS", 0, 36)); // NOI18N
         txtTitulo.setText("Licencias");
@@ -284,6 +284,7 @@ public class FormLicencias extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
@@ -337,7 +338,7 @@ public class FormLicencias extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAceptarActionPerformed
     public void limpiarDatos() {
         txtMonto.setText("$0.0");
-        txtRfc.setText("");
+        txfRfc.setText("");
         cbxVigencia.setSelectedIndex(0);
         modeloLista.clear();
         clienteDTO = null;

@@ -52,7 +52,7 @@ public class FromMenuPrincipal extends javax.swing.JFrame {
 
         panHeader.setBackground(new java.awt.Color(217, 217, 217));
 
-        imgLogo.setIcon(new javax.swing.ImageIcon("D:\\Archivos de programa\\GitHub\\Proyectos\\Repo\\ASD\\ProyectoAgenciaFiscal\\AgenciaFiscalPresentacion\\src\\main\\resources\\multimedia\\AgenciaFiscal.png")); // NOI18N
+        imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/multimedia/AgenciaFiscal.png"))); // NOI18N
 
         txtTitulo.setFont(new java.awt.Font("Comic Sans MS", 0, 36)); // NOI18N
         txtTitulo.setText("Agencia Fiscal");
@@ -177,6 +177,7 @@ public class FromMenuPrincipal extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTramitesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTramitesActionPerformed
