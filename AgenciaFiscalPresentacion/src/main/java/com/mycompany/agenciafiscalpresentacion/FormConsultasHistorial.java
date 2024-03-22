@@ -35,6 +35,7 @@ public class FormConsultasHistorial extends javax.swing.JFrame {
         imgLogo = new javax.swing.JLabel();
         txtTitulo = new javax.swing.JLabel();
         btnCerrar = new javax.swing.JButton();
+        txtRfc = new javax.swing.JLabel();
         panEntrar = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -46,7 +47,7 @@ public class FormConsultasHistorial extends javax.swing.JFrame {
         imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/multimedia/AgenciaFiscal.png"))); // NOI18N
 
         txtTitulo.setFont(new java.awt.Font("Comic Sans MS", 0, 36)); // NOI18N
-        txtTitulo.setText("Consultas");
+        txtTitulo.setText("Historial");
 
         btnCerrar.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnCerrar.setText("Atras");
@@ -55,6 +56,9 @@ public class FormConsultasHistorial extends javax.swing.JFrame {
                 btnCerrarActionPerformed(evt);
             }
         });
+
+        txtRfc.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        txtRfc.setText("de ");
 
         javax.swing.GroupLayout panHeaderLayout = new javax.swing.GroupLayout(panHeader);
         panHeader.setLayout(panHeaderLayout);
@@ -65,7 +69,9 @@ public class FormConsultasHistorial extends javax.swing.JFrame {
                 .addComponent(imgLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtRfc)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 294, Short.MAX_VALUE)
                 .addComponent(btnCerrar)
                 .addGap(22, 22, 22))
         );
@@ -81,7 +87,9 @@ public class FormConsultasHistorial extends javax.swing.JFrame {
                             .addGroup(panHeaderLayout.createSequentialGroup()
                                 .addGap(16, 16, 16)
                                 .addComponent(btnCerrar))
-                            .addComponent(txtTitulo))))
+                            .addGroup(panHeaderLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(txtTitulo)
+                                .addComponent(txtRfc)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -142,6 +150,7 @@ public class FormConsultasHistorial extends javax.swing.JFrame {
     private javax.swing.JPanel panEntrar;
     private javax.swing.JPanel panFondoBlanco;
     private javax.swing.JPanel panHeader;
+    private javax.swing.JLabel txtRfc;
     private javax.swing.JLabel txtTitulo;
     // End of variables declaration//GEN-END:variables
 }
