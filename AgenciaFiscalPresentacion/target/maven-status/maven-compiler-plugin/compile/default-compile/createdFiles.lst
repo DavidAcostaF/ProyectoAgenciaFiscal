@@ -1,5 +1,6 @@
 com\mycompany\agenciafiscalpresentacion\FormPlacasCarroSinRegistrar$2.class
 com\mycompany\agenciafiscalpresentacion\FromMenuPrincipal$2.class
+com\mycompany\agenciafiscalpresentacion\FormPago$3.class
 com\mycompany\agenciafiscalpresentacion\FormLicencias$4.class
 com\mycompany\agenciafiscalpresentacion\FormPlacas.class
 com\mycompany\agenciafiscalpresentacion\FormLicencias$5.class
@@ -10,6 +11,7 @@ com\mycompany\agenciafiscalpresentacion\FormPlacas$1.class
 com\mycompany\agenciafiscalpresentacion\FormLicencias.class
 com\mycompany\agenciafiscalpresentacion\FormTramites$1.class
 com\mycompany\agenciafiscalpresentacion\FormLicencias$2.class
+com\mycompany\agenciafiscalpresentacion\FormPago$2.class
 com\mycompany\agenciafiscalpresentacion\FormLicencias$1.class
 com\mycompany\agenciafiscalpresentacion\FromMenuPrincipal$1.class
 com\mycompany\agenciafiscalpresentacion\FromMenuPrincipal$3.class
@@ -20,6 +22,7 @@ com\mycompany\agenciafiscalpresentacion\FormTramites$2.class
 com\mycompany\agenciafiscalpresentacion\FormPlacasCarroRegistrado$1.class
 com\mycompany\agenciafiscalpresentacion\FormLicencias$3.class
 com\mycompany\agenciafiscalpresentacion\FormPago.class
+com\mycompany\agenciafiscalpresentacion\FormPago$1.class
 com\mycompany\agenciafiscalpresentacion\FormPlacasCarroSinRegistrar.class
 com\mycompany\agenciafiscalpresentacion\FormPlacas$2.class
 com\mycompany\agenciafiscalpresentacion\FormPlacasCarroRegistrado.class

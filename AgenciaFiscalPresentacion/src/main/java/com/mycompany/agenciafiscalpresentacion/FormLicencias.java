@@ -25,7 +25,7 @@ public class FormLicencias extends javax.swing.JFrame {
     private DefaultListModel<String> modeloLista = new DefaultListModel<>();
     private IConexion conexion;
     private ITramitarLicenciaBO tramitarLicenciaBO;
-    ClienteDTO clienteDTO;
+    private ClienteDTO clienteDTO;
 
     /**
      * Creates new form FormRenovarLicencias
@@ -284,6 +284,7 @@ public class FormLicencias extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed

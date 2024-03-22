@@ -5,6 +5,8 @@
 package com.mycompany.agenciafiscalpresentacion;
 
 import com.mycompany.agenciafiscaldaos.IConexion;
+import com.mycompany.agenciafiscaldtos.ClienteDTO;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,11 +15,15 @@ import com.mycompany.agenciafiscaldaos.IConexion;
 public class FormPago extends javax.swing.JFrame {
 
     private IConexion conexion;
+    //private ClienteDTO clienteDTO;
+    // private VehiculoDTO vehiculoDTO;
     /**
      * Creates new form FormPago
      */
-    public FormPago(IConexion conexion) {
+    public FormPago(IConexion conexion /*ClienteDTO clienteDTO /*, VehiculoDTO vehiculoDTO*/) {
         this.conexion = conexion;
+        //this.clienteDTO = clienteDTO;
+        //this.vehiculoDTO = vehiculoDTO;
         initComponents();
     }
 
@@ -37,10 +43,13 @@ public class FormPago extends javax.swing.JFrame {
         btnCerrar = new javax.swing.JButton();
         panEntrar = new javax.swing.JPanel();
         btnAceptar = new javax.swing.JButton();
-        txtNumSerie = new javax.swing.JLabel();
-        txtNumSerie1 = new javax.swing.JLabel();
+        txtTituloTramite = new javax.swing.JLabel();
+        txtTramite = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        ListDatosCliente = new javax.swing.JList<>();
+        ListDatosCarros = new javax.swing.JList<>();
+        panCosto = new javax.swing.JPanel();
+        txtCosto = new javax.swing.JLabel();
+        txtMonto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -70,7 +79,7 @@ public class FormPago extends javax.swing.JFrame {
                 .addComponent(imgLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 404, Short.MAX_VALUE)
                 .addComponent(btnCerrar)
                 .addGap(22, 22, 22))
         );
@@ -100,53 +109,86 @@ public class FormPago extends javax.swing.JFrame {
             }
         });
 
-        txtNumSerie.setFont(new java.awt.Font("Comic Sans MS", 0, 36)); // NOI18N
-        txtNumSerie.setText("Tramite:");
+        txtTituloTramite.setFont(new java.awt.Font("Comic Sans MS", 0, 36)); // NOI18N
+        txtTituloTramite.setText("Tramite:");
 
-        txtNumSerie1.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
-        txtNumSerie1.setText("Tramite");
+        txtTramite.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
+        txtTramite.setText("Tramite");
 
-        ListDatosCliente.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        ListDatosCliente.setModel(new javax.swing.AbstractListModel<String>() {
+        ListDatosCarros.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        ListDatosCarros.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Numero de serie:", "Marca:", "Linea:", "Modelo:", "Color:", "RFC del dueño:" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane2.setViewportView(ListDatosCliente);
+        jScrollPane2.setViewportView(ListDatosCarros);
+
+        panCosto.setBackground(new java.awt.Color(217, 217, 217));
+
+        txtCosto.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
+        txtCosto.setText("Costo:");
+
+        txtMonto.setFont(new java.awt.Font("Comic Sans MS", 0, 48)); // NOI18N
+        txtMonto.setText("$0.0");
+
+        javax.swing.GroupLayout panCostoLayout = new javax.swing.GroupLayout(panCosto);
+        panCosto.setLayout(panCostoLayout);
+        panCostoLayout.setHorizontalGroup(
+            panCostoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panCostoLayout.createSequentialGroup()
+                .addGap(18, 18, 18)
+                .addComponent(txtCosto)
+                .addGap(243, 243, 243)
+                .addComponent(txtMonto)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        panCostoLayout.setVerticalGroup(
+            panCostoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panCostoLayout.createSequentialGroup()
+                .addGroup(panCostoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panCostoLayout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addComponent(txtCosto))
+                    .addGroup(panCostoLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(txtMonto)))
+                .addContainerGap(20, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout panEntrarLayout = new javax.swing.GroupLayout(panEntrar);
         panEntrar.setLayout(panEntrarLayout);
         panEntrarLayout.setHorizontalGroup(
             panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panEntrarLayout.createSequentialGroup()
-                .addGap(372, 372, 372)
-                .addComponent(btnAceptar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(panEntrarLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panEntrarLayout.createSequentialGroup()
                 .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panEntrarLayout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addComponent(txtNumSerie))
+                        .addGap(18, 18, 18)
+                        .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTituloTramite, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtTramite, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(panEntrarLayout.createSequentialGroup()
-                        .addGap(87, 87, 87)
-                        .addComponent(txtNumSerie1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 229, Short.MAX_VALUE)
+                        .addGap(102, 102, 102)
+                        .addComponent(btnAceptar)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25))
+                .addContainerGap())
+            .addComponent(panCosto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panEntrarLayout.setVerticalGroup(
             panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panEntrarLayout.createSequentialGroup()
                 .addGap(26, 26, 26)
-                .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(panCosto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(panEntrarLayout.createSequentialGroup()
-                        .addComponent(txtNumSerie)
+                        .addComponent(txtTituloTramite)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNumSerie1))
+                        .addComponent(txtTramite)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnAceptar))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
-                .addComponent(btnAceptar)
-                .addGap(26, 26, 26))
+                .addContainerGap(52, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout panFondoBlancoLayout = new javax.swing.GroupLayout(panFondoBlanco);
@@ -180,6 +222,7 @@ public class FormPago extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
@@ -189,22 +232,31 @@ public class FormPago extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        FormPago fpa = new FormPago(conexion);
-        fpa.setVisible(true);
-        this.dispose();
+        if (JOptionPane.showConfirmDialog(null, "Pago Completado \n¿Quieres registrar otra placa?", "Pago Completado!", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            FormPlacas fp = new FormPlacas(conexion);
+            fp.setVisible(true);
+            this.dispose();
+        } else {
+            FromMenuPrincipal fmp = new FromMenuPrincipal(conexion);
+            fmp.setVisible(true);
+            this.dispose();
+        }  
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JList<String> ListDatosCliente;
+    private javax.swing.JList<String> ListDatosCarros;
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JLabel imgLogo;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JPanel panCosto;
     private javax.swing.JPanel panEntrar;
     private javax.swing.JPanel panFondoBlanco;
     private javax.swing.JPanel panHeader;
-    private javax.swing.JLabel txtNumSerie;
-    private javax.swing.JLabel txtNumSerie1;
+    private javax.swing.JLabel txtCosto;
+    private javax.swing.JLabel txtMonto;
     private javax.swing.JLabel txtTitulo;
+    private javax.swing.JLabel txtTituloTramite;
+    private javax.swing.JLabel txtTramite;
     // End of variables declaration//GEN-END:variables
 }
