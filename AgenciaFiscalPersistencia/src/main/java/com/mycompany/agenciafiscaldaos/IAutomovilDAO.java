@@ -15,4 +15,5 @@ public interface IAutomovilDAO {
     public Automovil agregar(Automovil automovil);
 
     public Automovil consultar(Long id);
+
 }
