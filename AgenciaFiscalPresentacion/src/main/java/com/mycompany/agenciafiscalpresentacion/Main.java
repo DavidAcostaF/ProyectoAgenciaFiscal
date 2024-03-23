@@ -4,7 +4,6 @@
  */
 package com.mycompany.agenciafiscalpresentacion;
 
-
 /**
  *
  * @author Berry
@@ -18,7 +17,7 @@ public class Main {
 
         FromMenuPrincipal fmp = new FromMenuPrincipal();
         fmp.setVisible(true);
-        
+
     }
-    
+
 }

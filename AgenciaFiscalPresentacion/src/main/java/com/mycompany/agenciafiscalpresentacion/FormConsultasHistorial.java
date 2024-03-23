@@ -4,7 +4,6 @@
  */
 package com.mycompany.agenciafiscalpresentacion;
 
-import com.mycompany.agenciafiscaldaos.IConexion;
 
 /**
  *
@@ -12,12 +11,10 @@ import com.mycompany.agenciafiscaldaos.IConexion;
  */
 public class FormConsultasHistorial extends javax.swing.JFrame {
 
-    private IConexion conexion;
     /**
      * Creates new form FormConsultasHistorial
      */
-    public FormConsultasHistorial(IConexion conexion) {
-        this.conexion = conexion;
+    public FormConsultasHistorial() {
         initComponents();
     }
 

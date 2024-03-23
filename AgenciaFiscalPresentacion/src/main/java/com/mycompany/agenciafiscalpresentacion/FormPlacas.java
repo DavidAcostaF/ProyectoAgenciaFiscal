@@ -4,13 +4,12 @@
  */
 package com.mycompany.agenciafiscalpresentacion;
 
-
 /**
  *
  * @author lv1821
  */
 public class FormPlacas extends javax.swing.JFrame {
-    
+
     /**
      * Creates new form FormPlacas
      */
