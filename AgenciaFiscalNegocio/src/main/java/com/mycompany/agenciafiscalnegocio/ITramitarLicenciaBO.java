@@ -27,5 +27,6 @@ public interface ITramitarLicenciaBO {
     public void setCliente(ClienteDTO cliente);
 
     public void setLicencia(LicenciaNuevaDTO licenciaNueva);
+    public LicenciaDTO validacionLicenciaExistencia();
 
 }

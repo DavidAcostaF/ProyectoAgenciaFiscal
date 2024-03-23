@@ -29,8 +29,8 @@ public class FormLicencias extends javax.swing.JFrame {
      */
     public FormLicencias() {
         this.tramitarLicenciaBO = new TramitarLicenciaBO();
-
         initComponents();
+        mostrarBotones(false);
 
     }
 
@@ -189,6 +189,11 @@ public class FormLicencias extends javax.swing.JFrame {
                 cbxVigenciaItemStateChanged(evt);
             }
         });
+        cbxVigencia.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxVigenciaActionPerformed(evt);
+            }
+        });
 
         ListDatosCliente.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         ListDatosCliente.setModel(new javax.swing.AbstractListModel<String>() {
@@ -303,6 +308,8 @@ public class FormLicencias extends javax.swing.JFrame {
         }
         llenarListDatosClientes(clienteDTO);
         actualizarCosto((String) cbxVigencia.getSelectedItem());
+        mostrarBotones(true);
+
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void cbxVigenciaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxVigenciaItemStateChanged
@@ -314,24 +321,41 @@ public class FormLicencias extends javax.swing.JFrame {
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
 
+        LicenciaDTO licenciaExistente = tramitarLicenciaBO.validacionLicenciaExistencia();
+        if (licenciaExistente != null) {
+            JOptionPane.showConfirmDialog(this, "Existe una licencia vigente hasta " + formatoFecha(licenciaExistente.getFecha_vencimiento()) + "¿Desea registrar una nueva?");
+        }
+        LicenciaDTO licenciaDTO = tramitarLicencia();
+
+        if (licenciaDTO != null) {
+            JOptionPane.showMessageDialog(this, "Licencia creada ");
+            mostrarBotones(false);
+        } else {
+            JOptionPane.showMessageDialog(this, "No se ha podido crear ");
+
+        }
+        limpiarDatos();
+
+    }//GEN-LAST:event_btnAceptarActionPerformed
+    public void mostrarBotones(boolean flag) {
+        txtVigencia.setVisible(flag);
+        cbxVigencia.setVisible(flag);
+        btnAceptar.setVisible(flag);
+    }
+
+    private LicenciaDTO tramitarLicencia() {
         String montoTexto = txtMonto.getText().substring(1);
         float monto = Float.parseFloat(montoTexto);
-        if (monto <= 0) {
-            return;
-        }
         LicenciaNuevaDTO licenciaNueva = new LicenciaNuevaDTO((String) cbxVigencia.getSelectedItem(), monto);
-
         tramitarLicenciaBO.setLicencia(licenciaNueva);
         char anios = String.valueOf(cbxVigencia.getSelectedItem()).charAt(0);
         LicenciaDTO licencia = tramitarLicenciaBO.solicitarLicencia(Integer.parseInt(String.valueOf(anios)));
-        if (licencia == null) {
-            JOptionPane.showMessageDialog(this, "Licencia creada");
-            limpiarDatos();
-        } else {
-            JOptionPane.showMessageDialog(this, "Existe una licencia vigente hasta " + formatoFecha(licencia.getFecha_vencimiento()));
-            limpiarDatos();
-        }
-    }//GEN-LAST:event_btnAceptarActionPerformed
+        return licencia;
+    }
+
+    private void cbxVigenciaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxVigenciaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxVigenciaActionPerformed
     public void limpiarDatos() {
         txtMonto.setText("$0.0");
         txfRfc.setText("");
@@ -339,6 +363,9 @@ public class FormLicencias extends javax.swing.JFrame {
         modeloLista.clear();
         clienteDTO = null;
     }
+//    private ClienteDTO clienteExistente(){
+//        retu
+//    }
 
     public void actualizarCosto(String año) {
         if (clienteDTO == null) {

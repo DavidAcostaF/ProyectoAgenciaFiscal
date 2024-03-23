@@ -6,6 +6,7 @@ package com.mycompany.agenciafiscalpresentacion;
 
 import com.mycompany.agenciafiscalnegocio.IRegistroClienteBO;
 import com.mycompany.agenciafiscalnegocio.RegistroClienteBO;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -19,7 +20,6 @@ public class FromMenuPrincipal extends javax.swing.JFrame {
      * Creates new form FromMenuPrincipal
      */
     public FromMenuPrincipal() {
-        this.registroClienteBo = new RegistroClienteBO();
         initComponents();
 
     }
@@ -189,7 +189,10 @@ public class FromMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnAgregarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClientesActionPerformed
+        this.registroClienteBo = new RegistroClienteBO();
+
         registroClienteBo.poblarClientes();
+        //JOptionPane.showMessageDialog(this, "Se han agregado clientes");
     }//GEN-LAST:event_btnAgregarClientesActionPerformed
 
 

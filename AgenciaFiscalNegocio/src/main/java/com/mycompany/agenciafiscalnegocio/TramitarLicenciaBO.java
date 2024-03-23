@@ -45,33 +45,34 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
 
     @Override
     public LicenciaDTO solicitarLicencia(int años) {
-        Licencia licenciaExistencia = validacionLicenciaExistencia();
-        LicenciaDTO licenciaDTO = null;
 
-        if (licenciaExistencia != null) {
-            licenciaDTO = new LicenciaDTO();
-            licenciaDTO.setFecha_vencimiento(licenciaExistencia.getFecha_vencimiento());
-            return licenciaDTO;
-        }
         Calendar fechaActual = Calendar.getInstance();
         String vigencia = this.licenciaNueva.getVigencia();
         Float costo = this.licenciaNueva.getCosto();
         Calendar fecha_vencimiento = Calendar.getInstance();
         fecha_vencimiento.add(Calendar.YEAR, años);
-        Licencia licencia = new Licencia(fecha_vencimiento, fechaActual, vigencia, costo);
-        licencia.setCliente(this.cliente);
-        Licencia licenciaCreada = this.licenciaDAO.agregar(licencia);
-        return licenciaDTO;
-        //Checar de alguna manera al mandar la vigencia hacer que sea el puro
-        //numero para sumarlo a la fecha actual para asi que sea mas simple saber cuando vencera
+        Licencia licenciaNueva = new Licencia(fecha_vencimiento, fechaActual, vigencia, costo);
+        licenciaNueva.setCliente(this.cliente);
+        Licencia licenciaCreada = this.licenciaDAO.agregar(licenciaNueva);
+
+        //Crear licenciaDTO
+        LicenciaDTO licenciaNuevaDTO = new LicenciaDTO();
+        licenciaNuevaDTO.setCosto(licenciaCreada.getCosto());
+        licenciaNuevaDTO.setFecha_expedicion(licenciaCreada.getFecha_expedicion());
+        licenciaNuevaDTO.setFecha_vencimiento(licenciaCreada.getFecha_vencimiento());
+        licenciaNuevaDTO.setVigencia(licenciaCreada.getVigencia());
+
+        return licenciaNuevaDTO;
+
     }
 
     @Override
+
     public Cliente clientePendiente() {
         return this.cliente;
     }
 
-    private Licencia validacionLicenciaExistencia() {
+    public LicenciaDTO validacionLicenciaExistencia() {
         Tramite tramite = new Tramite();
         tramite.setCliente(this.cliente);
         Tramite tramiteConsultado = tramiteDAO.consultarLicencias(tramite);
@@ -79,10 +80,15 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
             return null;
         }
         Licencia licencia = licenciaDAO.consultar(tramiteConsultado.getId());
+        LicenciaDTO licenciaDTO = new LicenciaDTO();
+        licenciaDTO.setCosto(licencia.getCosto());
+        licenciaDTO.setFecha_expedicion(licencia.getFecha_expedicion());
+        licenciaDTO.setFecha_vencimiento(licencia.getFecha_vencimiento());
+        licenciaDTO.setVigencia(licencia.getVigencia());
         //Validacion de la fecha
 //        Calendar fechaActual = Calendar.getInstance();
 //        return fecha_vencimiento.before(fechaActual);
-        return licencia;
+        return licenciaDTO;
     }
 
     @Override
