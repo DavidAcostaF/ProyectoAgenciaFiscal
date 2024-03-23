@@ -4,8 +4,6 @@
  */
 package com.mycompany.agenciafiscalpresentacion;
 
-import com.mycompany.agenciafiscaldaos.IConexion;
-import static com.mycompany.agenciafiscaldominio.Tramite_.cliente;
 import com.mycompany.agenciafiscaldtos.ClienteDTO;
 import com.mycompany.agenciafiscaldtos.LicenciaDTO;
 import com.mycompany.agenciafiscaldtos.LicenciaNuevaDTO;
@@ -23,16 +21,14 @@ import javax.swing.JOptionPane;
 public class FormLicencias extends javax.swing.JFrame {
 
     private DefaultListModel<String> modeloLista = new DefaultListModel<>();
-    private IConexion conexion;
     private ITramitarLicenciaBO tramitarLicenciaBO;
     private ClienteDTO clienteDTO;
 
     /**
      * Creates new form FormRenovarLicencias
      */
-    public FormLicencias(IConexion conexion) {
-        this.conexion = conexion;
-        this.tramitarLicenciaBO = new TramitarLicenciaBO(conexion);
+    public FormLicencias() {
+        this.tramitarLicenciaBO = new TramitarLicenciaBO();
 
         initComponents();
 
@@ -288,7 +284,7 @@ public class FormLicencias extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-        FormTramites ftl = new FormTramites(conexion);
+        FormTramites ftl = new FormTramites();
         ftl.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed

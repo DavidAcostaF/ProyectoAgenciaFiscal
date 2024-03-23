@@ -4,7 +4,6 @@
  */
 package com.mycompany.agenciafiscalpresentacion;
 
-import com.mycompany.agenciafiscaldaos.IConexion;
 
 /**
  *
@@ -12,12 +11,10 @@ import com.mycompany.agenciafiscaldaos.IConexion;
  */
 public class FormReporteTramites extends javax.swing.JFrame {
 
-    private IConexion conexion;
     /**
      * Creates new form FormReporteTramites
      */
-    public FormReporteTramites(IConexion conexion) {
-        this.conexion = conexion;
+    public FormReporteTramites() {
         initComponents();
     }
 

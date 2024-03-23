@@ -4,19 +4,16 @@
  */
 package com.mycompany.agenciafiscalpresentacion;
 
-import com.mycompany.agenciafiscaldaos.IConexion;
 
 /**
  *
  * @author Berry
  */
 public class FormTramites extends javax.swing.JFrame {
-private IConexion conexion;
     /**
      * Creates new form FormTramites
      */
-    public FormTramites(IConexion conexion) {
-        this.conexion = conexion;
+    public FormTramites() {
         initComponents();
     }
 
@@ -160,19 +157,19 @@ private IConexion conexion;
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLicenciasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLicenciasActionPerformed
-        FormLicencias frl = new FormLicencias(conexion);
+        FormLicencias frl = new FormLicencias();
         frl.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnLicenciasActionPerformed
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-        FromMenuPrincipal fmp = new FromMenuPrincipal(conexion);
+        FromMenuPrincipal fmp = new FromMenuPrincipal();
         fmp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnPlacasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPlacasActionPerformed
-        FormPlacas fp = new FormPlacas(conexion);
+        FormPlacas fp = new FormPlacas();
         fp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnPlacasActionPerformed

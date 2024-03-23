@@ -4,7 +4,6 @@
  */
 package com.mycompany.agenciafiscalpresentacion;
 
-import com.mycompany.agenciafiscaldaos.IConexion;
 
 /**
  *
@@ -12,12 +11,10 @@ import com.mycompany.agenciafiscaldaos.IConexion;
  */
 public class FormPlacasCarroSinRegistrar extends javax.swing.JFrame {
     
-    private IConexion conexion;
     /**
      * Creates new form FormPlacasCarroSinRegistrar
      */
-    public FormPlacasCarroSinRegistrar(IConexion conexion) {
-        this.conexion = conexion;
+    public FormPlacasCarroSinRegistrar() {
         initComponents();
     }
 
@@ -243,13 +240,13 @@ public class FormPlacasCarroSinRegistrar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-        FormPlacas fp = new FormPlacas(conexion);
+        FormPlacas fp = new FormPlacas();
         fp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        FormPago fpa = new FormPago(conexion);
+        FormPago fpa = new FormPago();
         fpa.setVisible(true);
         this.dispose();     
     }//GEN-LAST:event_btnAceptarActionPerformed

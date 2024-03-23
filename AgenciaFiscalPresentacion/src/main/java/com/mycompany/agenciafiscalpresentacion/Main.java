@@ -4,8 +4,6 @@
  */
 package com.mycompany.agenciafiscalpresentacion;
 
-import com.mycompany.agenciafiscaldaos.Conexion;
-import com.mycompany.agenciafiscaldaos.IConexion;
 
 /**
  *
@@ -17,9 +15,8 @@ public class Main {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        IConexion conexion = new Conexion();
 
-        FromMenuPrincipal fmp = new FromMenuPrincipal(conexion);
+        FromMenuPrincipal fmp = new FromMenuPrincipal();
         fmp.setVisible(true);
         
     }

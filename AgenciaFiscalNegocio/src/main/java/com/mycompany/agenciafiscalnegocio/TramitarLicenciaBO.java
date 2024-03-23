@@ -5,6 +5,7 @@
 package com.mycompany.agenciafiscalnegocio;
 
 import com.mycompany.agenciafiscaldaos.ClienteDAO;
+import com.mycompany.agenciafiscaldaos.Conexion;
 import com.mycompany.agenciafiscaldaos.IClienteDAO;
 import com.mycompany.agenciafiscaldaos.IConexion;
 import com.mycompany.agenciafiscaldaos.ILicenciaDAO;
@@ -32,10 +33,11 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
     private ITramiteDAO tramiteDAO;
     private ClienteDTO clienteDTO;
     private LicenciaNuevaDTO licenciaNueva;
-
+    private IConexion conexion;
     private Cliente cliente;
 
-    public TramitarLicenciaBO(IConexion conexion) {
+    public TramitarLicenciaBO() {
+        conexion = new Conexion();
         this.clienteDAO = new ClienteDAO(conexion);
         this.licenciaDAO = new LicenciaDAO(conexion);
         this.tramiteDAO = new TramiteDAO(conexion);

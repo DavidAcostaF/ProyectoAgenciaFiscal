@@ -4,8 +4,6 @@
  */
 package com.mycompany.agenciafiscalpresentacion;
 
-import com.mycompany.agenciafiscaldaos.IConexion;
-import com.mycompany.agenciafiscaldtos.ClienteDTO;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,14 +12,12 @@ import javax.swing.JOptionPane;
  */
 public class FormPago extends javax.swing.JFrame {
 
-    private IConexion conexion;
     //private ClienteDTO clienteDTO;
     // private VehiculoDTO vehiculoDTO;
     /**
      * Creates new form FormPago
      */
-    public FormPago(IConexion conexion /*ClienteDTO clienteDTO /*, VehiculoDTO vehiculoDTO*/) {
-        this.conexion = conexion;
+    public FormPago( /*ClienteDTO clienteDTO /*, VehiculoDTO vehiculoDTO*/) {
         //this.clienteDTO = clienteDTO;
         //this.vehiculoDTO = vehiculoDTO;
         initComponents();
@@ -227,18 +223,18 @@ public class FormPago extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-        FormPlacas fp = new FormPlacas(conexion);
+        FormPlacas fp = new FormPlacas();
         fp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         if (JOptionPane.showConfirmDialog(null, "Pago Completado \n¿Quieres registrar otra placa?", "Pago Completado!", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-            FormPlacas fp = new FormPlacas(conexion);
+            FormPlacas fp = new FormPlacas();
             fp.setVisible(true);
             this.dispose();
         } else {
-            FromMenuPrincipal fmp = new FromMenuPrincipal(conexion);
+            FromMenuPrincipal fmp = new FromMenuPrincipal();
             fmp.setVisible(true);
             this.dispose();
         }  

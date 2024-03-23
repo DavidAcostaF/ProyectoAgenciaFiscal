@@ -4,7 +4,6 @@
  */
 package com.mycompany.agenciafiscalpresentacion;
 
-import com.mycompany.agenciafiscaldaos.IConexion;
 
 /**
  *
@@ -12,12 +11,10 @@ import com.mycompany.agenciafiscaldaos.IConexion;
  */
 public class FormPlacas extends javax.swing.JFrame {
     
-    private IConexion conexion;
     /**
      * Creates new form FormPlacas
      */
-    public FormPlacas(IConexion conexion) {
-        this.conexion = conexion;
+    public FormPlacas() {
         initComponents();
     }
 
@@ -161,19 +158,19 @@ public class FormPlacas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-        FormTramites ftl = new FormTramites(conexion);
+        FormTramites ftl = new FormTramites();
         ftl.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnCarroRegistradoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarroRegistradoActionPerformed
-        FormPlacasCarroRegistrado fpcr = new FormPlacasCarroRegistrado(conexion);
+        FormPlacasCarroRegistrado fpcr = new FormPlacasCarroRegistrado();
         fpcr.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCarroRegistradoActionPerformed
 
     private void btnCarroSinRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCarroSinRegistrarActionPerformed
-        FormPlacasCarroSinRegistrar fpcsr = new FormPlacasCarroSinRegistrar(conexion);
+        FormPlacasCarroSinRegistrar fpcsr = new FormPlacasCarroSinRegistrar();
         fpcsr.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCarroSinRegistrarActionPerformed

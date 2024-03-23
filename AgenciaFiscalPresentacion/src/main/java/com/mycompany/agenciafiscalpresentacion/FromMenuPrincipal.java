@@ -4,7 +4,6 @@
  */
 package com.mycompany.agenciafiscalpresentacion;
 
-import com.mycompany.agenciafiscaldaos.IConexion;
 import com.mycompany.agenciafiscalnegocio.IRegistroClienteBO;
 import com.mycompany.agenciafiscalnegocio.RegistroClienteBO;
 
@@ -13,17 +12,16 @@ import com.mycompany.agenciafiscalnegocio.RegistroClienteBO;
  * @author Berry
  */
 public class FromMenuPrincipal extends javax.swing.JFrame {
+
     private IRegistroClienteBO registroClienteBo;
-    private IConexion conexion;
-    
+
     /**
      * Creates new form FromMenuPrincipal
      */
-    public FromMenuPrincipal(IConexion conexion) {
-        this.registroClienteBo = new RegistroClienteBO(conexion);
-        this.conexion = conexion;
+    public FromMenuPrincipal() {
+        this.registroClienteBo = new RegistroClienteBO();
         initComponents();
-        
+
     }
 
     /**
@@ -181,7 +179,7 @@ public class FromMenuPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnTramitesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTramitesActionPerformed
-        FormTramites ftl = new FormTramites(conexion);
+        FormTramites ftl = new FormTramites();
         ftl.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnTramitesActionPerformed

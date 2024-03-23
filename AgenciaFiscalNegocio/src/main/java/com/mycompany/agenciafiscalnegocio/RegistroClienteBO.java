@@ -5,6 +5,7 @@
 package com.mycompany.agenciafiscalnegocio;
 
 import com.mycompany.agenciafiscaldaos.ClienteDAO;
+import com.mycompany.agenciafiscaldaos.Conexion;
 import com.mycompany.agenciafiscaldaos.IClienteDAO;
 import com.mycompany.agenciafiscaldaos.IConexion;
 import com.mycompany.agenciafiscaldominio.Cliente;
@@ -20,8 +21,9 @@ import java.util.List;
 public class RegistroClienteBO implements IRegistroClienteBO {
 
     private IClienteDAO clienteDAO;
-
-    public RegistroClienteBO(IConexion conexion) {
+    private IConexion conexion;
+    public RegistroClienteBO() {
+        conexion = new Conexion();
         this.clienteDAO = new ClienteDAO(conexion);
     }
 
