@@ -4,6 +4,9 @@
  */
 package com.mycompany.agenciafiscalnegocio;
 
+import com.mycompany.agenciafiscaldominio.Automovil;
+import com.mycompany.agenciafiscaldominio.Placa;
+import com.mycompany.agenciafiscaldominio.Vehiculo;
 import com.mycompany.agenciafiscaldtos.ClienteDTO;
 import com.mycompany.agenciafiscaldtos.PlacaDTO;
 import com.mycompany.agenciafiscaldtos.VehiculoDTO;
@@ -24,8 +27,10 @@ public interface ITramitarPlacaBO {
 
     public void setPlaca(PlacaDTO placa);
 
-    public void solicitarPlacaVehiculoNuevo();
+    public PlacaDTO solicitarPlacaVehiculoNuevo();
 
     public PlacaDTO validacionLicenciaExistencia();
+
+    public Vehiculo agregarVehiculo(Placa placa);
 
 }

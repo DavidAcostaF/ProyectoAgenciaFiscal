@@ -60,8 +60,6 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
 
     }
 
-
-
     @Override
     public LicenciaDTO validacionLicenciaExistencia() {
         Tramite tramite = new Tramite();

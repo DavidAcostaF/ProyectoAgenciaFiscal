@@ -6,14 +6,21 @@ package com.mycompany.agenciafiscalnegocio;
 
 import com.mycompany.agenciafiscaldaos.ClienteDAO;
 import com.mycompany.agenciafiscaldaos.Conexion;
+import com.mycompany.agenciafiscaldaos.IAutomovilDAO;
 import com.mycompany.agenciafiscaldaos.IClienteDAO;
 import com.mycompany.agenciafiscaldaos.IConexion;
+import com.mycompany.agenciafiscaldaos.IPlacaDAO;
+import com.mycompany.agenciafiscaldaos.IVehiculoDAO;
+import com.mycompany.agenciafiscaldaos.PlacaDAO;
+import com.mycompany.agenciafiscaldaos.VehiculoDAO;
+import com.mycompany.agenciafiscaldominio.Automovil;
 import com.mycompany.agenciafiscaldominio.Cliente;
 import com.mycompany.agenciafiscaldominio.Placa;
 import com.mycompany.agenciafiscaldominio.Vehiculo;
 import com.mycompany.agenciafiscaldtos.ClienteDTO;
 import com.mycompany.agenciafiscaldtos.PlacaDTO;
 import com.mycompany.agenciafiscaldtos.VehiculoDTO;
+import java.util.Calendar;
 
 /**
  *
@@ -22,21 +29,25 @@ import com.mycompany.agenciafiscaldtos.VehiculoDTO;
 public class TramitarPlacaBO implements ITramitarPlacaBO {
 
     private IConexion conexion;
-    private IClienteDAO clienteDAO;
 
-    private Cliente cliente;
+    private IClienteDAO clienteDAO;
+    private IVehiculoDAO vehiculoDAO;
+    private IPlacaDAO placaDAO;
+    private IAutomovilDAO automovilDAO;
+
+    private VehiculoDTO vehiculoDTO;
+    private PlacaDTO placaDTO;
     private ClienteDTO clienteDTO;
 
-    private Vehiculo vehiculo;
-    private VehiculoDTO vehiculoDTO;
-
     private Placa placa;
-    private PlacaDTO placaDTO;
+    private Cliente cliente;
+    private Vehiculo vehiculo;
 
     public TramitarPlacaBO() {
-        conexion = new Conexion();
+        this.conexion = new Conexion();
         this.clienteDAO = new ClienteDAO(conexion);
-
+        this.vehiculoDAO = new VehiculoDAO(conexion);
+        this.placaDAO = new PlacaDAO(conexion);
     }
 
     @Override
@@ -50,8 +61,19 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
     }
 
     @Override
-    public void solicitarPlacaVehiculoNuevo() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public PlacaDTO solicitarPlacaVehiculoNuevo() {
+        Calendar fecha = Calendar.getInstance();
+        Placa placa = new Placa(placaDTO.getSerie(), fecha, placaDTO.getCosto(), placaDTO.getEstado());
+
+        Placa placaNueva = placaDAO.agregar(placa);
+        Vehiculo vehiculo = this.agregarVehiculo(placaNueva);
+
+        return convertirAPlacaDTO(placaNueva);
+    }
+
+    private PlacaDTO convertirAPlacaDTO(Placa placa) {
+        PlacaDTO placaDTO = new PlacaDTO(placa.getSerie(), placa.getFecha_emision(), placa.getCosto(), placa.getEstado(), vehiculo);
+        return placaDTO;
     }
 
     @Override
@@ -72,12 +94,26 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
 
     @Override
     public VehiculoDTO consultarVehiculo() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        this.vehiculo = vehiculoDAO.consultar(vehiculoDTO.getSerie());
+        if (vehiculo == null) {
+            return null;
+        }
+        VehiculoDTO vehiculoDTO = new VehiculoDTO(vehiculo.getSerie(), vehiculo.getMarca(), vehiculo.getColor(), vehiculo.getLinea(), vehiculo.getModelo());
+        return vehiculoDTO;
     }
 
     @Override
     public PlacaDTO validacionLicenciaExistencia() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+
+    }
+
+    @Override
+    public Vehiculo agregarVehiculo(Placa placa) {
+        Automovil automovil = new Automovil(vehiculoDTO.getSerie(), vehiculoDTO.getMarca(), vehiculoDTO.getColor(), vehiculoDTO.getLinea(), vehiculoDTO.getModelo());
+        automovil.setPlaca(placa);
+        Automovil automovilAgregado = automovilDAO.agregar(automovil);
+        return automovilAgregado;
     }
 
 }

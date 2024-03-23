@@ -8,7 +8,7 @@ package com.mycompany.agenciafiscaldtos;
  *
  * @author af_da
  */
-public class VehiculoDTO {
+public class AutomovilDTO {
 
     private String serie;
 
@@ -20,11 +20,11 @@ public class VehiculoDTO {
 
     private String modelo;
 
-    public VehiculoDTO(String serie) {
+    public AutomovilDTO(String serie) {
         this.serie = serie;
     }
 
-    public VehiculoDTO(String serie, String marca, String color, String linea, String modelo) {
+    public AutomovilDTO(String serie, String marca, String color, String linea, String modelo) {
         this.serie = serie;
         this.marca = marca;
         this.color = color;
@@ -71,5 +71,4 @@ public class VehiculoDTO {
     public void setModelo(String modelo) {
         this.modelo = modelo;
     }
-
 }
