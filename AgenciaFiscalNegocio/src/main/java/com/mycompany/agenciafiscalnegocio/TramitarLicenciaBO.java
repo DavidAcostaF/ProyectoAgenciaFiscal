@@ -55,14 +55,7 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
         licenciaNueva.setCliente(this.cliente);
         Licencia licenciaCreada = this.licenciaDAO.agregar(licenciaNueva);
 
-        //Crear licenciaDTO
-        LicenciaDTO licenciaNuevaDTO = new LicenciaDTO();
-        licenciaNuevaDTO.setCosto(licenciaCreada.getCosto());
-        licenciaNuevaDTO.setFecha_expedicion(licenciaCreada.getFecha_expedicion());
-        licenciaNuevaDTO.setFecha_vencimiento(licenciaCreada.getFecha_vencimiento());
-        licenciaNuevaDTO.setVigencia(licenciaCreada.getVigencia());
-
-        return licenciaNuevaDTO;
+        return convertirALicenciaDTO(licenciaCreada);
 
     }
 
@@ -80,14 +73,19 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
             return null;
         }
         Licencia licencia = licenciaDAO.consultar(tramiteConsultado.getId());
+
+        //Validacion de la fecha
+//        Calendar fechaActual = Calendar.getInstance();
+//        return fecha_vencimiento.before(fechaActual);
+        return convertirALicenciaDTO(licencia);
+    }
+
+    private LicenciaDTO convertirALicenciaDTO(Licencia licencia) {
         LicenciaDTO licenciaDTO = new LicenciaDTO();
         licenciaDTO.setCosto(licencia.getCosto());
         licenciaDTO.setFecha_expedicion(licencia.getFecha_expedicion());
         licenciaDTO.setFecha_vencimiento(licencia.getFecha_vencimiento());
         licenciaDTO.setVigencia(licencia.getVigencia());
-        //Validacion de la fecha
-//        Calendar fechaActual = Calendar.getInstance();
-//        return fecha_vencimiento.before(fechaActual);
         return licenciaDTO;
     }
 
