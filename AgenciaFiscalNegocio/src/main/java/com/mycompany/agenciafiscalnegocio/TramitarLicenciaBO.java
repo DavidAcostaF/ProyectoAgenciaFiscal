@@ -112,17 +112,21 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
 
     @Override
     public Float calcularCosto(String año) {
-        System.out.println(año);
-        Map<String, Float> costosNormal = new HashMap<>();
+        Map<String, Float> costosNormal = new HashMap<String, Float>() {
+            {
+                put("1 Año", 600.0F);
+                put("2 Años", 900.0F);
+                put("3 Años", 1100.0F);
+            }
+        };
 
-        costosNormal.put("1 Año", 600.0F);
-        costosNormal.put("2 Años", 900.0F);
-        costosNormal.put("3 Años", 1100.0F);
-
-        Map<String, Float> costosDiscapacitado = new HashMap<>();
-        costosDiscapacitado.put("1 Año", 200.0F);
-        costosDiscapacitado.put("2 Años", 500.0F);
-        costosDiscapacitado.put("3 Años", 700.0F);
+        Map<String, Float> costosDiscapacitado = new HashMap<String, Float>() {
+            {
+                put("1 Año", 200.0F);
+                put("2 Años", 500.0F);
+                put("3 Años", 700.0F);
+            }
+        };
 
         if (cliente.getDiscapacitado()) {
             return costosDiscapacitado.get(año);
