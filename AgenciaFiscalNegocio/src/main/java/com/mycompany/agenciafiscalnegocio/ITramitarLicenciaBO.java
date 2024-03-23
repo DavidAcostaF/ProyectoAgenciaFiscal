@@ -22,11 +22,10 @@ public interface ITramitarLicenciaBO {
 
     public ClienteDTO consultarCliente();
 
-    public Cliente clientePendiente();
-
     public void setCliente(ClienteDTO cliente);
 
     public void setLicencia(LicenciaNuevaDTO licenciaNueva);
+
     public LicenciaDTO validacionLicenciaExistencia();
 
 }

@@ -31,9 +31,10 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
     private IClienteDAO clienteDAO;
     private ILicenciaDAO licenciaDAO;
     private ITramiteDAO tramiteDAO;
+    private IConexion conexion;
+
     private ClienteDTO clienteDTO;
     private LicenciaNuevaDTO licenciaNueva;
-    private IConexion conexion;
     private Cliente cliente;
 
     public TramitarLicenciaBO() {
@@ -59,12 +60,9 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
 
     }
 
+
+
     @Override
-
-    public Cliente clientePendiente() {
-        return this.cliente;
-    }
-
     public LicenciaDTO validacionLicenciaExistencia() {
         Tramite tramite = new Tramite();
         tramite.setCliente(this.cliente);

@@ -44,7 +44,7 @@ public class Pruebas {
         entityManager.getTransaction().commit();
         entityManager.refresh(placa);
         entityManager.getTransaction().begin();
-        Automovil automovil = new Automovil("ABC-123", "Honda", " Civic", " Negro", " 2003");
+        Automovil automovil = new Automovil("ABC-123", "Honda", " Civic", " Negro", "2003");
         automovil.setColor("negro");
         automovil.setPlaca(placa);
         entityManager.persist(automovil);
