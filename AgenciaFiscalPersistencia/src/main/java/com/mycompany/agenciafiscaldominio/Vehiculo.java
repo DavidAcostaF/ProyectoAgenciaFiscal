@@ -111,8 +111,6 @@ public class Vehiculo implements Serializable {
         this.placa = placa;
     }
     
-    
-    
     public Long getId() {
         return id;
     }
