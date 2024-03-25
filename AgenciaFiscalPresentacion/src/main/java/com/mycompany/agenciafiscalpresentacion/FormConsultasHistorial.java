@@ -138,7 +138,9 @@ public class FormConsultasHistorial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-
+//        FormConsultasFiltradas fcf = new FormConsultasFiltradas();
+//        fcf.setVisible(true);
+//        this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

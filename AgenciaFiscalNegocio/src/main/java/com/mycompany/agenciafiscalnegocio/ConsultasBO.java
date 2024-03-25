@@ -10,6 +10,7 @@ import com.mycompany.agenciafiscaldaos.IConexion;
 import com.mycompany.agenciafiscaldominio.Cliente;
 import com.mycompany.agenciafiscaldtos.ClienteDTO;
 import com.mycompany.agenciafiscaldtos.LicenciaNuevaDTO;
+import java.util.LinkedList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -28,46 +29,46 @@ public class ConsultasBO implements IConsultasBO {
         this.conexion = new Conexion();
     }
 
-//    @Override
-//    public List<ClienteDTO> buscarListaCliente(String nombre, String rfc, String fechaNacimiento) {
-//        //aun no jala aslñkjdñalk
-//        EntityManager entityManager = conexion.obtenerConexion();
-//        entityManager.getTransaction().begin();
-//
-//        String jpql = "SELECT c FROM Cliente c WHERE 1=1"; // Inicialmente, una condición siempre verdadera
-//
-//        if (nombre != null && !nombre.isEmpty()) {
-//            jpql += " AND c.nombre LIKE :nombre"; // Agregar condición para el nombre
-//        }
-//
-//        if (rfc != null && !rfc.isEmpty()) {
-//            jpql += " AND c.rfc = :rfc"; // Agregar condición para el RFC
-//        }
-//
-//        if (fechaNacimiento != null) {
-//            jpql += " AND c.fechaNacimiento = :fechaNacimiento"; // Agregar condición para la fecha de nacimiento
-//        }
-//
-//        TypedQuery<Cliente> query = entityManager.createQuery(jpql, Cliente.class);
-//
-//        if (nombre != null && !nombre.isEmpty()) {
-//            query.setParameter("nombre", "%" + nombre + "%"); // Establecer parámetro para el nombre
-//        }
-//
-//        if (rfc != null && !rfc.isEmpty()) {
-//            query.setParameter("rfc", rfc); // Establecer parámetro para el RFC
-//        }
-//
-//        if (fechaNacimiento != null) {
-//            query.setParameter("fechaNacimiento", fechaNacimiento); // Establecer parámetro para la fecha de nacimiento
-//        }
-//
-//        List<Cliente> clientesDTO = query.getResultList();
-//
-//        entityManager.getTransaction().commit();
-//        entityManager.close();
-//
-//        return clientes;
-//    }
+    @Override
+    public List<ClienteDTO> buscarListaCliente(ClienteDTO clienteDTO) {
+        //aun no jala aslñkjdñalk
+        EntityManager entityManager = conexion.obtenerConexion();
+        entityManager.getTransaction().begin();
 
+        String sentencia = "SELECT c FROM Cliente c WHERE 1=1";
+        if (clienteDTO.getNombre() != null ){
+            sentencia += " AND c.nombre LIKE :nombre";
+        }
+        if (clienteDTO.getRfc()!= null) {
+            sentencia += " AND c.rfc = :rfc";
+        }
+        if (clienteDTO.getFecha_nacimiento() != null) {
+            sentencia += " AND c.fechaNacimiento = :fechaNacimiento";
+        }
+
+        TypedQuery<Cliente> query = entityManager.createQuery(sentencia, Cliente.class);
+
+        if (clienteDTO.getNombre() != null) {
+            query.setParameter("nombre", "%" + clienteDTO.getNombre() + "%");
+        }
+        if (clienteDTO.getRfc()!= null) {
+            query.setParameter("rfc", clienteDTO.getRfc());
+        }
+        if (clienteDTO.getFecha_nacimiento() != null) {
+            query.setParameter("fechaNacimiento", clienteDTO.getFecha_nacimiento());
+        }
+
+        List<Cliente> clientes = query.getResultList();
+
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        
+        List<ClienteDTO> clientesDTO = new LinkedList<>();
+        for (Cliente cliente : clientes) {
+            ClienteDTO clienteTemporalDTO = new ClienteDTO(cliente.getRfc(), cliente.getNombre(), cliente.getApellido_paterno(), cliente.getApellido_materno(), cliente.getDiscapacitado(), cliente.getFecha_nacimiento(), cliente.getTelefono());
+            clientesDTO.add(clienteTemporalDTO);
+        }
+        return clientesDTO;
+        
+    }
 }

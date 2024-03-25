@@ -15,7 +15,7 @@ public class Main {
      */
     public static void main(String[] args) {
 
-        FromMenuPrincipal fmp = new FromMenuPrincipal();
+        FormMenuPrincipal fmp = new FormMenuPrincipal();
         fmp.setVisible(true);
 
     }

@@ -39,6 +39,9 @@ public class ClienteDTO {
     public ClienteDTO(String rfc) {
         this.rfc = rfc;
     }
+    
+    public ClienteDTO() {
+    }
 
     public String getRfc() {
         return rfc;

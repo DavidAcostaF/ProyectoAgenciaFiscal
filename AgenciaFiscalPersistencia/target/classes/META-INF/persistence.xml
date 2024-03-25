@@ -12,8 +12,13 @@
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/agencia_fiscal?zeroDateTimeBehavior=CONVERT_TO_NULL"/>
       <property name="javax.persistence.jdbc.user" value="root"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.cj.jdbc.Driver"/>
+<<<<<<< HEAD
       <property name="javax.persistence.jdbc.password" value="123qweasdzxc"/>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
+=======
+      <property name="javax.persistence.jdbc.password" value="Goma21345"/>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+>>>>>>> 904329a63595ed3e4535d619242b839e13aa9b49
     </properties>
   </persistence-unit>
 </persistence>

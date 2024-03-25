@@ -4,6 +4,8 @@
  */
 package com.mycompany.agenciafiscalpresentacion;
 
+import com.mycompany.agenciafiscaldtos.ClienteDTO;
+
 
 /**
  *
@@ -33,6 +35,13 @@ public class FormConsultas extends javax.swing.JFrame {
         txtTitulo = new javax.swing.JLabel();
         btnCerrar = new javax.swing.JButton();
         panEntrar = new javax.swing.JPanel();
+        txfFechaNacimiento = new javax.swing.JTextField();
+        txfRfc = new javax.swing.JTextField();
+        txfNombre = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JLabel();
+        txtFechaNacimiento = new javax.swing.JLabel();
+        txtRfc = new javax.swing.JLabel();
+        btnAceptar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -84,15 +93,72 @@ public class FormConsultas extends javax.swing.JFrame {
 
         panEntrar.setBackground(new java.awt.Color(236, 236, 236));
 
+        txfFechaNacimiento.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+
+        txfRfc.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+
+        txfNombre.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+
+        txtNombre.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
+        txtNombre.setText("Nombre:");
+
+        txtFechaNacimiento.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
+        txtFechaNacimiento.setText("Fecha de Nacimiento:");
+
+        txtRfc.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
+        txtRfc.setText("RFC:");
+
+        btnAceptar.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        btnAceptar.setText("Aceptar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panEntrarLayout = new javax.swing.GroupLayout(panEntrar);
         panEntrar.setLayout(panEntrarLayout);
         panEntrarLayout.setHorizontalGroup(
             panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 735, Short.MAX_VALUE)
+            .addGroup(panEntrarLayout.createSequentialGroup()
+                .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panEntrarLayout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(panEntrarLayout.createSequentialGroup()
+                                    .addGap(143, 143, 143)
+                                    .addComponent(txtNombre))
+                                .addComponent(txtFechaNacimiento))
+                            .addComponent(txtRfc))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txfRfc, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txfFechaNacimiento, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panEntrarLayout.createSequentialGroup()
+                        .addGap(297, 297, 297)
+                        .addComponent(btnAceptar)))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         panEntrarLayout.setVerticalGroup(
             panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 365, Short.MAX_VALUE)
+            .addGroup(panEntrarLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNombre)
+                    .addComponent(txfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txfRfc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtRfc))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtFechaNacimiento)
+                    .addComponent(txfFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
+                .addComponent(btnAceptar)
+                .addGap(16, 16, 16))
         );
 
         javax.swing.GroupLayout panFondoBlancoLayout = new javax.swing.GroupLayout(panFondoBlanco);
@@ -130,15 +196,43 @@ public class FormConsultas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-        
+        FormMenuPrincipal fmp = new FormMenuPrincipal();
+        fmp.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        FormConsultasFiltradas fcf = new FormConsultasFiltradas(empaquetarDatos());
+        fcf.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAceptarActionPerformed
+
+    public ClienteDTO empaquetarDatos(){
+        ClienteDTO clienteDTO = new ClienteDTO();
+        if(txfNombre!= null)
+            clienteDTO.setNombre(txfNombre.getText());
+        if(txfRfc!= null)
+            clienteDTO.setRfc(txfRfc.getText());
+//        TENGO Q HACER QUE SEA UN CALENDAR, ñonga       
+//        if(txfFechaNacimiento!= null)
+//            clienteDTO.setFecha_nacimiento(txfFechaNacimiento.getText());
+        
+        return clienteDTO;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JLabel imgLogo;
     private javax.swing.JPanel panEntrar;
     private javax.swing.JPanel panFondoBlanco;
     private javax.swing.JPanel panHeader;
+    private javax.swing.JTextField txfFechaNacimiento;
+    private javax.swing.JTextField txfNombre;
+    private javax.swing.JTextField txfRfc;
+    private javax.swing.JLabel txtFechaNacimiento;
+    private javax.swing.JLabel txtNombre;
+    private javax.swing.JLabel txtRfc;
     private javax.swing.JLabel txtTitulo;
     // End of variables declaration//GEN-END:variables
 }

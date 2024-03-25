@@ -12,14 +12,14 @@ import javax.swing.JOptionPane;
  *
  * @author Berry
  */
-public class FromMenuPrincipal extends javax.swing.JFrame {
+public class FormMenuPrincipal extends javax.swing.JFrame {
 
     private IRegistroClienteBO registroClienteBo;
 
     /**
      * Creates new form FromMenuPrincipal
      */
-    public FromMenuPrincipal() {
+    public FormMenuPrincipal() {
         initComponents();
 
     }
@@ -116,6 +116,11 @@ public class FromMenuPrincipal extends javax.swing.JFrame {
 
         btnConsultas.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
         btnConsultas.setText("Consultas");
+        btnConsultas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConsultasActionPerformed(evt);
+            }
+        });
 
         btnReportes.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
         btnReportes.setText("Reportes");
@@ -192,8 +197,14 @@ public class FromMenuPrincipal extends javax.swing.JFrame {
         this.registroClienteBo = new RegistroClienteBO();
 
         registroClienteBo.poblarClientes();
-        //JOptionPane.showMessageDialog(this, "Se han agregado clientes");
+        JOptionPane.showMessageDialog(this, "Se han agregado clientes");
     }//GEN-LAST:event_btnAgregarClientesActionPerformed
+
+    private void btnConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultasActionPerformed
+        FormConsultas fc = new FormConsultas();
+        fc.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnConsultasActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
