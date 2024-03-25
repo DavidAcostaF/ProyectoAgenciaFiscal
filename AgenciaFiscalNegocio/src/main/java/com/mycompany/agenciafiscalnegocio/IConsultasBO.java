@@ -13,6 +13,6 @@ import java.util.List;
  */
 public interface IConsultasBO {
     
-    public List<ClienteDTO> buscarListaCliente(String nombre, String rfc, String fechaNacimiento);
+//    public List<ClienteDTO> buscarListaCliente(String nombre, String rfc, String fechaNacimiento);
     
 }

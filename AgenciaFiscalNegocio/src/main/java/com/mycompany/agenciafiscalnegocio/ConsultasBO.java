@@ -28,46 +28,46 @@ public class ConsultasBO implements IConsultasBO {
         this.conexion = new Conexion();
     }
 
-    @Override
-    public List<ClienteDTO> buscarListaCliente(String nombre, String rfc, String fechaNacimiento) {
-        //aun no jala aslñkjdñalk
-        EntityManager entityManager = conexion.obtenerConexion();
-        entityManager.getTransaction().begin();
-
-        String jpql = "SELECT c FROM Cliente c WHERE 1=1"; // Inicialmente, una condición siempre verdadera
-
-        if (nombre != null && !nombre.isEmpty()) {
-            jpql += " AND c.nombre LIKE :nombre"; // Agregar condición para el nombre
-        }
-
-        if (rfc != null && !rfc.isEmpty()) {
-            jpql += " AND c.rfc = :rfc"; // Agregar condición para el RFC
-        }
-
-        if (fechaNacimiento != null) {
-            jpql += " AND c.fechaNacimiento = :fechaNacimiento"; // Agregar condición para la fecha de nacimiento
-        }
-
-        TypedQuery<Cliente> query = entityManager.createQuery(jpql, Cliente.class);
-
-        if (nombre != null && !nombre.isEmpty()) {
-            query.setParameter("nombre", "%" + nombre + "%"); // Establecer parámetro para el nombre
-        }
-
-        if (rfc != null && !rfc.isEmpty()) {
-            query.setParameter("rfc", rfc); // Establecer parámetro para el RFC
-        }
-
-        if (fechaNacimiento != null) {
-            query.setParameter("fechaNacimiento", fechaNacimiento); // Establecer parámetro para la fecha de nacimiento
-        }
-
-        List<Cliente> clientesDTO = query.getResultList();
-
-        entityManager.getTransaction().commit();
-        entityManager.close();
-
-        return clientes;
-    }
+//    @Override
+//    public List<ClienteDTO> buscarListaCliente(String nombre, String rfc, String fechaNacimiento) {
+//        //aun no jala aslñkjdñalk
+//        EntityManager entityManager = conexion.obtenerConexion();
+//        entityManager.getTransaction().begin();
+//
+//        String jpql = "SELECT c FROM Cliente c WHERE 1=1"; // Inicialmente, una condición siempre verdadera
+//
+//        if (nombre != null && !nombre.isEmpty()) {
+//            jpql += " AND c.nombre LIKE :nombre"; // Agregar condición para el nombre
+//        }
+//
+//        if (rfc != null && !rfc.isEmpty()) {
+//            jpql += " AND c.rfc = :rfc"; // Agregar condición para el RFC
+//        }
+//
+//        if (fechaNacimiento != null) {
+//            jpql += " AND c.fechaNacimiento = :fechaNacimiento"; // Agregar condición para la fecha de nacimiento
+//        }
+//
+//        TypedQuery<Cliente> query = entityManager.createQuery(jpql, Cliente.class);
+//
+//        if (nombre != null && !nombre.isEmpty()) {
+//            query.setParameter("nombre", "%" + nombre + "%"); // Establecer parámetro para el nombre
+//        }
+//
+//        if (rfc != null && !rfc.isEmpty()) {
+//            query.setParameter("rfc", rfc); // Establecer parámetro para el RFC
+//        }
+//
+//        if (fechaNacimiento != null) {
+//            query.setParameter("fechaNacimiento", fechaNacimiento); // Establecer parámetro para la fecha de nacimiento
+//        }
+//
+//        List<Cliente> clientesDTO = query.getResultList();
+//
+//        entityManager.getTransaction().commit();
+//        entityManager.close();
+//
+//        return clientes;
+//    }
 
 }
