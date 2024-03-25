@@ -33,6 +33,13 @@ public class FormConsultas extends javax.swing.JFrame {
         txtTitulo = new javax.swing.JLabel();
         btnCerrar = new javax.swing.JButton();
         panEntrar = new javax.swing.JPanel();
+        txfNumPlacasAnteriores2 = new javax.swing.JTextField();
+        txfNumPlacasAnteriores1 = new javax.swing.JTextField();
+        txfNumPlacasAnteriores = new javax.swing.JTextField();
+        txtNumPlacasAnteriores = new javax.swing.JLabel();
+        txtNumPlacasAnteriores2 = new javax.swing.JLabel();
+        txtNumPlacasAnteriores1 = new javax.swing.JLabel();
+        btnAceptar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -84,15 +91,72 @@ public class FormConsultas extends javax.swing.JFrame {
 
         panEntrar.setBackground(new java.awt.Color(236, 236, 236));
 
+        txfNumPlacasAnteriores2.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+
+        txfNumPlacasAnteriores1.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+
+        txfNumPlacasAnteriores.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+
+        txtNumPlacasAnteriores.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
+        txtNumPlacasAnteriores.setText("Nombre:");
+
+        txtNumPlacasAnteriores2.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
+        txtNumPlacasAnteriores2.setText("Fecha de Nacimiento:");
+
+        txtNumPlacasAnteriores1.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
+        txtNumPlacasAnteriores1.setText("RFC:");
+
+        btnAceptar.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        btnAceptar.setText("Aceptar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panEntrarLayout = new javax.swing.GroupLayout(panEntrar);
         panEntrar.setLayout(panEntrarLayout);
         panEntrarLayout.setHorizontalGroup(
             panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 735, Short.MAX_VALUE)
+            .addGroup(panEntrarLayout.createSequentialGroup()
+                .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panEntrarLayout.createSequentialGroup()
+                        .addGap(15, 15, 15)
+                        .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(panEntrarLayout.createSequentialGroup()
+                                    .addGap(143, 143, 143)
+                                    .addComponent(txtNumPlacasAnteriores))
+                                .addComponent(txtNumPlacasAnteriores2))
+                            .addComponent(txtNumPlacasAnteriores1))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txfNumPlacasAnteriores1, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txfNumPlacasAnteriores2, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txfNumPlacasAnteriores, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(panEntrarLayout.createSequentialGroup()
+                        .addGap(297, 297, 297)
+                        .addComponent(btnAceptar)))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         panEntrarLayout.setVerticalGroup(
             panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 365, Short.MAX_VALUE)
+            .addGroup(panEntrarLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNumPlacasAnteriores)
+                    .addComponent(txfNumPlacasAnteriores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txfNumPlacasAnteriores1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNumPlacasAnteriores1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(txtNumPlacasAnteriores2)
+                    .addComponent(txfNumPlacasAnteriores2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
+                .addComponent(btnAceptar)
+                .addGap(16, 16, 16))
         );
 
         javax.swing.GroupLayout panFondoBlancoLayout = new javax.swing.GroupLayout(panFondoBlanco);
@@ -130,15 +194,30 @@ public class FormConsultas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-        
+        FormMenuPrincipal fmp = new FormMenuPrincipal();
+        fmp.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        FormConsultasFiltradas fcf = new FormConsultasFiltradas();
+        fcf.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnAceptarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JLabel imgLogo;
     private javax.swing.JPanel panEntrar;
     private javax.swing.JPanel panFondoBlanco;
     private javax.swing.JPanel panHeader;
+    private javax.swing.JTextField txfNumPlacasAnteriores;
+    private javax.swing.JTextField txfNumPlacasAnteriores1;
+    private javax.swing.JTextField txfNumPlacasAnteriores2;
+    private javax.swing.JLabel txtNumPlacasAnteriores;
+    private javax.swing.JLabel txtNumPlacasAnteriores1;
+    private javax.swing.JLabel txtNumPlacasAnteriores2;
     private javax.swing.JLabel txtTitulo;
     // End of variables declaration//GEN-END:variables
 }

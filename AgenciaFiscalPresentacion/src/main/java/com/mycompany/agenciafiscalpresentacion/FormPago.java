@@ -234,7 +234,7 @@ public class FormPago extends javax.swing.JFrame {
             fp.setVisible(true);
             this.dispose();
         } else {
-            FromMenuPrincipal fmp = new FromMenuPrincipal();
+            FormMenuPrincipal fmp = new FormMenuPrincipal();
             fmp.setVisible(true);
             this.dispose();
         }  

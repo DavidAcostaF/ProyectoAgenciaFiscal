@@ -163,7 +163,7 @@ public class FormTramites extends javax.swing.JFrame {
     }//GEN-LAST:event_btnLicenciasActionPerformed
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-        FromMenuPrincipal fmp = new FromMenuPrincipal();
+        FormMenuPrincipal fmp = new FormMenuPrincipal();
         fmp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
