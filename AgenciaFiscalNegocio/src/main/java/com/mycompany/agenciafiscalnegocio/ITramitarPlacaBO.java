@@ -8,6 +8,7 @@ import com.mycompany.agenciafiscaldominio.Automovil;
 import com.mycompany.agenciafiscaldominio.Placa;
 import com.mycompany.agenciafiscaldominio.Vehiculo;
 import com.mycompany.agenciafiscaldtos.ClienteDTO;
+import com.mycompany.agenciafiscaldtos.LicenciaDTO;
 import com.mycompany.agenciafiscaldtos.PlacaDTO;
 import com.mycompany.agenciafiscaldtos.VehiculoDTO;
 
@@ -29,7 +30,7 @@ public interface ITramitarPlacaBO {
 
     public PlacaDTO solicitarPlacaVehiculoNuevo();
 
-    public PlacaDTO validacionLicenciaExistencia();
+    public LicenciaDTO validacionLicenciaExistencia();
 
     public Vehiculo agregarVehiculo(Placa placa);
 

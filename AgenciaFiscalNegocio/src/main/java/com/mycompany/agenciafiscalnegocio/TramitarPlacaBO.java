@@ -9,15 +9,22 @@ import com.mycompany.agenciafiscaldaos.Conexion;
 import com.mycompany.agenciafiscaldaos.IAutomovilDAO;
 import com.mycompany.agenciafiscaldaos.IClienteDAO;
 import com.mycompany.agenciafiscaldaos.IConexion;
+import com.mycompany.agenciafiscaldaos.ILicenciaDAO;
 import com.mycompany.agenciafiscaldaos.IPlacaDAO;
+import com.mycompany.agenciafiscaldaos.ITramiteDAO;
 import com.mycompany.agenciafiscaldaos.IVehiculoDAO;
+import com.mycompany.agenciafiscaldaos.LicenciaDAO;
 import com.mycompany.agenciafiscaldaos.PlacaDAO;
+import com.mycompany.agenciafiscaldaos.TramiteDAO;
 import com.mycompany.agenciafiscaldaos.VehiculoDAO;
 import com.mycompany.agenciafiscaldominio.Automovil;
 import com.mycompany.agenciafiscaldominio.Cliente;
+import com.mycompany.agenciafiscaldominio.Licencia;
 import com.mycompany.agenciafiscaldominio.Placa;
+import com.mycompany.agenciafiscaldominio.Tramite;
 import com.mycompany.agenciafiscaldominio.Vehiculo;
 import com.mycompany.agenciafiscaldtos.ClienteDTO;
+import com.mycompany.agenciafiscaldtos.LicenciaDTO;
 import com.mycompany.agenciafiscaldtos.PlacaDTO;
 import com.mycompany.agenciafiscaldtos.VehiculoDTO;
 import java.util.Calendar;
@@ -34,7 +41,8 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
     private IVehiculoDAO vehiculoDAO;
     private IPlacaDAO placaDAO;
     private IAutomovilDAO automovilDAO;
-
+    private ITramiteDAO tramiteDAO;
+    private ILicenciaDAO licenciaDAO;
     private VehiculoDTO vehiculoDTO;
     private PlacaDTO placaDTO;
     private ClienteDTO clienteDTO;
@@ -48,6 +56,8 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
         this.clienteDAO = new ClienteDAO(conexion);
         this.vehiculoDAO = new VehiculoDAO(conexion);
         this.placaDAO = new PlacaDAO(conexion);
+        this.tramiteDAO = new TramiteDAO(conexion);
+        this.licenciaDAO = new LicenciaDAO(conexion);
     }
 
     @Override
@@ -103,9 +113,18 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
     }
 
     @Override
-    public PlacaDTO validacionLicenciaExistencia() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public LicenciaDTO validacionLicenciaExistencia() {
+        Tramite tramiteCliente = new Tramite();
+        tramiteCliente.setCliente(cliente);
+        Tramite tramiteConsultado = tramiteDAO.consultarLicencias(tramiteCliente);
+        Licencia licenciaConsultatada = licenciaDAO.consultar(tramiteConsultado.getId());
 
+        LicenciaDTO licenciaDTO = new LicenciaDTO();
+        licenciaDTO.setCosto(licenciaDTO.getCosto());
+        licenciaDTO.setFecha_expedicion(licenciaDTO.getFecha_expedicion());
+        licenciaDTO.setFecha_vencimiento(licenciaDTO.getFecha_vencimiento());
+        licenciaDTO.setVigencia(licenciaDTO.getVigencia());
+        return licenciaDTO;
     }
 
     @Override
