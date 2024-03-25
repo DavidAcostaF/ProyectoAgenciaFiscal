@@ -4,6 +4,12 @@
  */
 package com.mycompany.agenciafiscalpresentacion;
 
+import com.mycompany.agenciafiscaldtos.ClienteDTO;
+import com.mycompany.agenciafiscalnegocio.ConsultasBO;
+import com.mycompany.agenciafiscalnegocio.IConsultasBO;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -11,11 +17,19 @@ package com.mycompany.agenciafiscalpresentacion;
  */
 public class FormConsultasFiltradas extends javax.swing.JFrame {
     
+    private ClienteDTO clienteDTO;
+    private IConsultasBO consultasBO;
+    
     /**
      * Creates new form FormConsultasFiltradas
      */
-    public FormConsultasFiltradas() {
+    public FormConsultasFiltradas(ClienteDTO clienteDTO) {
+        this.clienteDTO = clienteDTO;
+        this.consultasBO = new ConsultasBO();
         initComponents();
+        
+        actualizarTabla(consultasBO.buscarListaCliente(clienteDTO));
+        
     }
 
     /**
@@ -35,7 +49,7 @@ public class FormConsultasFiltradas extends javax.swing.JFrame {
         panEntrar = new javax.swing.JPanel();
         btnAceptar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabConsultas = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,8 +109,8 @@ public class FormConsultasFiltradas extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabConsultas.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        tabConsultas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -107,7 +121,7 @@ public class FormConsultasFiltradas extends javax.swing.JFrame {
                 "Nombre", "RFC", "Fecha de Nacimiento", "Telefono"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabConsultas);
 
         javax.swing.GroupLayout panEntrarLayout = new javax.swing.GroupLayout(panEntrar);
         panEntrar.setLayout(panEntrarLayout);
@@ -178,15 +192,27 @@ public class FormConsultasFiltradas extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed
 
+    public void actualizarTabla(List<ClienteDTO> clientesDTO){
+        String[] columnas = {"Nombre", "RFC", "Fecha de Nacimiento", "Telefono"};
+        DefaultTableModel modeloTabla = new DefaultTableModel(columnas, 0);
+
+        for (ClienteDTO cliente : clientesDTO) {
+            Object[] fila = {cliente.getNombre(), cliente.getRfc(), cliente.getFecha_nacimiento()};
+            modeloTabla.addRow(fila);
+        }
+        tabConsultas.setModel(modeloTabla);
+        
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JLabel imgLogo;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JPanel panEntrar;
     private javax.swing.JPanel panFondoBlanco;
     private javax.swing.JPanel panHeader;
+    private javax.swing.JTable tabConsultas;
     private javax.swing.JLabel txtTitulo;
     // End of variables declaration//GEN-END:variables
 }

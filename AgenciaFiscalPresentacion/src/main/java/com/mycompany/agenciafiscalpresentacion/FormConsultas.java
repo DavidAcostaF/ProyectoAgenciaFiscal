@@ -4,6 +4,8 @@
  */
 package com.mycompany.agenciafiscalpresentacion;
 
+import com.mycompany.agenciafiscaldtos.ClienteDTO;
+
 
 /**
  *
@@ -33,12 +35,12 @@ public class FormConsultas extends javax.swing.JFrame {
         txtTitulo = new javax.swing.JLabel();
         btnCerrar = new javax.swing.JButton();
         panEntrar = new javax.swing.JPanel();
-        txfNumPlacasAnteriores2 = new javax.swing.JTextField();
-        txfNumPlacasAnteriores1 = new javax.swing.JTextField();
-        txfNumPlacasAnteriores = new javax.swing.JTextField();
-        txtNumPlacasAnteriores = new javax.swing.JLabel();
-        txtNumPlacasAnteriores2 = new javax.swing.JLabel();
-        txtNumPlacasAnteriores1 = new javax.swing.JLabel();
+        txfFechaNacimiento = new javax.swing.JTextField();
+        txfRfc = new javax.swing.JTextField();
+        txfNombre = new javax.swing.JTextField();
+        txtNombre = new javax.swing.JLabel();
+        txtFechaNacimiento = new javax.swing.JLabel();
+        txtRfc = new javax.swing.JLabel();
         btnAceptar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -91,20 +93,20 @@ public class FormConsultas extends javax.swing.JFrame {
 
         panEntrar.setBackground(new java.awt.Color(236, 236, 236));
 
-        txfNumPlacasAnteriores2.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        txfFechaNacimiento.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
 
-        txfNumPlacasAnteriores1.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        txfRfc.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
 
-        txfNumPlacasAnteriores.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        txfNombre.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
 
-        txtNumPlacasAnteriores.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
-        txtNumPlacasAnteriores.setText("Nombre:");
+        txtNombre.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
+        txtNombre.setText("Nombre:");
 
-        txtNumPlacasAnteriores2.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
-        txtNumPlacasAnteriores2.setText("Fecha de Nacimiento:");
+        txtFechaNacimiento.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
+        txtFechaNacimiento.setText("Fecha de Nacimiento:");
 
-        txtNumPlacasAnteriores1.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
-        txtNumPlacasAnteriores1.setText("RFC:");
+        txtRfc.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
+        txtRfc.setText("RFC:");
 
         btnAceptar.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
         btnAceptar.setText("Aceptar");
@@ -126,14 +128,14 @@ public class FormConsultas extends javax.swing.JFrame {
                             .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(panEntrarLayout.createSequentialGroup()
                                     .addGap(143, 143, 143)
-                                    .addComponent(txtNumPlacasAnteriores))
-                                .addComponent(txtNumPlacasAnteriores2))
-                            .addComponent(txtNumPlacasAnteriores1))
+                                    .addComponent(txtNombre))
+                                .addComponent(txtFechaNacimiento))
+                            .addComponent(txtRfc))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txfNumPlacasAnteriores1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txfNumPlacasAnteriores2, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txfNumPlacasAnteriores, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(txfRfc, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txfFechaNacimiento, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panEntrarLayout.createSequentialGroup()
                         .addGap(297, 297, 297)
                         .addComponent(btnAceptar)))
@@ -144,16 +146,16 @@ public class FormConsultas extends javax.swing.JFrame {
             .addGroup(panEntrarLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNumPlacasAnteriores)
-                    .addComponent(txfNumPlacasAnteriores, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNombre)
+                    .addComponent(txfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txfNumPlacasAnteriores1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNumPlacasAnteriores1))
+                    .addComponent(txfRfc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtRfc))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNumPlacasAnteriores2)
-                    .addComponent(txfNumPlacasAnteriores2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtFechaNacimiento)
+                    .addComponent(txfFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
                 .addComponent(btnAceptar)
                 .addGap(16, 16, 16))
@@ -200,11 +202,24 @@ public class FormConsultas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        FormConsultasFiltradas fcf = new FormConsultasFiltradas();
+        FormConsultasFiltradas fcf = new FormConsultasFiltradas(empaquetarDatos());
         fcf.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed
 
+    public ClienteDTO empaquetarDatos(){
+        ClienteDTO clienteDTO = new ClienteDTO();
+        if(txfNombre!= null)
+            clienteDTO.setNombre(txfNombre.getText());
+        if(txfRfc!= null)
+            clienteDTO.setRfc(txfRfc.getText());
+//        TENGO Q HACER QUE SEA UN CALENDAR, ñonga       
+//        if(txfFechaNacimiento!= null)
+//            clienteDTO.setFecha_nacimiento(txfFechaNacimiento.getText());
+        
+        return clienteDTO;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCerrar;
@@ -212,12 +227,12 @@ public class FormConsultas extends javax.swing.JFrame {
     private javax.swing.JPanel panEntrar;
     private javax.swing.JPanel panFondoBlanco;
     private javax.swing.JPanel panHeader;
-    private javax.swing.JTextField txfNumPlacasAnteriores;
-    private javax.swing.JTextField txfNumPlacasAnteriores1;
-    private javax.swing.JTextField txfNumPlacasAnteriores2;
-    private javax.swing.JLabel txtNumPlacasAnteriores;
-    private javax.swing.JLabel txtNumPlacasAnteriores1;
-    private javax.swing.JLabel txtNumPlacasAnteriores2;
+    private javax.swing.JTextField txfFechaNacimiento;
+    private javax.swing.JTextField txfNombre;
+    private javax.swing.JTextField txfRfc;
+    private javax.swing.JLabel txtFechaNacimiento;
+    private javax.swing.JLabel txtNombre;
+    private javax.swing.JLabel txtRfc;
     private javax.swing.JLabel txtTitulo;
     // End of variables declaration//GEN-END:variables
 }
