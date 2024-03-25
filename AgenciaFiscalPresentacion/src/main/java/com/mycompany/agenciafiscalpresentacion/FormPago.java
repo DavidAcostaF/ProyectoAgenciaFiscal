@@ -4,6 +4,7 @@
  */
 package com.mycompany.agenciafiscalpresentacion;
 
+import com.mycompany.agenciafiscalnegocio.ITramitarPlacaBO;
 import javax.swing.JOptionPane;
 
 /**
@@ -11,16 +12,20 @@ import javax.swing.JOptionPane;
  * @author lv1821
  */
 public class FormPago extends javax.swing.JFrame {
+    
+    ITramitarPlacaBO tramitarPlacaBO;
 
-    //private ClienteDTO clienteDTO;
-    // private VehiculoDTO vehiculoDTO;
     /**
      * Creates new form FormPago
+     *
+     * @param tramitarPlacaBO
      */
-    public FormPago( /*ClienteDTO clienteDTO /*, VehiculoDTO vehiculoDTO*/) {
+    public FormPago(ITramitarPlacaBO tramitarPlacaBO) {
         //this.clienteDTO = clienteDTO;
         //this.vehiculoDTO = vehiculoDTO;
         initComponents();
+        this.tramitarPlacaBO = tramitarPlacaBO;
+        calcularCosto("nuevo");
     }
 
     /**
@@ -237,9 +242,12 @@ public class FormPago extends javax.swing.JFrame {
             FromMenuPrincipal fmp = new FromMenuPrincipal();
             fmp.setVisible(true);
             this.dispose();
-        }  
+        }
     }//GEN-LAST:event_btnAceptarActionPerformed
-
+    private void calcularCosto(String estado) {
+        txtMonto.setText("$" + tramitarPlacaBO.CalcularCosto(estado));
+        
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList<String> ListDatosCarros;
     private javax.swing.JButton btnAceptar;

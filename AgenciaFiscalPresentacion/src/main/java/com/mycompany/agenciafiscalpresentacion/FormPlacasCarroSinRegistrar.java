@@ -4,6 +4,11 @@
  */
 package com.mycompany.agenciafiscalpresentacion;
 
+import com.mycompany.agenciafiscaldtos.ClienteDTO;
+import com.mycompany.agenciafiscaldtos.VehiculoDTO;
+import com.mycompany.agenciafiscalnegocio.ITramitarPlacaBO;
+import com.mycompany.agenciafiscalnegocio.TramitarPlacaBO;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -11,11 +16,14 @@ package com.mycompany.agenciafiscalpresentacion;
  */
 public class FormPlacasCarroSinRegistrar extends javax.swing.JFrame {
     
+    private ITramitarPlacaBO tramitarPlacaBO;
+
     /**
      * Creates new form FormPlacasCarroSinRegistrar
      */
     public FormPlacasCarroSinRegistrar() {
         initComponents();
+        tramitarPlacaBO = new TramitarPlacaBO();
     }
 
     /**
@@ -246,10 +254,53 @@ public class FormPlacasCarroSinRegistrar extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        FormPago fpa = new FormPago();
+        
+        if (validarCampos() == false) {
+            return;
+        }
+        String serie = txfNumSerie.getText();
+        String marca = txfMarca.getText();
+        String linea = txfLinea.getText();
+        String modelo = txfModelo.getText();
+        String color = txfColor.getText();
+        String rfc = txfRfcDueño.getText();
+        
+        if (validarCliente(rfc) == null) {
+            return;
+        }
+        
+        if (validarVehiculo(serie) != null) {
+            JOptionPane.showMessageDialog(this, "El carro ya está registrado");
+            //Aqui colocar que si el carro ya está registrado preguntar si quiere
+            //ser redirigido a registrar placa carro viejo
+            return;
+        }
+        tramitarPlacaBO.setVehiculo(new VehiculoDTO(serie, marca, color, linea, modelo));
+        FormPago fpa = new FormPago(tramitarPlacaBO);
         fpa.setVisible(true);
-        this.dispose();     
+        this.dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed
+    
+    private boolean validarCampos() {
+        if (txfNumSerie.getText().isBlank() || txfMarca.getText().isBlank() || txfLinea.getText().isBlank() || txfModelo.getText().isBlank() || txfColor.getText().isBlank() || txfRfcDueño.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son necesarios..");
+            return false;
+        }
+        return true;
+    }
+    
+    private ClienteDTO validarCliente(String rfc) {
+        tramitarPlacaBO.setCliente(new ClienteDTO(rfc));
+        ClienteDTO clienteConsultado = tramitarPlacaBO.consultarCliente();
+        System.out.println(clienteConsultado);
+        return clienteConsultado;
+    }
+    
+    private VehiculoDTO validarVehiculo(String serie) {
+        tramitarPlacaBO.setVehiculo(new VehiculoDTO(serie));
+        VehiculoDTO vehiculoDTO = tramitarPlacaBO.consultarVehiculo();
+        return vehiculoDTO;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;

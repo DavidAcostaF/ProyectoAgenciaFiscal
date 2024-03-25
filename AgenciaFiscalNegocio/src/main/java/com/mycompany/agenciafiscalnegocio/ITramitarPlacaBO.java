@@ -34,4 +34,5 @@ public interface ITramitarPlacaBO {
 
     public Vehiculo agregarVehiculo(Placa placa);
 
+    public Float CalcularCosto(String estado);
 }

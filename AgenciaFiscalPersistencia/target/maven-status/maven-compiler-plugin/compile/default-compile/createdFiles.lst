@@ -5,10 +5,12 @@ com\mycompany\agenciafiscaldaos\ClienteDAO.class
 com\mycompany\agenciafiscaldaos\IClienteDAO.class
 com\mycompany\agenciafiscaldaos\PlacaDAO.class
 com\mycompany\agenciafiscaldominio\Automovil_.class
+com\mycompany\agenciafiscaldaos\IVehiculoDAO.class
 com\mycompany\agenciafiscaldominio\Tramite.class
 com\mycompany\agenciafiscaldaos\ITramiteDAO.class
 com\mycompany\agenciafiscaldaos\Conexion.class
 com\mycompany\agenciafiscaldominio\Vehiculo.class
+com\mycompany\agenciafiscaldaos\VehiculoDAO.class
 com\mycompany\agenciafiscaldominio\Vehiculo_.class
 com\mycompany\agenciafiscaldominio\Automovil.class
 com\mycompany\agenciafiscaldaos\TramiteDAO.class

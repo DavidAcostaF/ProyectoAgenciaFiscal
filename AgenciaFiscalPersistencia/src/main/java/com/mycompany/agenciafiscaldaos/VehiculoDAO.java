@@ -25,6 +25,7 @@ public class VehiculoDAO implements IVehiculoDAO {
         this.conexion = conexion;
     }
 
+    @Override
     public Vehiculo consultar(String serie) {
         EntityManager entityManager = conexion.obtenerConexion();
         // objeto constructor de consultas

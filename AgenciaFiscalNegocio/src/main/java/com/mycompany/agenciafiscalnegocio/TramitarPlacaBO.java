@@ -28,6 +28,8 @@ import com.mycompany.agenciafiscaldtos.LicenciaDTO;
 import com.mycompany.agenciafiscaldtos.PlacaDTO;
 import com.mycompany.agenciafiscaldtos.VehiculoDTO;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -43,6 +45,7 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
     private IAutomovilDAO automovilDAO;
     private ITramiteDAO tramiteDAO;
     private ILicenciaDAO licenciaDAO;
+
     private VehiculoDTO vehiculoDTO;
     private PlacaDTO placaDTO;
     private ClienteDTO clienteDTO;
@@ -135,4 +138,14 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
         return automovilAgregado;
     }
 
+    @Override
+    public Float CalcularCosto(String estado) {
+        Map<String, Float> costosNormal = new HashMap<String, Float>() {
+            {
+                put("nuevo", 1500.0F);
+                put("usado", 1000.0F);
+            }
+        };
+        return costosNormal.get(estado);
+    }
 }

@@ -4,6 +4,8 @@
  */
 package com.mycompany.agenciafiscalpresentacion;
 
+import com.mycompany.agenciafiscalnegocio.ITramitarPlacaBO;
+import com.mycompany.agenciafiscalnegocio.TramitarPlacaBO;
 
 /**
  *
@@ -11,11 +13,15 @@ package com.mycompany.agenciafiscalpresentacion;
  */
 public class FormPlacasCarroRegistrado extends javax.swing.JFrame {
 
+    private ITramitarPlacaBO tramitarPlacaBO;
+
     /**
      * Creates new form FormPlacasCarroRegistrado
      */
     public FormPlacasCarroRegistrado() {
         initComponents();
+        tramitarPlacaBO = new TramitarPlacaBO();
+
     }
 
     /**
@@ -194,7 +200,7 @@ public class FormPlacasCarroRegistrado extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        FormPago fpa = new FormPago();
+        FormPago fpa = new FormPago(tramitarPlacaBO);
         fpa.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed
