@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
  */
 public class FormLicencias extends javax.swing.JFrame {
 
-    private DefaultListModel<String> modeloLista = new DefaultListModel<>();
+    private DefaultListModel<String> modeloLista;
     private ITramitarLicenciaBO tramitarLicenciaBO;
     private ClienteDTO clienteDTO;
 
@@ -28,8 +28,9 @@ public class FormLicencias extends javax.swing.JFrame {
      * Creates new form FormRenovarLicencias
      */
     public FormLicencias() {
-        this.tramitarLicenciaBO = new TramitarLicenciaBO();
         initComponents();
+        modeloLista = new DefaultListModel<>();
+        this.tramitarLicenciaBO = new TramitarLicenciaBO();
         mostrarBotones(false);
 
     }

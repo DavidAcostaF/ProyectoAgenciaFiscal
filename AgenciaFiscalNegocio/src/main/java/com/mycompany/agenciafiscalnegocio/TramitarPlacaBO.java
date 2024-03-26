@@ -4,6 +4,7 @@
  */
 package com.mycompany.agenciafiscalnegocio;
 
+import com.mycompany.agenciafiscaldaos.AutomovilDAO;
 import com.mycompany.agenciafiscaldaos.ClienteDAO;
 import com.mycompany.agenciafiscaldaos.Conexion;
 import com.mycompany.agenciafiscaldaos.IAutomovilDAO;
@@ -27,9 +28,12 @@ import com.mycompany.agenciafiscaldtos.ClienteDTO;
 import com.mycompany.agenciafiscaldtos.LicenciaDTO;
 import com.mycompany.agenciafiscaldtos.PlacaDTO;
 import com.mycompany.agenciafiscaldtos.VehiculoDTO;
+import com.mycompany.agenciafiscalexcepciones.ExcepcionConsultarVehiculo;
+import com.mycompany.agenciafiscalexcepciones.PersistenciaException;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 /**
  *
@@ -58,6 +62,7 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
         this.conexion = new Conexion();
         this.clienteDAO = new ClienteDAO(conexion);
         this.vehiculoDAO = new VehiculoDAO(conexion);
+        this.automovilDAO = new AutomovilDAO(conexion);
         this.placaDAO = new PlacaDAO(conexion);
         this.tramiteDAO = new TramiteDAO(conexion);
         this.licenciaDAO = new LicenciaDAO(conexion);
@@ -76,12 +81,41 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
     @Override
     public PlacaDTO solicitarPlacaVehiculoNuevo() {
         Calendar fecha = Calendar.getInstance();
-        Placa placa = new Placa(placaDTO.getSerie(), fecha, placaDTO.getCosto(), placaDTO.getEstado());
+        Placa placa = new Placa(generarSeriePlaca(), fecha, placaDTO.getCosto(), true);
+        placa.setCliente(cliente);
 
         Placa placaNueva = placaDAO.agregar(placa);
         Vehiculo vehiculo = this.agregarVehiculo(placaNueva);
 
         return convertirAPlacaDTO(placaNueva);
+    }
+
+    private String generarSeriePlaca() {
+        // Generador de letras aleatorias
+        String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+
+        // Generar las tres letras
+        for (int i = 0; i < 3; i++) {
+            char letra = letras.charAt(random.nextInt(letras.length()));
+            sb.append(letra);
+        }
+
+        // Separador "-"
+        sb.append("-");
+
+        // Generador de números aleatorios
+        String numeros = "0123456789";
+
+        // Generar los tres dígitos
+        for (int i = 0; i < 3; i++) {
+            char numero = numeros.charAt(random.nextInt(numeros.length()));
+            sb.append(numero);
+        }
+
+        return sb.toString();
+
     }
 
     private PlacaDTO convertirAPlacaDTO(Placa placa) {
@@ -106,8 +140,13 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
     }
 
     @Override
-    public VehiculoDTO consultarVehiculo() {
-        this.vehiculo = vehiculoDAO.consultar(vehiculoDTO.getSerie());
+    public VehiculoDTO consultarVehiculo() throws ExcepcionConsultarVehiculo {
+        try {
+            this.vehiculo = vehiculoDAO.consultar(vehiculoDTO.getSerie());
+
+        } catch (PersistenciaException pe) {
+            throw new ExcepcionConsultarVehiculo("No se ha encontrado el vehiculo");
+        }
         if (vehiculo == null) {
             return null;
         }
@@ -120,6 +159,9 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
         Tramite tramiteCliente = new Tramite();
         tramiteCliente.setCliente(cliente);
         Tramite tramiteConsultado = tramiteDAO.consultarLicencias(tramiteCliente);
+        if (tramiteConsultado == null) {
+            return null;
+        }
         Licencia licenciaConsultatada = licenciaDAO.consultar(tramiteConsultado.getId());
 
         LicenciaDTO licenciaDTO = new LicenciaDTO();
@@ -147,5 +189,15 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
             }
         };
         return costosNormal.get(estado);
+    }
+
+    @Override
+    public VehiculoDTO getVehiculo() {
+        return vehiculoDTO;
+    }
+
+    @Override
+    public ClienteDTO getCliente() {
+        return clienteDTO;
     }
 }

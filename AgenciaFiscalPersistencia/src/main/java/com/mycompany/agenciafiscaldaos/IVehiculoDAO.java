@@ -6,6 +6,7 @@ package com.mycompany.agenciafiscaldaos;
 
 import com.mycompany.agenciafiscaldominio.Automovil;
 import com.mycompany.agenciafiscaldominio.Vehiculo;
+import com.mycompany.agenciafiscalexcepciones.PersistenciaException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -19,5 +20,5 @@ import javax.persistence.criteria.Root;
  */
 public interface IVehiculoDAO {
 
-    public Vehiculo consultar(String serie);
+    public Vehiculo consultar(String serie) throws PersistenciaException;
 }

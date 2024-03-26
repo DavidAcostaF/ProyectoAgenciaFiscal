@@ -9,5 +9,20 @@ package com.mycompany.agenciafiscaldtos;
  * @author af_da
  */
 public class PlacaNuevaDTO {
+
+    private String costo;
+
+    public PlacaNuevaDTO(String costo) {
+        this.costo = costo;
+    }
+
+    public String getCosto() {
+        return costo;
+    }
+
+    public void setCosto(String costo) {
+        this.costo = costo;
+    }
+    
     
 }

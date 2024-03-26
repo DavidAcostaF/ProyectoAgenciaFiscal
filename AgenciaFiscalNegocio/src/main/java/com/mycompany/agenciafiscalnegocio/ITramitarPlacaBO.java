@@ -11,6 +11,7 @@ import com.mycompany.agenciafiscaldtos.ClienteDTO;
 import com.mycompany.agenciafiscaldtos.LicenciaDTO;
 import com.mycompany.agenciafiscaldtos.PlacaDTO;
 import com.mycompany.agenciafiscaldtos.VehiculoDTO;
+import com.mycompany.agenciafiscalexcepciones.ExcepcionConsultarVehiculo;
 
 /**
  *
@@ -20,7 +21,7 @@ public interface ITramitarPlacaBO {
 
     public ClienteDTO consultarCliente();
 
-    public VehiculoDTO consultarVehiculo();
+    public VehiculoDTO consultarVehiculo() throws ExcepcionConsultarVehiculo;
 
     public void setCliente(ClienteDTO cliente);
 
@@ -35,4 +36,8 @@ public interface ITramitarPlacaBO {
     public Vehiculo agregarVehiculo(Placa placa);
 
     public Float CalcularCosto(String estado);
+
+    public VehiculoDTO getVehiculo();
+
+    public ClienteDTO getCliente();
 }

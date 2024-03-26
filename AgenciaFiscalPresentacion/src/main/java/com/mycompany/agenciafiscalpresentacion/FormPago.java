@@ -4,7 +4,11 @@
  */
 package com.mycompany.agenciafiscalpresentacion;
 
+import com.mycompany.agenciafiscaldtos.ClienteDTO;
+import com.mycompany.agenciafiscaldtos.PlacaDTO;
+import com.mycompany.agenciafiscaldtos.VehiculoDTO;
 import com.mycompany.agenciafiscalnegocio.ITramitarPlacaBO;
+import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,8 +16,9 @@ import javax.swing.JOptionPane;
  * @author lv1821
  */
 public class FormPago extends javax.swing.JFrame {
-    
-    ITramitarPlacaBO tramitarPlacaBO;
+
+    private ITramitarPlacaBO tramitarPlacaBO;
+    private DefaultListModel<String> modeloLista;
 
     /**
      * Creates new form FormPago
@@ -21,11 +26,14 @@ public class FormPago extends javax.swing.JFrame {
      * @param tramitarPlacaBO
      */
     public FormPago(ITramitarPlacaBO tramitarPlacaBO) {
-        //this.clienteDTO = clienteDTO;
-        //this.vehiculoDTO = vehiculoDTO;
+
         initComponents();
+        modeloLista = new DefaultListModel<>();
+
         this.tramitarPlacaBO = tramitarPlacaBO;
         calcularCosto("nuevo");
+        llenarListDatosClientes();
+        guardarCostoPlaca();
     }
 
     /**
@@ -171,7 +179,7 @@ public class FormPago extends javax.swing.JFrame {
                     .addGroup(panEntrarLayout.createSequentialGroup()
                         .addGap(37, 37, 37)
                         .addComponent(txtTramite)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 102, Short.MAX_VALUE)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addComponent(panCosto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -234,7 +242,10 @@ public class FormPago extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        tramitarPlacaBO.solicitarPlacaVehiculoNuevo();
         if (JOptionPane.showConfirmDialog(null, "Pago Completado \n¿Quieres registrar otra placa?", "Pago Completado!", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+
+            guardarCostoPlaca();
             FormPlacas fp = new FormPlacas();
             fp.setVisible(true);
             this.dispose();
@@ -246,7 +257,30 @@ public class FormPago extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAceptarActionPerformed
     private void calcularCosto(String estado) {
         txtMonto.setText("$" + tramitarPlacaBO.CalcularCosto(estado));
-        
+
+    }
+
+    public void limpiarListaDatos() {
+        modeloLista.clear();
+    }
+
+    public void llenarListDatosClientes() {
+        limpiarListaDatos();
+        VehiculoDTO vehiculoDTO = tramitarPlacaBO.getVehiculo();
+        modeloLista.addElement("Numero de seria: " + vehiculoDTO.getSerie());
+        modeloLista.addElement("Marca: " + vehiculoDTO.getMarca());
+        modeloLista.addElement("Linea: " + vehiculoDTO.getLinea());
+        modeloLista.addElement("Modelo: " + vehiculoDTO.getModelo());
+        modeloLista.addElement("Color: " + vehiculoDTO.getColor());
+        modeloLista.addElement("RFC del dueño: " + tramitarPlacaBO.getCliente().getRfc());
+
+        ListDatosCarros.setModel(modeloLista);
+        jScrollPane2.setViewportView(ListDatosCarros);
+    }
+
+    public void guardarCostoPlaca() {
+        String monto = txtMonto.getText().substring(1);
+        tramitarPlacaBO.setPlaca(new PlacaDTO(Float.valueOf(monto)));
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList<String> ListDatosCarros;

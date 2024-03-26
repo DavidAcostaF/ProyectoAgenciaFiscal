@@ -6,6 +6,7 @@ package com.mycompany.agenciafiscaldaos;
 
 import com.mycompany.agenciafiscaldominio.Automovil;
 import com.mycompany.agenciafiscaldominio.Vehiculo;
+import com.mycompany.agenciafiscalexcepciones.PersistenciaException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -26,7 +27,7 @@ public class VehiculoDAO implements IVehiculoDAO {
     }
 
     @Override
-    public Vehiculo consultar(String serie) {
+    public Vehiculo consultar(String serie) throws PersistenciaException {
         EntityManager entityManager = conexion.obtenerConexion();
         // objeto constructor de consultas
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
@@ -37,8 +38,13 @@ public class VehiculoDAO implements IVehiculoDAO {
 
         //consulta construida
         TypedQuery<Vehiculo> query = entityManager.createQuery(criteria);
-        List<Vehiculo> vehiculo = query.getResultList();
+        List<Vehiculo> vehiculos = query.getResultList();
         entityManager.close();
-        return vehiculo.getFirst();
+
+        if (!vehiculos.isEmpty()) {
+            return vehiculos.get(0);
+        } else {
+            throw new PersistenciaException("No se ha encontrado ningun vehiculo con la serie: " + serie);
+        }
     }
 }
