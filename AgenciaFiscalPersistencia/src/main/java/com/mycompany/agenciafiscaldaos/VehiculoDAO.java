@@ -47,4 +47,29 @@ public class VehiculoDAO implements IVehiculoDAO {
             throw new PersistenciaException("No se ha encontrado ningun vehiculo con la serie: " + serie);
         }
     }
+
+    @Override
+    public Vehiculo consultarPorPlaca(String placaSerie) throws PersistenciaException {
+        EntityManager entityManager = conexion.obtenerConexion();
+
+        CriteriaBuilder criteriaBuilder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Vehiculo> criteriaQuery = criteriaBuilder.createQuery(Vehiculo.class);
+        Root<Vehiculo> root = criteriaQuery.from(Vehiculo.class);
+
+        criteriaQuery.select(root)
+                .where(criteriaBuilder.equal(root.get("placa").get("serie"), placaSerie));
+        criteriaQuery.orderBy(criteriaBuilder.desc(root.get("placa").get("id")));
+
+        List<Vehiculo> vehiculos = entityManager.createQuery(criteriaQuery)
+                .setMaxResults(1)
+                .getResultList();
+        entityManager.close();
+
+        if (!vehiculos.isEmpty()) {
+            // Vehículo encontrado
+            return vehiculos.get(0);
+        } else {
+            throw new PersistenciaException("No se ha encontrado el vehiculo");
+        }
+    }
 }

@@ -5,6 +5,7 @@
 package com.mycompany.agenciafiscalpresentacion;
 
 import com.mycompany.agenciafiscaldtos.ClienteDTO;
+import com.mycompany.agenciafiscaldtos.PlacaDTO;
 import com.mycompany.agenciafiscaldtos.VehiculoDTO;
 import com.mycompany.agenciafiscalexcepciones.ExcepcionConsultarVehiculo;
 import com.mycompany.agenciafiscalnegocio.ITramitarPlacaBO;
@@ -19,7 +20,7 @@ import javax.swing.JOptionPane;
  * @author lv1821
  */
 public class FormPlacasCarroSinRegistrar extends javax.swing.JFrame {
-
+    
     private ITramitarPlacaBO tramitarPlacaBO;
 
     /**
@@ -27,7 +28,7 @@ public class FormPlacasCarroSinRegistrar extends javax.swing.JFrame {
      */
     public FormPlacasCarroSinRegistrar() {
         initComponents();
-
+        
         tramitarPlacaBO = new TramitarPlacaBO();
     }
 
@@ -259,7 +260,7 @@ public class FormPlacasCarroSinRegistrar extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-
+        
         if (validarCampos() == false) {
             return;
         }
@@ -269,12 +270,12 @@ public class FormPlacasCarroSinRegistrar extends javax.swing.JFrame {
         String modelo = txfModelo.getText();
         String color = txfColor.getText();
         String rfc = txfRfcDueño.getText();
-
+        
         if (validarCliente(rfc) == null) {
             JOptionPane.showMessageDialog(this, "No existe el cliente");
             return;
         }
-
+        
         try {
             if (validarVehiculo(serie) != null) {
                 JOptionPane.showMessageDialog(this, "El carro ya está registrado");
@@ -285,18 +286,19 @@ public class FormPlacasCarroSinRegistrar extends javax.swing.JFrame {
         } catch (ExcepcionConsultarVehiculo ex) {
             System.out.println(ex.getMessage());
         }
-
+        guardarCostoPlaca();
+        tramitarPlacaBO.setTipoTramitePlaca("Vehiculo no registrado");
         tramitarPlacaBO.setVehiculo(new VehiculoDTO(serie, marca, color, linea, modelo));
         if (tramitarPlacaBO.validacionLicenciaExistencia() == null) {
             JOptionPane.showMessageDialog(this, "El cliente asociado con la RFC no tiene licencia");
             return;
         }
-
+        
         FormPago fpa = new FormPago(tramitarPlacaBO);
         fpa.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed
-
+    
     private boolean validarCampos() {
         if (txfNumSerie.getText().isBlank() || txfMarca.getText().isBlank() || txfLinea.getText().isBlank() || txfModelo.getText().isBlank() || txfColor.getText().isBlank() || txfRfcDueño.getText().isBlank()) {
             JOptionPane.showMessageDialog(this, "Todos los campos son necesarios..");
@@ -304,20 +306,23 @@ public class FormPlacasCarroSinRegistrar extends javax.swing.JFrame {
         }
         return true;
     }
-
+    
     private ClienteDTO validarCliente(String rfc) {
         tramitarPlacaBO.setCliente(new ClienteDTO(rfc));
         ClienteDTO clienteConsultado = tramitarPlacaBO.consultarCliente();
-        System.out.println(clienteConsultado);
         return clienteConsultado;
     }
-
+    
     private VehiculoDTO validarVehiculo(String serie) throws ExcepcionConsultarVehiculo {
         tramitarPlacaBO.setVehiculo(new VehiculoDTO(serie));
         VehiculoDTO vehiculoDTO = tramitarPlacaBO.consultarVehiculo();
         return vehiculoDTO;
     }
-
+    
+    public void guardarCostoPlaca() {
+        Float monto = tramitarPlacaBO.CalcularCosto("nuevo");
+        tramitarPlacaBO.setPlaca(new PlacaDTO(monto));
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCerrar;

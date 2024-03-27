@@ -15,4 +15,8 @@ public interface IPlacaDAO {
     public Placa agregar(Placa placa);
 
     public Placa consultar(Long id);
+
+    public Placa consultar(String serie);
+
+    public Placa actualizar(Placa placa);
 }

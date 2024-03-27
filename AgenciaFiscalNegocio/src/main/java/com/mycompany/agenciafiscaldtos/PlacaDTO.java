@@ -42,6 +42,10 @@ public class PlacaDTO {
         this.vehiculo = vehiculo;
     }
 
+    public PlacaDTO(String serie) {
+        this.serie = serie;
+    }
+
     public PlacaDTO(Float costo) {
         this.costo = costo;
     }

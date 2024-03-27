@@ -4,10 +4,14 @@
  */
 package pruebas;
 
+import com.mycompany.agenciafiscaldaos.Conexion;
+import com.mycompany.agenciafiscaldaos.IConexion;
+import com.mycompany.agenciafiscaldaos.VehiculoDAO;
 import com.mycompany.agenciafiscaldominio.Automovil;
 import com.mycompany.agenciafiscaldominio.Cliente;
 import com.mycompany.agenciafiscaldominio.Licencia;
 import com.mycompany.agenciafiscaldominio.Placa;
+import com.mycompany.agenciafiscaldominio.Vehiculo;
 import java.util.Calendar;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -24,34 +28,6 @@ public class Pruebas {
      */
     public static void main(String[] args) {
 
-        Calendar fecha = Calendar.getInstance();
-
-        EntityManagerFactory emFactory = Persistence.createEntityManagerFactory("AgenciaFiscalPU");
-        EntityManager entityManager = emFactory.createEntityManager();
-
-        entityManager.getTransaction().begin();
-
-        Cliente cliente = new Cliente("ABC123456DEF", "Juan", "Pérez", "Gómez", false, fecha, "555-123-4567");
-        entityManager.persist(cliente);
-
-//        
-        entityManager.getTransaction().commit();
-        entityManager.refresh(cliente);
-        entityManager.getTransaction().begin();
-        Placa placa = new Placa("aaa-123", fecha, 2000F, true);
-        entityManager.persist(placa);
-        placa.setCliente(cliente);
-        entityManager.getTransaction().commit();
-        entityManager.refresh(placa);
-        entityManager.getTransaction().begin();
-        Automovil automovil = new Automovil("ABC-123", "Honda", " Civic", " Negro", "2003");
-        automovil.setColor("negro");
-        automovil.setPlaca(placa);
-        entityManager.persist(automovil);
-
-        entityManager.getTransaction().commit();
-        entityManager.refresh(automovil);
-        //System.out.println(automovil);
     }
 
 }

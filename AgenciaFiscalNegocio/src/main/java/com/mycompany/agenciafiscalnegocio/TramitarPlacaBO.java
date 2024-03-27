@@ -57,6 +57,8 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
     private Placa placa;
     private Cliente cliente;
     private Vehiculo vehiculo;
+    private Float costoTramite;
+    private String tipoTramitePlaca;
 
     public TramitarPlacaBO() {
         this.conexion = new Conexion();
@@ -79,15 +81,24 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
     }
 
     @Override
-    public PlacaDTO solicitarPlacaVehiculoNuevo() {
+    public PlacaDTO solicitarPlacaVehiculo() {
         Calendar fecha = Calendar.getInstance();
         Placa placa = new Placa(generarSeriePlaca(), fecha, placaDTO.getCosto(), true);
         placa.setCliente(cliente);
 
         Placa placaNueva = placaDAO.agregar(placa);
         Vehiculo vehiculo = this.agregarVehiculo(placaNueva);
-
+        if (this.placa != null) {
+            actualizarPlaca(this.placa);
+        }
         return convertirAPlacaDTO(placaNueva);
+    }
+
+    private void actualizarPlaca(Placa placa) {
+        Calendar fechaActual = Calendar.getInstance();
+        placa.setFecha_recepcion(fechaActual);
+        placa.setEstado(false);
+        placaDAO.actualizar(placa);
     }
 
     private String generarSeriePlaca() {
@@ -140,9 +151,9 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
     }
 
     @Override
-    public VehiculoDTO consultarVehiculo() throws ExcepcionConsultarVehiculo {
+    public VehiculoDTO consultarVehiculoPorPlaca() throws ExcepcionConsultarVehiculo {
         try {
-            this.vehiculo = vehiculoDAO.consultar(vehiculoDTO.getSerie());
+            this.vehiculo = vehiculoDAO.consultarPorPlaca(placaDTO.getSerie());
 
         } catch (PersistenciaException pe) {
             throw new ExcepcionConsultarVehiculo("No se ha encontrado el vehiculo");
@@ -150,7 +161,7 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
         if (vehiculo == null) {
             return null;
         }
-        VehiculoDTO vehiculoDTO = new VehiculoDTO(vehiculo.getSerie(), vehiculo.getMarca(), vehiculo.getColor(), vehiculo.getLinea(), vehiculo.getModelo());
+        vehiculoDTO = new VehiculoDTO(vehiculo.getSerie(), vehiculo.getMarca(), vehiculo.getColor(), vehiculo.getLinea(), vehiculo.getModelo());
         return vehiculoDTO;
     }
 
@@ -188,7 +199,8 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
                 put("usado", 1000.0F);
             }
         };
-        return costosNormal.get(estado);
+        costoTramite = costosNormal.get(estado);
+        return costoTramite;
     }
 
     @Override
@@ -200,4 +212,50 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
     public ClienteDTO getCliente() {
         return clienteDTO;
     }
+
+    @Override
+    public PlacaDTO consultarPlaca() {
+        this.placa = placaDAO.consultar(placaDTO.getSerie());
+        if (placa == null) {
+            return null;
+        }
+
+        return convertirAPlacaDTO(placa);
+    }
+
+    @Override
+    public PlacaDTO getPlaca() {
+        return this.placaDTO;
+    }
+
+    @Override
+    public Float getCostoTramite() {
+        return costoTramite;
+    }
+
+    @Override
+    public VehiculoDTO consultarVehiculo() throws ExcepcionConsultarVehiculo {
+        try {
+            this.vehiculo = vehiculoDAO.consultar(vehiculoDTO.getSerie());
+
+        } catch (PersistenciaException pe) {
+            throw new ExcepcionConsultarVehiculo("No se ha encontrado el vehiculo");
+        }
+        if (vehiculo == null) {
+            return null;
+        }
+        vehiculoDTO = new VehiculoDTO(vehiculo.getSerie(), vehiculo.getMarca(), vehiculo.getColor(), vehiculo.getLinea(), vehiculo.getModelo());
+        return vehiculoDTO;
+    }
+
+    @Override
+    public void setTipoTramitePlaca(String tipoTramite) {
+        this.tipoTramitePlaca = tipoTramite;
+    }
+
+    @Override
+    public String getTipoTramitePlaca() {
+        return tipoTramitePlaca;
+    }
+
 }

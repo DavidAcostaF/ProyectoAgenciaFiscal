@@ -29,11 +29,11 @@ public class FormPago extends javax.swing.JFrame {
 
         initComponents();
         modeloLista = new DefaultListModel<>();
-
         this.tramitarPlacaBO = tramitarPlacaBO;
-        calcularCosto("nuevo");
         llenarListDatosClientes();
-        guardarCostoPlaca();
+        calcularCosto();
+        txtTramite.setText(tramitarPlacaBO.getTipoTramitePlaca());
+
     }
 
     /**
@@ -242,10 +242,10 @@ public class FormPago extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        tramitarPlacaBO.solicitarPlacaVehiculoNuevo();
+
+        tramitarPlacaBO.solicitarPlacaVehiculo();
         if (JOptionPane.showConfirmDialog(null, "Pago Completado \n¿Quieres registrar otra placa?", "Pago Completado!", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 
-            guardarCostoPlaca();
             FormPlacas fp = new FormPlacas();
             fp.setVisible(true);
             this.dispose();
@@ -255,8 +255,8 @@ public class FormPago extends javax.swing.JFrame {
             this.dispose();
         }
     }//GEN-LAST:event_btnAceptarActionPerformed
-    private void calcularCosto(String estado) {
-        txtMonto.setText("$" + tramitarPlacaBO.CalcularCosto(estado));
+    private void calcularCosto() {
+        txtMonto.setText("$" + tramitarPlacaBO.getCostoTramite());
 
     }
 
@@ -278,10 +278,7 @@ public class FormPago extends javax.swing.JFrame {
         jScrollPane2.setViewportView(ListDatosCarros);
     }
 
-    public void guardarCostoPlaca() {
-        String monto = txtMonto.getText().substring(1);
-        tramitarPlacaBO.setPlaca(new PlacaDTO(Float.valueOf(monto)));
-    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JList<String> ListDatosCarros;
     private javax.swing.JButton btnAceptar;

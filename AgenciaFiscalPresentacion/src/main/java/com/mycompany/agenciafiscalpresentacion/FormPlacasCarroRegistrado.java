@@ -4,8 +4,15 @@
  */
 package com.mycompany.agenciafiscalpresentacion;
 
+import com.mycompany.agenciafiscaldtos.ClienteDTO;
+import com.mycompany.agenciafiscaldtos.PlacaDTO;
+import com.mycompany.agenciafiscaldtos.VehiculoDTO;
+import com.mycompany.agenciafiscalexcepciones.ExcepcionConsultarVehiculo;
 import com.mycompany.agenciafiscalnegocio.ITramitarPlacaBO;
 import com.mycompany.agenciafiscalnegocio.TramitarPlacaBO;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -104,6 +111,11 @@ public class FormPlacasCarroRegistrado extends javax.swing.JFrame {
         panEntrar.setBackground(new java.awt.Color(236, 236, 236));
 
         txfNumPlacasAnteriores.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        txfNumPlacasAnteriores.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txfNumPlacasAnterioresActionPerformed(evt);
+            }
+        });
 
         txtNumPlacasAnteriores.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
         txtNumPlacasAnteriores.setText("Numero de placas anteriores:");
@@ -111,7 +123,7 @@ public class FormPlacasCarroRegistrado extends javax.swing.JFrame {
         txfRfcNuevoDueño.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
 
         txtRfcNuevoDueño.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
-        txtRfcNuevoDueño.setText("Rfc del Nuevo dueño:");
+        txtRfcNuevoDueño.setText("Rfc del dueño:");
 
         btnAceptar.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
         btnAceptar.setText("Aceptar");
@@ -200,11 +212,72 @@ public class FormPlacasCarroRegistrado extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+        String rfc = txfRfcNuevoDueño.getText();
+        String placaSerie = txfNumPlacasAnteriores.getText();
+
+        if (!validarCampos()) {
+            return;
+
+        }
+        if (validarCliente(rfc) == null) {
+            JOptionPane.showMessageDialog(this, "No existe el cliente");
+            return;
+        }
+        try {
+            if (validarPlaca(placaSerie) == null) {
+                JOptionPane.showMessageDialog(this, "No existe la placa");
+                return;
+
+            }
+        } catch (ExcepcionConsultarVehiculo ex) {
+            JOptionPane.showMessageDialog(this, "No se ha podido consultar la placa");
+        }
+        try {
+            validarVehiculo();
+        } catch (ExcepcionConsultarVehiculo ex) {
+            JOptionPane.showMessageDialog(this, ex.getMessage());
+        }
+        tramitarPlacaBO.setTipoTramitePlaca("Vehiculo registrado");
+
+        guardarCostoPlaca();
         FormPago fpa = new FormPago(tramitarPlacaBO);
         fpa.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed
 
+    private void txfNumPlacasAnterioresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txfNumPlacasAnterioresActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txfNumPlacasAnterioresActionPerformed
+
+    private boolean validarCampos() {
+        if (txfNumPlacasAnteriores.getText().isBlank() || txfRfcNuevoDueño.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Todos los campos son necesarios..");
+            return false;
+        }
+        return true;
+    }
+
+    private ClienteDTO validarCliente(String rfc) {
+        tramitarPlacaBO.setCliente(new ClienteDTO(rfc));
+        ClienteDTO clienteConsultado = tramitarPlacaBO.consultarCliente();
+        return clienteConsultado;
+    }
+
+    private VehiculoDTO validarVehiculo() throws ExcepcionConsultarVehiculo {
+        VehiculoDTO vehiculoDTO = tramitarPlacaBO.consultarVehiculoPorPlaca();
+        return vehiculoDTO;
+    }
+
+    private PlacaDTO validarPlaca(String serie) throws ExcepcionConsultarVehiculo {
+        tramitarPlacaBO.setPlaca(new PlacaDTO(serie));
+        PlacaDTO placaDTO = tramitarPlacaBO.consultarPlaca();
+        return placaDTO;
+    }
+
+    public void guardarCostoPlaca() {
+        Float monto = tramitarPlacaBO.CalcularCosto("usado");
+        tramitarPlacaBO.setPlaca(new PlacaDTO(monto));
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCerrar;

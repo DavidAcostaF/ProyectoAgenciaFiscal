@@ -21,4 +21,6 @@ import javax.persistence.criteria.Root;
 public interface IVehiculoDAO {
 
     public Vehiculo consultar(String serie) throws PersistenciaException;
+
+    public Vehiculo consultarPorPlaca(String placaSerie) throws PersistenciaException;
 }

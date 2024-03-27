@@ -21,6 +21,8 @@ public interface ITramitarPlacaBO {
 
     public ClienteDTO consultarCliente();
 
+    public VehiculoDTO consultarVehiculoPorPlaca() throws ExcepcionConsultarVehiculo;
+
     public VehiculoDTO consultarVehiculo() throws ExcepcionConsultarVehiculo;
 
     public void setCliente(ClienteDTO cliente);
@@ -29,7 +31,7 @@ public interface ITramitarPlacaBO {
 
     public void setPlaca(PlacaDTO placa);
 
-    public PlacaDTO solicitarPlacaVehiculoNuevo();
+    public PlacaDTO solicitarPlacaVehiculo();
 
     public LicenciaDTO validacionLicenciaExistencia();
 
@@ -40,4 +42,15 @@ public interface ITramitarPlacaBO {
     public VehiculoDTO getVehiculo();
 
     public ClienteDTO getCliente();
+
+    public PlacaDTO consultarPlaca();
+
+    public PlacaDTO getPlaca();
+
+    public Float getCostoTramite();
+
+    public void setTipoTramitePlaca(String tipoTramite);
+
+    public String getTipoTramitePlaca();
+
 }
