@@ -212,8 +212,8 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnConsultasActionPerformed
 
     private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
-        FormReporteTramites frp = new FormReporteTramites();
-        frp.setVisible(true);
+        FormFiltroReporte ffr = new FormFiltroReporte();
+        ffr.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnReportesActionPerformed
 

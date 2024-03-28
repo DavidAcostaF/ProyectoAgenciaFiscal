@@ -21,7 +21,16 @@
             <groupId>${project.groupId}</groupId>
             <artifactId>AgenciaFiscalPersistencia</artifactId>
             <version>${project.version}</version>
+            
         </dependency>
+        
+        <!-- https://mvnrepository.com/artifact/com.github.lgooddatepicker/LGoodDatePicker -->
+        <dependency>
+            <groupId>com.github.lgooddatepicker</groupId>
+            <artifactId>LGoodDatePicker</artifactId>
+            <version>11.2.1</version>
+        </dependency>
+
     </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
