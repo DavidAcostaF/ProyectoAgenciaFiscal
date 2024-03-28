@@ -5,6 +5,7 @@
 package com.mycompany.agenciafiscaldaos;
 
 import com.mycompany.agenciafiscaldominio.Licencia;
+import com.mycompany.agenciafiscaldominio.Placa;
 import com.mycompany.agenciafiscaldominio.Tramite;
 import java.util.Calendar;
 import java.util.List;
@@ -115,4 +116,88 @@ public class TramiteDAO implements ITramiteDAO {
         return query.getResultList();
     }
 
+//    public List<Tramite> consultarTramitesConFiltro(String tipo, String nombre, Calendar desde, Calendar hasta) {
+//        EntityManager entityManager = conexion.obtenerConexion();
+//        String jpql = "SELECT t FROM Tramite t JOIN t.cliente c  ";
+//
+//        if (!tipo.isBlank() || !nombre.isBlank() || desde == null && hasta == null) {
+//            jpql = jpql.concat("WHERE");
+//        }
+//        if (!nombre.equalsIgnoreCase("")) {
+//            jpql = jpql.concat(" AND (c.nombre = :nombre) ");
+//        }
+//
+//        if (!tipo.isBlank()) {
+//            jpql = jpql.concat(" AND (TYPE(t) = :tipoTramite)");
+//        }
+//
+//        if (desde == null && hasta == null) {
+//            jpql = jpql.concat("(t.fecha_expedicion BETWEEN :fechaInicio AND :fechaFin)  ");
+//        }
+//
+//        TypedQuery<Tramite> query = entityManager.createQuery(jpql, Tramite.class);
+//        query.setParameter("fechaInicio", desde);
+//        query.setParameter("fechaFin", hasta);
+//        query.setParameter("nombre", nombre);
+//
+//        if (tipo.equalsIgnoreCase("Licencia")) {
+//            query.setParameter("tipoTramite", Licencia.class);
+//        } else if (tipo.equalsIgnoreCase("Placa")) {
+//            query.setParameter("tipoTramite", Placa.class);
+//        }
+//
+//        return query.getResultList();
+//    }
+    public List<Tramite> consultarTramitesConFiltro(String tipo, String nombre, Calendar desde, Calendar hasta) {
+        EntityManager entityManager = conexion.obtenerConexion();
+        StringBuilder jpqlBuilder = new StringBuilder("SELECT t FROM Tramite t JOIN t.cliente c WHERE 1 = 1");
+
+        if (!nombre.isBlank()) {
+            jpqlBuilder.append(" AND c.nombre = :nombre");
+        }
+
+        if (!tipo.isBlank()) {
+            jpqlBuilder.append(" AND TYPE(t) = :tipoTramite");
+        }
+
+        if (desde != null && hasta != null) {
+            jpqlBuilder.append(" AND t.fecha_expedicion BETWEEN :fechaInicio AND :fechaFin");
+        }
+
+        TypedQuery<Tramite> query = entityManager.createQuery(jpqlBuilder.toString(), Tramite.class);
+
+        if (!nombre.isBlank()) {
+            query.setParameter("nombre", nombre);
+        }
+
+        if (!tipo.isBlank()) {
+            if (tipo.equalsIgnoreCase("Licencia")) {
+                query.setParameter("tipoTramite", Licencia.class);
+
+            } else if (tipo.equalsIgnoreCase("Placa")) {
+                query.setParameter("tipoTramite", Placa.class);
+            }
+        }
+
+        if (desde != null && hasta != null) {
+            query.setParameter("fechaInicio", desde);
+            query.setParameter("fechaFin", hasta);
+        }
+
+        return query.getResultList();
+    }
+
+    private void agregarCondicion(StringBuilder jpqlBuilder, String condicion, boolean condicionesAgregadas) {
+        if (condicionesAgregadas) {
+            jpqlBuilder.append(" AND ").append(condicion);
+        } else {
+            jpqlBuilder.append(" ").append(condicion);
+        }
+    }
+//            if (tipo.equalsIgnoreCase("Licencia")) {
+//                query.setParameter("tipoTramite", Licencia.class);
+//
+//            } else if (tipo.equalsIgnoreCase("Placa")) {
+//                query.setParameter("tipoTramite", Placa.class);
+//            }
 }

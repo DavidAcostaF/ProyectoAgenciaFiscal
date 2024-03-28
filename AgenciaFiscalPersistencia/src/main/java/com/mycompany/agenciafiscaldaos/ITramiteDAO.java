@@ -28,4 +28,6 @@ public interface ITramiteDAO {
 
     public List<Tramite> consultarTramitesConCliente();
 
+    public List<Tramite> consultarTramitesConFiltro(String tipo, String nombre, Calendar desde, Calendar hasta);
+
 }

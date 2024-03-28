@@ -43,20 +43,10 @@ public class ReporteTramitesBO implements IReporteTramitesBO {
 //    public List<ReporteRealizadoDTO> consultarSinFiltros(){
 //        List<Tramite> tramites = tramiteDAO.consultarTramitesConCliente();
 //        List<ReporteTramitesDTO>reporteTramitesDTO = new ArrayList<>();
-//        for (Tramite tramite: tramites) {
-//            String tipo = tramite.getClass().getName();
-//            if(tipo.equalsIgnoreCase("placa")){
 //                
-//            ReporteRealizadoDTO reporte = new ReporteRealizadoDTO();
-//            }else if(tipo.equalsIgnoreCase("licencua")){
-//            
-//            }else{
-//            
-//            }
+//
 //            
 //            reporteTramitesDTO.add()
-//        }
-//        
 //        
 //    }
 }
