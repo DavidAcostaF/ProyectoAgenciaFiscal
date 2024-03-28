@@ -40,9 +40,6 @@ public class Placa extends Tramite implements Serializable {
     @Column(name = "fecha_recepcion")
     private Calendar fecha_recepcion;
 
-    @Column(name = "costo", nullable = false)
-    private Float costo;
-
     @Column(name = "estado", nullable = false)
     private Boolean estado;
 
@@ -52,16 +49,14 @@ public class Placa extends Tramite implements Serializable {
     public Placa(String serie, Calendar fecha_emision, Float costo, Boolean estado) {
         this.serie = serie;
         this.fecha_emision = fecha_emision;
-        this.costo = costo;
         this.estado = estado;
         this.vehiculo = vehiculo;
     }
 
-    public Placa(String serie, Calendar fecha_emision, Calendar fecha_recepcion, Float costo, Boolean estado) {
+    public Placa(String serie, Calendar fecha_recepcion, Boolean estado) {
         this.serie = serie;
         this.fecha_emision = fecha_emision;
         this.fecha_recepcion = fecha_recepcion;
-        this.costo = costo;
         this.estado = estado;
     }
 
@@ -92,14 +87,6 @@ public class Placa extends Tramite implements Serializable {
         this.fecha_recepcion = fecha_recepcion;
     }
 
-    public Float getCosto() {
-        return costo;
-    }
-
-    public void setCosto(Float costo) {
-        this.costo = costo;
-    }
-
     public Boolean getEstado() {
         return estado;
     }
@@ -107,5 +94,5 @@ public class Placa extends Tramite implements Serializable {
     public void setEstado(Boolean estado) {
         this.estado = estado;
     }
-
+    
 }
