@@ -27,39 +27,41 @@ import java.util.Map;
  * @author af_da
  */
 public class TramitarLicenciaBO implements ITramitarLicenciaBO {
-
+    
     private IClienteDAO clienteDAO;
     private ILicenciaDAO licenciaDAO;
     private ITramiteDAO tramiteDAO;
     private IConexion conexion;
-
+    
     private ClienteDTO clienteDTO;
     private LicenciaNuevaDTO licenciaNueva;
     private Cliente cliente;
-
+    
     public TramitarLicenciaBO() {
         conexion = new Conexion();
         this.clienteDAO = new ClienteDAO(conexion);
         this.licenciaDAO = new LicenciaDAO(conexion);
         this.tramiteDAO = new TramiteDAO(conexion);
     }
-
+    
     @Override
     public LicenciaDTO solicitarLicencia(int años) {
-
+        
         Calendar fechaActual = Calendar.getInstance();
         String vigencia = this.licenciaNueva.getVigencia();
         Float costo = this.licenciaNueva.getCosto();
         Calendar fecha_vencimiento = Calendar.getInstance();
         fecha_vencimiento.add(Calendar.YEAR, años);
-        Licencia licenciaNueva = new Licencia(fecha_vencimiento, fechaActual, vigencia, costo);
+        Licencia licenciaNueva = new Licencia(fecha_vencimiento, vigencia, true);
+        licenciaNueva.setFecha_expedicion(fechaActual);
         licenciaNueva.setCliente(this.cliente);
+        licenciaNueva.setCosto(costo);
         Licencia licenciaCreada = this.licenciaDAO.agregar(licenciaNueva);
-
+        
         return convertirALicenciaDTO(licenciaCreada);
-
+        
     }
-
+    
     @Override
     public LicenciaDTO validacionLicenciaExistencia() {
         Tramite tramite = new Tramite();
@@ -75,7 +77,7 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
 //        return fecha_vencimiento.before(fechaActual);
         return convertirALicenciaDTO(licencia);
     }
-
+    
     private LicenciaDTO convertirALicenciaDTO(Licencia licencia) {
         LicenciaDTO licenciaDTO = new LicenciaDTO();
         licenciaDTO.setCosto(licencia.getCosto());
@@ -84,15 +86,15 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
         licenciaDTO.setVigencia(licencia.getVigencia());
         return licenciaDTO;
     }
-
+    
     @Override
     public void setCliente(ClienteDTO cliente) {
         this.clienteDTO = cliente;
     }
-
+    
     @Override
     public ClienteDTO consultarCliente() {
-
+        
         this.cliente = clienteDAO.consultar(clienteDTO.getRfc());
         if (cliente == null) {
             return null;
@@ -100,12 +102,12 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
         ClienteDTO clienteDTO = new ClienteDTO(cliente.getRfc(), cliente.getNombre(), cliente.getApellido_paterno(), cliente.getApellido_materno(), cliente.getDiscapacitado(), cliente.getFecha_nacimiento(), cliente.getTelefono());
         return clienteDTO;
     }
-
+    
     @Override
     public void setLicencia(LicenciaNuevaDTO licenciaNueva) {
         this.licenciaNueva = licenciaNueva;
     }
-
+    
     @Override
     public Float calcularCosto(String año) {
         Map<String, Float> costosNormal = new HashMap<String, Float>() {
@@ -115,7 +117,7 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
                 put("3 Años", 1100.0F);
             }
         };
-
+        
         Map<String, Float> costosDiscapacitado = new HashMap<String, Float>() {
             {
                 put("1 Año", 200.0F);
@@ -123,13 +125,13 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
                 put("3 Años", 700.0F);
             }
         };
-
+        
         if (cliente.getDiscapacitado()) {
             return costosDiscapacitado.get(año);
         } else {
             return costosNormal.get(año);
         }
-
+        
     }
-
+    
 }

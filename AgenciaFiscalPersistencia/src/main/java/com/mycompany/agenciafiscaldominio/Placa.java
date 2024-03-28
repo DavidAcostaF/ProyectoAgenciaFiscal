@@ -33,10 +33,6 @@ public class Placa extends Tramite implements Serializable {
     private String serie;
 
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "fecha_emision", nullable = false)
-    private Calendar fecha_emision;
-
-    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "fecha_recepcion")
     private Calendar fecha_recepcion;
 
@@ -48,14 +44,12 @@ public class Placa extends Tramite implements Serializable {
 
     public Placa(String serie, Calendar fecha_emision, Float costo, Boolean estado) {
         this.serie = serie;
-        this.fecha_emision = fecha_emision;
         this.estado = estado;
         this.vehiculo = vehiculo;
     }
 
     public Placa(String serie, Calendar fecha_recepcion, Boolean estado) {
         this.serie = serie;
-        this.fecha_emision = fecha_emision;
         this.fecha_recepcion = fecha_recepcion;
         this.estado = estado;
     }
@@ -71,13 +65,6 @@ public class Placa extends Tramite implements Serializable {
         this.serie = serie;
     }
 
-    public Calendar getFecha_emision() {
-        return fecha_emision;
-    }
-
-    public void setFecha_emision(Calendar fecha_emision) {
-        this.fecha_emision = fecha_emision;
-    }
 
     public Calendar getFecha_recepcion() {
         return fecha_recepcion;

@@ -6,15 +6,9 @@ package com.mycompany.agenciafiscaldominio;
 
 import java.io.Serializable;
 import java.util.Calendar;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -35,13 +29,14 @@ public class Licencia extends Tramite implements Serializable {
 
     @Column(name = "estado", nullable = false)
     private Boolean estado;
-    
+
     @Column(name = "vigencia", nullable = false, length = 20)
     private String vigencia;
 
-    public Licencia(Calendar fecha_vencimiento, String vigencia, Float Costo) {
+    public Licencia(Calendar fecha_vencimiento, String vigencia, Boolean estado) {
         this.fecha_vencimiento = fecha_vencimiento;
         this.vigencia = vigencia;
+        this.estado = estado;
     }
 
     public Licencia() {

@@ -130,7 +130,7 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
     }
 
     private PlacaDTO convertirAPlacaDTO(Placa placa) {
-        PlacaDTO placaDTO = new PlacaDTO(placa.getSerie(), placa.getFecha_emision(), placa.getCosto(), placa.getEstado(), vehiculo);
+        PlacaDTO placaDTO = new PlacaDTO(placa.getSerie(), placa.getFecha_expedicion(), placa.getCosto(), placa.getEstado(), vehiculo);
         return placaDTO;
     }
 
