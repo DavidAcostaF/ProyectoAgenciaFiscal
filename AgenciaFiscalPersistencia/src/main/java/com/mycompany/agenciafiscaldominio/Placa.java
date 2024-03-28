@@ -42,15 +42,8 @@ public class Placa extends Tramite implements Serializable {
     @OneToOne(mappedBy = "placa")
     private Vehiculo vehiculo;
 
-    public Placa(String serie, Calendar fecha_emision, Float costo, Boolean estado) {
+    public Placa(String serie, Boolean estado) {
         this.serie = serie;
-        this.estado = estado;
-        this.vehiculo = vehiculo;
-    }
-
-    public Placa(String serie, Calendar fecha_recepcion, Boolean estado) {
-        this.serie = serie;
-        this.fecha_recepcion = fecha_recepcion;
         this.estado = estado;
     }
 
@@ -64,7 +57,6 @@ public class Placa extends Tramite implements Serializable {
     public void setSerie(String serie) {
         this.serie = serie;
     }
-
 
     public Calendar getFecha_recepcion() {
         return fecha_recepcion;
@@ -81,5 +73,5 @@ public class Placa extends Tramite implements Serializable {
     public void setEstado(Boolean estado) {
         this.estado = estado;
     }
-    
+
 }

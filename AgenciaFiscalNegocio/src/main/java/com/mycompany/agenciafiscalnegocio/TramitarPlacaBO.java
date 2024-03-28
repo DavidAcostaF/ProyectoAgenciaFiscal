@@ -40,26 +40,26 @@ import java.util.Random;
  * @author af_da
  */
 public class TramitarPlacaBO implements ITramitarPlacaBO {
-
+    
     private IConexion conexion;
-
+    
     private IClienteDAO clienteDAO;
     private IVehiculoDAO vehiculoDAO;
     private IPlacaDAO placaDAO;
     private IAutomovilDAO automovilDAO;
     private ITramiteDAO tramiteDAO;
     private ILicenciaDAO licenciaDAO;
-
+    
     private VehiculoDTO vehiculoDTO;
     private PlacaDTO placaDTO;
     private ClienteDTO clienteDTO;
-
+    
     private Placa placa;
     private Cliente cliente;
     private Vehiculo vehiculo;
     private Float costoTramite;
     private String tipoTramitePlaca;
-
+    
     public TramitarPlacaBO() {
         this.conexion = new Conexion();
         this.clienteDAO = new ClienteDAO(conexion);
@@ -69,23 +69,24 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
         this.tramiteDAO = new TramiteDAO(conexion);
         this.licenciaDAO = new LicenciaDAO(conexion);
     }
-
+    
     @Override
     public void setPlaca(PlacaDTO placa) {
         this.placaDTO = placa;
     }
-
+    
     @Override
     public void setVehiculo(VehiculoDTO vehiculo) {
         this.vehiculoDTO = vehiculo;
     }
-
+    
     @Override
     public PlacaDTO solicitarPlacaVehiculo() {
         Calendar fecha = Calendar.getInstance();
-        Placa placa = new Placa(generarSeriePlaca(), fecha, placaDTO.getCosto(), true);
+        Placa placa = new Placa(generarSeriePlaca(), true);
         placa.setCliente(cliente);
-
+        placa.setCosto(placaDTO.getCosto());
+        placa.setFecha_expedicion(fecha);
         Placa placaNueva = placaDAO.agregar(placa);
         Vehiculo vehiculo = this.agregarVehiculo(placaNueva);
         if (this.placa != null) {
@@ -93,14 +94,14 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
         }
         return convertirAPlacaDTO(placaNueva);
     }
-
+    
     private void actualizarPlaca(Placa placa) {
         Calendar fechaActual = Calendar.getInstance();
         placa.setFecha_recepcion(fechaActual);
         placa.setEstado(false);
         placaDAO.actualizar(placa);
     }
-
+    
     private String generarSeriePlaca() {
         // Generador de letras aleatorias
         String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -124,24 +125,24 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
             char numero = numeros.charAt(random.nextInt(numeros.length()));
             sb.append(numero);
         }
-
+        
         return sb.toString();
-
+        
     }
-
+    
     private PlacaDTO convertirAPlacaDTO(Placa placa) {
         PlacaDTO placaDTO = new PlacaDTO(placa.getSerie(), placa.getFecha_expedicion(), placa.getCosto(), placa.getEstado(), vehiculo);
         return placaDTO;
     }
-
+    
     @Override
     public void setCliente(ClienteDTO cliente) {
         this.clienteDTO = cliente;
     }
-
+    
     @Override
     public ClienteDTO consultarCliente() {
-
+        
         this.cliente = clienteDAO.consultar(clienteDTO.getRfc());
         if (cliente == null) {
             return null;
@@ -149,12 +150,12 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
         ClienteDTO clienteDTO = new ClienteDTO(cliente.getRfc(), cliente.getNombre(), cliente.getApellido_paterno(), cliente.getApellido_materno(), cliente.getDiscapacitado(), cliente.getFecha_nacimiento(), cliente.getTelefono());
         return clienteDTO;
     }
-
+    
     @Override
     public VehiculoDTO consultarVehiculoPorPlaca() throws ExcepcionConsultarVehiculo {
         try {
             this.vehiculo = vehiculoDAO.consultarPorPlaca(placaDTO.getSerie());
-
+            
         } catch (PersistenciaException pe) {
             throw new ExcepcionConsultarVehiculo("No se ha encontrado el vehiculo");
         }
@@ -164,7 +165,7 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
         vehiculoDTO = new VehiculoDTO(vehiculo.getSerie(), vehiculo.getMarca(), vehiculo.getColor(), vehiculo.getLinea(), vehiculo.getModelo());
         return vehiculoDTO;
     }
-
+    
     @Override
     public LicenciaDTO validacionLicenciaExistencia() {
         Tramite tramiteCliente = new Tramite();
@@ -174,7 +175,7 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
             return null;
         }
         Licencia licenciaConsultatada = licenciaDAO.consultar(tramiteConsultado.getId());
-
+        
         LicenciaDTO licenciaDTO = new LicenciaDTO();
         licenciaDTO.setCosto(licenciaConsultatada.getCosto());
         licenciaDTO.setFecha_expedicion(licenciaConsultatada.getFecha_expedicion());
@@ -182,7 +183,7 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
         licenciaDTO.setVigencia(licenciaConsultatada.getVigencia());
         return licenciaDTO;
     }
-
+    
     @Override
     public Vehiculo agregarVehiculo(Placa placa) {
         Automovil automovil = new Automovil(vehiculoDTO.getSerie(), vehiculoDTO.getMarca(), vehiculoDTO.getColor(), vehiculoDTO.getLinea(), vehiculoDTO.getModelo());
@@ -190,7 +191,7 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
         Automovil automovilAgregado = automovilDAO.agregar(automovil);
         return automovilAgregado;
     }
-
+    
     @Override
     public Float CalcularCosto(String estado) {
         Map<String, Float> costosNormal = new HashMap<String, Float>() {
@@ -202,42 +203,42 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
         costoTramite = costosNormal.get(estado);
         return costoTramite;
     }
-
+    
     @Override
     public VehiculoDTO getVehiculo() {
         return vehiculoDTO;
     }
-
+    
     @Override
     public ClienteDTO getCliente() {
         return clienteDTO;
     }
-
+    
     @Override
     public PlacaDTO consultarPlaca() {
         this.placa = placaDAO.consultar(placaDTO.getSerie());
         if (placa == null) {
             return null;
         }
-
+        
         return convertirAPlacaDTO(placa);
     }
-
+    
     @Override
     public PlacaDTO getPlaca() {
         return this.placaDTO;
     }
-
+    
     @Override
     public Float getCostoTramite() {
         return costoTramite;
     }
-
+    
     @Override
     public VehiculoDTO consultarVehiculo() throws ExcepcionConsultarVehiculo {
         try {
             this.vehiculo = vehiculoDAO.consultar(vehiculoDTO.getSerie());
-
+            
         } catch (PersistenciaException pe) {
             throw new ExcepcionConsultarVehiculo("No se ha encontrado el vehiculo");
         }
@@ -247,15 +248,15 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
         vehiculoDTO = new VehiculoDTO(vehiculo.getSerie(), vehiculo.getMarca(), vehiculo.getColor(), vehiculo.getLinea(), vehiculo.getModelo());
         return vehiculoDTO;
     }
-
+    
     @Override
     public void setTipoTramitePlaca(String tipoTramite) {
         this.tipoTramitePlaca = tipoTramite;
     }
-
+    
     @Override
     public String getTipoTramitePlaca() {
         return tipoTramitePlaca;
     }
-
+    
 }
