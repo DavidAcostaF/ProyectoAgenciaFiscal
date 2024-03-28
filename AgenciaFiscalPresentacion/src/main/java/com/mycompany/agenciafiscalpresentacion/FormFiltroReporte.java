@@ -52,11 +52,11 @@ public class FormFiltroReporte extends javax.swing.JFrame {
 
         imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/multimedia/AgenciaFiscal.png"))); // NOI18N
 
-        txtTitulo.setFont(new java.awt.Font("Comic Sans MS", 0, 36)); // NOI18N
         txtTitulo.setText("Consultas");
+        txtTitulo.setFont(new java.awt.Font("Comic Sans MS", 0, 36)); // NOI18N
 
-        btnCerrar.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnCerrar.setText("Atras");
+        btnCerrar.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnCerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCerrarActionPerformed(evt);
@@ -98,14 +98,14 @@ public class FormFiltroReporte extends javax.swing.JFrame {
 
         txfNombre.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
 
-        txtNombre.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
         txtNombre.setText("Nombre:");
+        txtNombre.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
 
-        txtFechaNacimiento.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
         txtFechaNacimiento.setText("Desde");
+        txtFechaNacimiento.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
 
-        txtRfc.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
         txtRfc.setText("Tipo tramite");
+        txtRfc.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
 
         btnAceptar.setText("Aceptar");
         btnAceptar.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
@@ -115,10 +115,10 @@ public class FormFiltroReporte extends javax.swing.JFrame {
             }
         });
 
-        txtFechaNacimiento1.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
         txtFechaNacimiento1.setText("Hasta");
+        txtFechaNacimiento1.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
 
-        datePicker2.setFocusable(false);
+        datePicker2.setName(""); // NOI18N
         datePicker2.setToolTipText("");
 
         javax.swing.GroupLayout panEntrarLayout = new javax.swing.GroupLayout(panEntrar);
