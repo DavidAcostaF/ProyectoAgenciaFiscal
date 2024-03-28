@@ -12,6 +12,7 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 /**
@@ -27,7 +28,7 @@ public class TramiteDAO implements ITramiteDAO {
     }
 
     @Override
-    public Tramite consultarLicenciasCliente(Tramite tramite) {
+    public Tramite consultarLicenciaCliente(Tramite tramite) {
         EntityManager entityManager = conexion.obtenerConexion();
         // objeto constructor de consultas
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
@@ -48,7 +49,12 @@ public class TramiteDAO implements ITramiteDAO {
 
     }
 
-    public List<Tramite> consultarClientes() {
+    @Override
+    public Tramite consultarPlacasCliente(Tramite tramite) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public List<Tramite> consultarTramiteClientes() {
         EntityManager entityManager = conexion.obtenerConexion();
 
         String jpql = "SELECT t.cliente FROM Tramite t";
@@ -63,7 +69,26 @@ public class TramiteDAO implements ITramiteDAO {
         Query query = entityManager.createQuery(jpql);
         return query.getResultList();
     }
-    
-    
-    
+
+    @Override
+    public List<Tramite> consultarTramitesClienteNombre(String nombre) {
+        EntityManager entityManager = conexion.obtenerConexion();
+        // objeto constructor de consultas
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        //Objeto consulta que se esta construyendo
+        CriteriaQuery<Tramite> criteria = builder.createQuery(Tramite.class);
+        Root<Tramite> root = criteria.from(Tramite.class);
+
+        // Crear un predicado para la comparación con LIKE
+        Predicate predicate = builder.like(root.get("cliente").get("nombre"), "%" + nombre + "%");
+
+        // Agregar el predicado a la consulta
+        criteria.select(root).where(predicate);
+        TypedQuery<Tramite> query = entityManager.createQuery(criteria);
+        List<Tramite> tramites = query.getResultList();
+        entityManager.close();
+
+        return tramites;
+    }
+
 }

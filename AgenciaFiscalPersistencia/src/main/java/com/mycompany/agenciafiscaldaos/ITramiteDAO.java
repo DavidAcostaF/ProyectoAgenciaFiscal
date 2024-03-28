@@ -13,10 +13,14 @@ import java.util.List;
  */
 public interface ITramiteDAO {
 
-    public Tramite consultarLicenciasCliente(Tramite tramite);
+    public Tramite consultarLicenciaCliente(Tramite tramite);
 
-    public List<Tramite> consultarClientes();
+    public Tramite consultarPlacasCliente(Tramite tramite);
+
+    public List<Tramite> consultarTramiteClientes();
 
     public List<Tramite> consultarTramites();
+
+    public List<Tramite> consultarTramitesClienteNombre(String nombre);
 
 }

@@ -39,7 +39,7 @@ public class Pruebas {
 //                System.out.println(((Cliente) tramite).getNombre());
 //            }
 //        }
-        System.out.println(tramiteDAO.consultarTramites());
+        System.out.println(tramiteDAO.consultarTramitesClienteNombre("An"));
     }
 
 }
