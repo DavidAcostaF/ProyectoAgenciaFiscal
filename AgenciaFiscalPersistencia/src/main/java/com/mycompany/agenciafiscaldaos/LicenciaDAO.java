@@ -5,6 +5,8 @@
 package com.mycompany.agenciafiscaldaos;
 
 import com.mycompany.agenciafiscaldominio.Licencia;
+import java.util.Calendar;
+import java.util.List;
 import javax.persistence.EntityManager;
 
 /**
@@ -37,6 +39,11 @@ public class LicenciaDAO implements ILicenciaDAO {
         entityManager.getTransaction().begin();
         entityManager.close();
         return licencia;
+    }
+
+    @Override
+    public List<Licencia> consultarTramitePeriodo(Calendar desde, Calendar hasta) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

@@ -5,6 +5,8 @@
 package com.mycompany.agenciafiscaldaos;
 
 import com.mycompany.agenciafiscaldominio.Placa;
+import java.util.Calendar;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
@@ -64,6 +66,11 @@ public class PlacaDAO implements IPlacaDAO {
         entityManager.getTransaction().commit();
         entityManager.close();
         return placa;
+    }
+
+    @Override
+    public List<Placa> consultarTramitePeriodo(Calendar desde, Calendar hasta) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

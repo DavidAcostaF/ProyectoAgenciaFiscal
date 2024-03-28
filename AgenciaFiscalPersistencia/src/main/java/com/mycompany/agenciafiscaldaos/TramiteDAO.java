@@ -6,6 +6,7 @@ package com.mycompany.agenciafiscaldaos;
 
 import com.mycompany.agenciafiscaldominio.Licencia;
 import com.mycompany.agenciafiscaldominio.Tramite;
+import java.util.Calendar;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -14,6 +15,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.EntityType;
 
 /**
  *
@@ -54,6 +56,7 @@ public class TramiteDAO implements ITramiteDAO {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    @Override
     public List<Tramite> consultarTramiteClientes() {
         EntityManager entityManager = conexion.obtenerConexion();
 
@@ -62,6 +65,7 @@ public class TramiteDAO implements ITramiteDAO {
         return query.getResultList();
     }
 
+    @Override
     public List<Tramite> consultarTramites() {
         EntityManager entityManager = conexion.obtenerConexion();
 
@@ -89,6 +93,26 @@ public class TramiteDAO implements ITramiteDAO {
         entityManager.close();
 
         return tramites;
+    }
+
+    @Override
+    public String obtenerTipoTramite(Tramite tramite) {
+        EntityManager entityManager = conexion.obtenerConexion();
+
+        Query query = entityManager.createQuery("SELECT TYPE(t) FROM Tramite t WHERE t.id = :id");
+        query.setParameter("id", tramite.getId());
+        Class<?> tipo = (Class<?>) query.getSingleResult();
+        return tipo.getSimpleName(); // Obtener el nombre de la clase como String
+
+    }
+
+    @Override
+    public List<Tramite> consultarTramitesConCliente() {
+        EntityManager entityManager = conexion.obtenerConexion();
+
+        String jpql = "SELECT t FROM Tramite t JOIN FETCH t.cliente";
+        TypedQuery<Tramite> query = entityManager.createQuery(jpql, Tramite.class);
+        return query.getResultList();
     }
 
 }

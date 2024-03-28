@@ -33,13 +33,17 @@ public class Pruebas {
         IConexion conexion = new Conexion();
         ITramiteDAO tramiteDAO = new TramiteDAO(conexion);
 
-//        for (Object tramite : tramiteDAO.consultarClientes()) {
+//        for (Tramite tramite : tramiteDAO.consultarTramites()) {
 //            if (tramite != null) {
-//
-//                System.out.println(((Cliente) tramite).getNombre());
+//                String tipo = tramite.getClass().getSimpleName();
+//                System.out.println(tipo);
 //            }
 //        }
-        System.out.println(tramiteDAO.consultarTramitesClienteNombre("An"));
+        //Consultas con los clientes
+        for (Tramite tramite : tramiteDAO.consultarTramitesConCliente()) {
+            System.out.println(tramite.getId());
+            System.out.println(tramite.getCliente().getNombre());
+        }
     }
 
 }

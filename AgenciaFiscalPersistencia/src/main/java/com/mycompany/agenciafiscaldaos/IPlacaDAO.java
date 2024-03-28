@@ -5,6 +5,8 @@
 package com.mycompany.agenciafiscaldaos;
 
 import com.mycompany.agenciafiscaldominio.Placa;
+import java.util.Calendar;
+import java.util.List;
 
 /**
  *
@@ -19,4 +21,7 @@ public interface IPlacaDAO {
     public Placa consultar(String serie);
 
     public Placa actualizar(Placa placa);
+
+    public List<Placa> consultarTramitePeriodo(Calendar desde, Calendar hasta);
+
 }
