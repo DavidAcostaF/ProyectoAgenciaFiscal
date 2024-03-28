@@ -5,6 +5,7 @@
 package com.mycompany.agenciafiscaldaos;
 
 import com.mycompany.agenciafiscaldominio.Tramite;
+import java.util.List;
 
 /**
  *
@@ -12,6 +13,10 @@ import com.mycompany.agenciafiscaldominio.Tramite;
  */
 public interface ITramiteDAO {
 
-    public Tramite consultarLicencias(Tramite tramite);
-    
+    public Tramite consultarLicenciasCliente(Tramite tramite);
+
+    public List<Tramite> consultarClientes();
+
+    public List<Tramite> consultarTramites();
+
 }

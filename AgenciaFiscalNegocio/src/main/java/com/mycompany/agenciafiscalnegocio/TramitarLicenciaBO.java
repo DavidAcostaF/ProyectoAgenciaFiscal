@@ -64,7 +64,7 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
     public LicenciaDTO validacionLicenciaExistencia() {
         Tramite tramite = new Tramite();
         tramite.setCliente(this.cliente);
-        Tramite tramiteConsultado = tramiteDAO.consultarLicencias(tramite);
+        Tramite tramiteConsultado = tramiteDAO.consultarLicenciasCliente(tramite);
         if (tramiteConsultado == null) {
             return null;
         }

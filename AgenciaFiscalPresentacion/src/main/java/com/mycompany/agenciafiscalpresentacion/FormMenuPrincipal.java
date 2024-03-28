@@ -124,6 +124,11 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
 
         btnReportes.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
         btnReportes.setText("Reportes");
+        btnReportes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnReportesActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panEntrarLayout = new javax.swing.GroupLayout(panEntrar);
         panEntrar.setLayout(panEntrarLayout);
@@ -205,6 +210,12 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         fc.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnConsultasActionPerformed
+
+    private void btnReportesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportesActionPerformed
+        FormReporteTramites frp = new FormReporteTramites();
+        frp.setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnReportesActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

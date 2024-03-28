@@ -8,6 +8,7 @@ import com.mycompany.agenciafiscaldominio.Licencia;
 import com.mycompany.agenciafiscaldominio.Tramite;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -26,7 +27,7 @@ public class TramiteDAO implements ITramiteDAO {
     }
 
     @Override
-    public Tramite consultarLicencias(Tramite tramite) {
+    public Tramite consultarLicenciasCliente(Tramite tramite) {
         EntityManager entityManager = conexion.obtenerConexion();
         // objeto constructor de consultas
         CriteriaBuilder builder = entityManager.getCriteriaBuilder();
@@ -46,4 +47,23 @@ public class TramiteDAO implements ITramiteDAO {
         return ultimoTramite;
 
     }
+
+    public List<Tramite> consultarClientes() {
+        EntityManager entityManager = conexion.obtenerConexion();
+
+        String jpql = "SELECT t.cliente FROM Tramite t";
+        Query query = entityManager.createQuery(jpql);
+        return query.getResultList();
+    }
+
+    public List<Tramite> consultarTramites() {
+        EntityManager entityManager = conexion.obtenerConexion();
+
+        String jpql = "SELECT t FROM Tramite t";
+        Query query = entityManager.createQuery(jpql);
+        return query.getResultList();
+    }
+    
+    
+    
 }

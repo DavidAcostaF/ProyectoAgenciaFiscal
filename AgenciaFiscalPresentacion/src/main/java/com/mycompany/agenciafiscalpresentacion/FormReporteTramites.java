@@ -33,6 +33,8 @@ public class FormReporteTramites extends javax.swing.JFrame {
         txtTitulo = new javax.swing.JLabel();
         btnCerrar = new javax.swing.JButton();
         panEntrar = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabConsultas = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -43,7 +45,7 @@ public class FormReporteTramites extends javax.swing.JFrame {
         imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/multimedia/AgenciaFiscal.png"))); // NOI18N
 
         txtTitulo.setFont(new java.awt.Font("Comic Sans MS", 0, 36)); // NOI18N
-        txtTitulo.setText("Consultas");
+        txtTitulo.setText("Tramites realizados");
 
         btnCerrar.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnCerrar.setText("Atras");
@@ -62,7 +64,7 @@ public class FormReporteTramites extends javax.swing.JFrame {
                 .addComponent(imgLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 290, Short.MAX_VALUE)
                 .addComponent(btnCerrar)
                 .addGap(22, 22, 22))
         );
@@ -84,15 +86,58 @@ public class FormReporteTramites extends javax.swing.JFrame {
 
         panEntrar.setBackground(new java.awt.Color(236, 236, 236));
 
+        tabConsultas.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
+        tabConsultas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Tipo", "Fecha", "Cliente", "Costo"
+            }
+        ));
+        jScrollPane1.setViewportView(tabConsultas);
+
         javax.swing.GroupLayout panEntrarLayout = new javax.swing.GroupLayout(panEntrar);
         panEntrar.setLayout(panEntrarLayout);
         panEntrarLayout.setHorizontalGroup(
             panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(panEntrarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panEntrarLayout.setVerticalGroup(
             panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 365, Short.MAX_VALUE)
+            .addGroup(panEntrarLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout panFondoBlancoLayout = new javax.swing.GroupLayout(panFondoBlanco);
@@ -136,9 +181,11 @@ public class FormReporteTramites extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
     private javax.swing.JLabel imgLogo;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panEntrar;
     private javax.swing.JPanel panFondoBlanco;
     private javax.swing.JPanel panHeader;
+    private javax.swing.JTable tabConsultas;
     private javax.swing.JLabel txtTitulo;
     // End of variables declaration//GEN-END:variables
 }
