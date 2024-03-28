@@ -176,10 +176,10 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
         Licencia licenciaConsultatada = licenciaDAO.consultar(tramiteConsultado.getId());
 
         LicenciaDTO licenciaDTO = new LicenciaDTO();
-        licenciaDTO.setCosto(licenciaDTO.getCosto());
-        licenciaDTO.setFecha_expedicion(licenciaDTO.getFecha_expedicion());
-        licenciaDTO.setFecha_vencimiento(licenciaDTO.getFecha_vencimiento());
-        licenciaDTO.setVigencia(licenciaDTO.getVigencia());
+        licenciaDTO.setCosto(licenciaConsultatada.getCosto());
+        licenciaDTO.setFecha_expedicion(licenciaConsultatada.getFecha_expedicion());
+        licenciaDTO.setFecha_vencimiento(licenciaConsultatada.getFecha_vencimiento());
+        licenciaDTO.setVigencia(licenciaConsultatada.getVigencia());
         return licenciaDTO;
     }
 
