@@ -228,13 +228,12 @@ public class FormFiltroReporte extends javax.swing.JFrame {
 
         filtroReportes.setNombre(txfNombre.getText());
         filtroReportes.setTipoTramite(txfTipoTramite.getText());
-        
+
         if (!datePickerDesde.getText().isBlank() || !datePickerHasta.getText().isBlank()) {
             if (datePickerDesde.getText().isBlank() || datePickerHasta.getText().isBlank()) {
                 JOptionPane.showMessageDialog(this, "Las dos fechas son necesarias");
                 return;
             } else {
-                // Suponiendo que tienes un objeto DatePicker llamado datePicker
                 LocalDate dateDesde = datePickerDesde.getDate();
                 Calendar desde = Calendar.getInstance();
                 desde.clear();

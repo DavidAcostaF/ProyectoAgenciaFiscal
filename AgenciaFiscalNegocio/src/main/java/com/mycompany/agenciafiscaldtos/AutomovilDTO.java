@@ -12,6 +12,7 @@ public class AutomovilDTO {
 
     private String serie;
 
+    
     private String marca;
 
     private String color;
