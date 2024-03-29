@@ -166,8 +166,8 @@
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
                                   <Component id="txfTipoTramite" alignment="0" max="32767" attributes="0"/>
                                   <Component id="txfNombre" alignment="1" min="-2" pref="459" max="-2" attributes="0"/>
-                                  <Component id="datePicker2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="datePicker1" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="datePickerDesde" alignment="0" min="-2" max="-2" attributes="0"/>
+                                  <Component id="datePickerHasta" alignment="0" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
@@ -195,7 +195,7 @@
                       <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
-                              <Component id="datePicker2" min="-2" pref="31" max="-2" attributes="0"/>
+                              <Component id="datePickerDesde" min="-2" pref="31" max="-2" attributes="0"/>
                               <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
                           </Group>
                           <Component id="txtFechaNacimiento" min="-2" max="-2" attributes="0"/>
@@ -203,7 +203,7 @@
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="txtFechaNacimiento1" max="32767" attributes="0"/>
-                          <Component id="datePicker1" max="32767" attributes="0"/>
+                          <Component id="datePickerHasta" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace pref="118" max="32767" attributes="0"/>
                       <Component id="btnAceptar" min="-2" max="-2" attributes="0"/>
@@ -270,9 +270,9 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="com.github.lgooddatepicker.components.DatePicker" name="datePicker1">
+            <Component class="com.github.lgooddatepicker.components.DatePicker" name="datePickerHasta">
             </Component>
-            <Component class="com.github.lgooddatepicker.components.DatePicker" name="datePicker2">
+            <Component class="com.github.lgooddatepicker.components.DatePicker" name="datePickerDesde">
               <Properties>
                 <Property name="name" type="java.lang.String" value="" noResource="true"/>
                 <Property name="toolTipText" type="java.lang.String" value=""/>

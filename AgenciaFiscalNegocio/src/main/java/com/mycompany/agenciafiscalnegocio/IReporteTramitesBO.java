@@ -4,10 +4,20 @@
  */
 package com.mycompany.agenciafiscalnegocio;
 
+import com.mycompany.agenciafiscaldtos.FiltroReporteTramitesDTO;
+import com.mycompany.agenciafiscaldtos.TramiteDTO;
+import java.util.List;
+
 /**
  *
  * @author af_da
  */
 public interface IReporteTramitesBO {
-    
+
+    public void setFiltroReporteTramitesDTO(FiltroReporteTramitesDTO filtro);
+
+    public FiltroReporteTramitesDTO getFiltroReporteTramitesDTO();
+
+    public List<TramiteDTO> consultarTramites();
+
 }

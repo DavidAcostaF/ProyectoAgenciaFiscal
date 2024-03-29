@@ -4,7 +4,12 @@
  */
 package com.mycompany.agenciafiscalpresentacion;
 
-import com.mycompany.agenciafiscaldtos.ClienteDTO;
+import com.mycompany.agenciafiscaldtos.FiltroReporteTramitesDTO;
+import com.mycompany.agenciafiscalnegocio.IReporteTramitesBO;
+import com.mycompany.agenciafiscalnegocio.ReporteTramitesBO;
+import java.time.LocalDate;
+import java.util.Calendar;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -12,11 +17,14 @@ import com.mycompany.agenciafiscaldtos.ClienteDTO;
  */
 public class FormFiltroReporte extends javax.swing.JFrame {
 
+    private IReporteTramitesBO reporteTramitesBO;
+
     /**
      * Creates new form FormConsultas
      */
     public FormFiltroReporte() {
         initComponents();
+        reporteTramitesBO = new ReporteTramitesBO();
     }
 
     /**
@@ -41,8 +49,8 @@ public class FormFiltroReporte extends javax.swing.JFrame {
         txtRfc = new javax.swing.JLabel();
         btnAceptar = new javax.swing.JButton();
         txtFechaNacimiento1 = new javax.swing.JLabel();
-        datePicker1 = new com.github.lgooddatepicker.components.DatePicker();
-        datePicker2 = new com.github.lgooddatepicker.components.DatePicker();
+        datePickerHasta = new com.github.lgooddatepicker.components.DatePicker();
+        datePickerDesde = new com.github.lgooddatepicker.components.DatePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -118,8 +126,8 @@ public class FormFiltroReporte extends javax.swing.JFrame {
         txtFechaNacimiento1.setText("Hasta");
         txtFechaNacimiento1.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
 
-        datePicker2.setName(""); // NOI18N
-        datePicker2.setToolTipText("");
+        datePickerDesde.setName(""); // NOI18N
+        datePickerDesde.setToolTipText("");
 
         javax.swing.GroupLayout panEntrarLayout = new javax.swing.GroupLayout(panEntrar);
         panEntrar.setLayout(panEntrarLayout);
@@ -142,8 +150,8 @@ public class FormFiltroReporte extends javax.swing.JFrame {
                         .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(txfTipoTramite, javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(datePicker2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(datePicker1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(datePickerDesde, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(datePickerHasta, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panEntrarLayout.createSequentialGroup()
                         .addGap(297, 297, 297)
                         .addComponent(btnAceptar)))
@@ -163,13 +171,13 @@ public class FormFiltroReporte extends javax.swing.JFrame {
                 .addGap(14, 14, 14)
                 .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(panEntrarLayout.createSequentialGroup()
-                        .addComponent(datePicker2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(datePickerDesde, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(1, 1, 1))
                     .addComponent(txtFechaNacimiento))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(txtFechaNacimiento1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(datePicker1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(datePickerHasta, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 118, Short.MAX_VALUE)
                 .addComponent(btnAceptar)
                 .addGap(16, 16, 16))
@@ -216,17 +224,45 @@ public class FormFiltroReporte extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        FormReporteTramites frp = new FormReporteTramites();
+        FiltroReporteTramitesDTO filtroReportes = new FiltroReporteTramitesDTO("", null, null, "");
+
+        filtroReportes.setNombre(txfNombre.getText());
+        filtroReportes.setTipoTramite(txfTipoTramite.getText());
+        
+        if (!datePickerDesde.getText().isBlank() || !datePickerHasta.getText().isBlank()) {
+            if (datePickerDesde.getText().isBlank() || datePickerHasta.getText().isBlank()) {
+                JOptionPane.showMessageDialog(this, "Las dos fechas son necesarias");
+                return;
+            } else {
+                // Suponiendo que tienes un objeto DatePicker llamado datePicker
+                LocalDate dateDesde = datePickerDesde.getDate();
+                Calendar desde = Calendar.getInstance();
+                desde.clear();
+                desde.set(dateDesde.getYear(), dateDesde.getMonthValue() - 1, dateDesde.getDayOfMonth());
+                filtroReportes.setDesde(desde);
+
+                LocalDate dateHasta = datePickerDesde.getDate();
+                Calendar hasta = Calendar.getInstance();
+                hasta.clear();
+                hasta.set(dateHasta.getYear(), dateHasta.getMonthValue() - 1, dateHasta.getDayOfMonth());
+                filtroReportes.setHasta(hasta);
+
+            }
+        }
+        this.reporteTramitesBO.setFiltroReporteTramitesDTO(filtroReportes);
+        FormReporteTramites frp = new FormReporteTramites(reporteTramitesBO);
         frp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed
-
+    public void disenoFechas() {
+        System.out.println(datePickerDesde.getText());
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCerrar;
-    private com.github.lgooddatepicker.components.DatePicker datePicker1;
-    private com.github.lgooddatepicker.components.DatePicker datePicker2;
+    private com.github.lgooddatepicker.components.DatePicker datePickerDesde;
+    private com.github.lgooddatepicker.components.DatePicker datePickerHasta;
     private javax.swing.JLabel imgLogo;
     private javax.swing.JPanel panEntrar;
     private javax.swing.JPanel panFondoBlanco;

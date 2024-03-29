@@ -4,6 +4,10 @@
  */
 package com.mycompany.agenciafiscalpresentacion;
 
+import com.mycompany.agenciafiscaldtos.TramiteDTO;
+import com.mycompany.agenciafiscalnegocio.IReporteTramitesBO;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -11,11 +15,15 @@ package com.mycompany.agenciafiscalpresentacion;
  */
 public class FormReporteTramites extends javax.swing.JFrame {
 
+    IReporteTramitesBO reporteTramitesBO;
+
     /**
      * Creates new form FormReporteTramites
      */
-    public FormReporteTramites() {
+    public FormReporteTramites(IReporteTramitesBO reporteTramitesBO) {
         initComponents();
+        this.reporteTramitesBO = reporteTramitesBO;
+        llenarTabla();
     }
 
     /**
@@ -89,33 +97,7 @@ public class FormReporteTramites extends javax.swing.JFrame {
         tabConsultas.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         tabConsultas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "Tipo", "Fecha", "Cliente", "Costo"
@@ -175,9 +157,20 @@ public class FormReporteTramites extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
+        FormFiltroReporte ffr = new FormFiltroReporte();
 
+        ffr.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
+    private void llenarTabla() {
+        List<TramiteDTO> tramites = this.reporteTramitesBO.consultarTramites();
+        DefaultTableModel modelo = (DefaultTableModel) tabConsultas.getModel();
 
+        if (tramites != null) {
+            tramites.forEach(t -> modelo.addRow(new Object[]{t.getTipo(), t.getFecha().getTime(), t.getNombre(), t.getCosto()}));
+        }
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
     private javax.swing.JLabel imgLogo;
