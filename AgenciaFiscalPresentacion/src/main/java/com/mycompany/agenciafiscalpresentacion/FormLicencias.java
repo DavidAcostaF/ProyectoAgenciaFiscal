@@ -307,6 +307,10 @@ public class FormLicencias extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No se ha encontrado cliente con RFC " + txfRfc.getText());
             return;
         }
+        if (calcularEdad(clienteDTO.getFecha_nacimiento()) < 18) {
+            JOptionPane.showMessageDialog(this, "El cliente tiene que ser mayor de edad");
+            return;
+        }
         llenarListDatosClientes(clienteDTO);
         actualizarCosto((String) cbxVigencia.getSelectedItem());
         mostrarBotones(true);
@@ -319,7 +323,17 @@ public class FormLicencias extends javax.swing.JFrame {
         }
         actualizarCosto((String) cbxVigencia.getSelectedItem());
     }//GEN-LAST:event_cbxVigenciaItemStateChanged
+    private int calcularEdad(Calendar nacimiento) {
 
+        Calendar today = Calendar.getInstance();
+        int age = today.get(Calendar.YEAR) - nacimiento.get(Calendar.YEAR);
+        if (today.get(Calendar.DAY_OF_YEAR) < nacimiento.get(Calendar.DAY_OF_YEAR)) {
+            age--;
+        }
+        System.out.println(age);
+        return age;
+
+    }
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         LicenciaDTO licenciaExistente = tramitarLicenciaBO.validacionLicenciaExistencia();
         if (licenciaExistente != null) {
