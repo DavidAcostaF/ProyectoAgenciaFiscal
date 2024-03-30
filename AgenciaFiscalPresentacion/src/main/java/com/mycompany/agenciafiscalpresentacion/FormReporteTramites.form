@@ -221,7 +221,7 @@
             </Container>
             <Component class="javax.swing.JButton" name="btnGenerarReporte">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Generara reporte"/>
+                <Property name="text" type="java.lang.String" value="Generar reporte"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnGenerarReporteActionPerformed"/>

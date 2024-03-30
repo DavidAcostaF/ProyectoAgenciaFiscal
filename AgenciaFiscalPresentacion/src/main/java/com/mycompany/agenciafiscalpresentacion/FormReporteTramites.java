@@ -132,7 +132,7 @@ public class FormReporteTramites extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tabConsultas);
 
-        btnGenerarReporte.setText("Generara reporte");
+        btnGenerarReporte.setText("Generar reporte");
         btnGenerarReporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnGenerarReporteActionPerformed(evt);
