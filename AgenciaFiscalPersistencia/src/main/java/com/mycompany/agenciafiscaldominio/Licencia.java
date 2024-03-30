@@ -58,4 +58,12 @@ public class Licencia extends Tramite implements Serializable {
         this.vigencia = vigencia;
     }
 
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
+    }
+
 }

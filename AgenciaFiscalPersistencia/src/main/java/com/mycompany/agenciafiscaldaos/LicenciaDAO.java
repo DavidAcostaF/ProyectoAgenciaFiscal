@@ -46,4 +46,14 @@ public class LicenciaDAO implements ILicenciaDAO {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    @Override
+    public Licencia actualizar(Licencia licencia) {
+        EntityManager entityManager = conexion.obtenerConexion();
+        entityManager.getTransaction().begin();
+        entityManager.merge(licencia);
+        entityManager.getTransaction().commit();
+        entityManager.close();
+        return licencia;
+    }
+
 }

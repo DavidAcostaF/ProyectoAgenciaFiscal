@@ -20,4 +20,6 @@ public interface ILicenciaDAO {
 
     public List<Licencia> consultarTramitePeriodo(Calendar desde, Calendar hasta);
 
+    public Licencia actualizar(Licencia licencia);
+
 }
