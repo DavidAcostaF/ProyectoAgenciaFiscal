@@ -219,6 +219,13 @@ public class FormPlacasCarroRegistrado extends javax.swing.JFrame {
             return;
 
         }
+
+        if (!validarFormatoPlaca(placaSerie)) {
+
+            JOptionPane.showMessageDialog(this, "La placa tiene que estar en formato ABC-123");
+
+            return;
+        }
         if (validarCliente(rfc) == null) {
             JOptionPane.showMessageDialog(this, "No existe el cliente");
             return;
@@ -255,6 +262,12 @@ public class FormPlacasCarroRegistrado extends javax.swing.JFrame {
             return false;
         }
         return true;
+    }
+
+    private boolean validarFormatoPlaca(String seriePlaca) {
+        String patron = "^[A-Z]{3}-\\d{3}$";
+
+        return seriePlaca.matches(patron);
     }
 
     private ClienteDTO validarCliente(String rfc) {

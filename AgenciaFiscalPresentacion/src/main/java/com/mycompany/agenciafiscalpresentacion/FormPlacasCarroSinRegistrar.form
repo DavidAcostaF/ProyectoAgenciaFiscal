@@ -285,6 +285,9 @@
                   <Font name="Comic Sans MS" size="18" style="0"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txfModeloKeyTyped"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="txtModelo">
               <Properties>
@@ -300,6 +303,9 @@
                   <Font name="Comic Sans MS" size="18" style="0"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txfColorKeyTyped"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="txtColor">
               <Properties>

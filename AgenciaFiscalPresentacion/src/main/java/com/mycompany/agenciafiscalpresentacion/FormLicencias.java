@@ -330,7 +330,6 @@ public class FormLicencias extends javax.swing.JFrame {
         if (today.get(Calendar.DAY_OF_YEAR) < nacimiento.get(Calendar.DAY_OF_YEAR)) {
             age--;
         }
-        System.out.println(age);
         return age;
 
     }

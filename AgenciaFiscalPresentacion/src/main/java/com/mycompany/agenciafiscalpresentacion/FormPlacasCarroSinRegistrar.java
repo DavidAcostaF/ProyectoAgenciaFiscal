@@ -10,6 +10,7 @@ import com.mycompany.agenciafiscaldtos.VehiculoDTO;
 import com.mycompany.agenciafiscalexcepciones.ExcepcionConsultarVehiculo;
 import com.mycompany.agenciafiscalnegocio.ITramitarPlacaBO;
 import com.mycompany.agenciafiscalnegocio.TramitarPlacaBO;
+import java.awt.event.KeyEvent;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultListModel;
@@ -20,7 +21,7 @@ import javax.swing.JOptionPane;
  * @author lv1821
  */
 public class FormPlacasCarroSinRegistrar extends javax.swing.JFrame {
-    
+
     private ITramitarPlacaBO tramitarPlacaBO;
 
     /**
@@ -28,7 +29,7 @@ public class FormPlacasCarroSinRegistrar extends javax.swing.JFrame {
      */
     public FormPlacasCarroSinRegistrar() {
         initComponents();
-        
+
         tramitarPlacaBO = new TramitarPlacaBO();
     }
 
@@ -135,11 +136,21 @@ public class FormPlacasCarroSinRegistrar extends javax.swing.JFrame {
         txtLinea.setText("Linea:");
 
         txfModelo.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        txfModelo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txfModeloKeyTyped(evt);
+            }
+        });
 
         txtModelo.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
         txtModelo.setText("Modelo:");
 
         txfColor.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        txfColor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txfColorKeyTyped(evt);
+            }
+        });
 
         txtColor.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
         txtColor.setText("Color:");
@@ -260,7 +271,7 @@ public class FormPlacasCarroSinRegistrar extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        
+
         if (validarCampos() == false) {
             return;
         }
@@ -270,12 +281,19 @@ public class FormPlacasCarroSinRegistrar extends javax.swing.JFrame {
         String modelo = txfModelo.getText();
         String color = txfColor.getText();
         String rfc = txfRfcDueño.getText();
-        
+
+        if (!validarFormatoSerie(serie)) {
+
+            JOptionPane.showMessageDialog(this, "El numero de serie debe ser ABC-123");
+
+            return;
+        }
+
         if (validarCliente(rfc) == null) {
             JOptionPane.showMessageDialog(this, "No existe el cliente");
             return;
         }
-        
+
         try {
             if (validarVehiculo(serie) != null) {
                 JOptionPane.showMessageDialog(this, "El carro ya está registrado");
@@ -293,12 +311,30 @@ public class FormPlacasCarroSinRegistrar extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "El cliente asociado con la RFC no tiene licencia");
             return;
         }
-        
+
         FormPago fpa = new FormPago(tramitarPlacaBO);
         fpa.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed
-    
+    private boolean validarFormatoSerie(String serie) {
+        String patron = "^[A-Z]{3}-\\d{3}$";
+
+        return serie.matches(patron);
+    }
+    private void txfModeloKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txfModeloKeyTyped
+        char c = evt.getKeyChar();
+        if (!Character.isDigit(c)) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txfModeloKeyTyped
+
+    private void txfColorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txfColorKeyTyped
+        char c = evt.getKeyChar();
+        if (!Character.isLetter(c) && c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_DELETE) { // Si el carácter no es una letra y tampoco es una tecla de borrado
+            evt.consume(); // Ignora e impide que se escriba el carácter
+        }
+    }//GEN-LAST:event_txfColorKeyTyped
+
     private boolean validarCampos() {
         if (txfNumSerie.getText().isBlank() || txfMarca.getText().isBlank() || txfLinea.getText().isBlank() || txfModelo.getText().isBlank() || txfColor.getText().isBlank() || txfRfcDueño.getText().isBlank()) {
             JOptionPane.showMessageDialog(this, "Todos los campos son necesarios..");
@@ -306,19 +342,19 @@ public class FormPlacasCarroSinRegistrar extends javax.swing.JFrame {
         }
         return true;
     }
-    
+
     private ClienteDTO validarCliente(String rfc) {
         tramitarPlacaBO.setCliente(new ClienteDTO(rfc));
         ClienteDTO clienteConsultado = tramitarPlacaBO.consultarCliente();
         return clienteConsultado;
     }
-    
+
     private VehiculoDTO validarVehiculo(String serie) throws ExcepcionConsultarVehiculo {
         tramitarPlacaBO.setVehiculo(new VehiculoDTO(serie));
         VehiculoDTO vehiculoDTO = tramitarPlacaBO.consultarVehiculo();
         return vehiculoDTO;
     }
-    
+
     public void guardarCostoPlaca() {
         Float monto = tramitarPlacaBO.CalcularCosto("nuevo");
         tramitarPlacaBO.setPlaca(new PlacaDTO(monto));
