@@ -15,7 +15,9 @@ import com.mycompany.agenciafiscaldominio.Tramite;
 import com.mycompany.agenciafiscaldtos.ReporteRealizadoDTO;
 import com.mycompany.agenciafiscaldtos.FiltroReporteTramitesDTO;
 import com.mycompany.agenciafiscaldtos.TramiteDTO;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -58,7 +60,14 @@ public class ReporteTramitesBO implements IReporteTramitesBO {
         if (tramites != null) {
             tramitesFiltrados = new ArrayList<>();
             for (Tramite tramite : tramites) {
-                TramiteDTO reporte = new TramiteDTO(tramite.getCliente().getNombre(), tramite.getClass().getSimpleName(), tramite.getFecha_expedicion(), tramite.getCosto());
+                // Obtener la instancia actual de Calendar
+
+                SimpleDateFormat formatoFechaHora = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+                String fechaHoraFormateada = formatoFechaHora.format(tramite.getFecha_expedicion().getTime());
+
+                System.out.println(fechaHoraFormateada);
+                TramiteDTO reporte = new TramiteDTO(tramite.getCliente().getNombre(), tramite.getClass().getSimpleName(), fechaHoraFormateada, tramite.getCosto());
 
                 tramitesFiltrados.add(reporte);
             }

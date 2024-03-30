@@ -14,10 +14,10 @@ public class TramiteDTO {
 
     private String nombre;
     private String tipo;
-    private Calendar fecha;
+    private String fecha;
     private Float costo;
 
-    public TramiteDTO(String nombre, String tipo, Calendar fecha, Float costo) {
+    public TramiteDTO(String nombre, String tipo, String fecha, Float costo) {
         this.nombre = nombre;
         this.tipo = tipo;
         this.fecha = fecha;
@@ -40,11 +40,11 @@ public class TramiteDTO {
         this.tipo = tipo;
     }
 
-    public Calendar getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(Calendar fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 

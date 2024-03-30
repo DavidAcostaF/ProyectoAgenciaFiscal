@@ -6,8 +6,32 @@ package com.mycompany.agenciafiscalpresentacion;
 
 import com.mycompany.agenciafiscaldtos.TramiteDTO;
 import com.mycompany.agenciafiscalnegocio.IReporteTramitesBO;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -16,6 +40,7 @@ import javax.swing.table.DefaultTableModel;
 public class FormReporteTramites extends javax.swing.JFrame {
 
     IReporteTramitesBO reporteTramitesBO;
+    private List<TramiteDTO> listaTramites;
 
     /**
      * Creates new form FormReporteTramites
@@ -23,7 +48,8 @@ public class FormReporteTramites extends javax.swing.JFrame {
     public FormReporteTramites(IReporteTramitesBO reporteTramitesBO) {
         initComponents();
         this.reporteTramitesBO = reporteTramitesBO;
-        llenarTabla();
+        listaTramites = reporteTramitesBO.consultarTramites();
+        llenarTabla(listaTramites);
     }
 
     /**
@@ -43,6 +69,7 @@ public class FormReporteTramites extends javax.swing.JFrame {
         panEntrar = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabConsultas = new javax.swing.JTable();
+        btnGenerarReporte = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -105,6 +132,13 @@ public class FormReporteTramites extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tabConsultas);
 
+        btnGenerarReporte.setText("Generara reporte");
+        btnGenerarReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGenerarReporteActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout panEntrarLayout = new javax.swing.GroupLayout(panEntrar);
         panEntrar.setLayout(panEntrarLayout);
         panEntrarLayout.setHorizontalGroup(
@@ -112,13 +146,17 @@ public class FormReporteTramites extends javax.swing.JFrame {
             .addGroup(panEntrarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 580, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnGenerarReporte)
+                .addGap(46, 46, 46))
         );
         panEntrarLayout.setVerticalGroup(
             panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panEntrarLayout.createSequentialGroup()
                 .addGap(16, 16, 16)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnGenerarReporte)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(34, Short.MAX_VALUE))
         );
 
@@ -162,17 +200,60 @@ public class FormReporteTramites extends javax.swing.JFrame {
         ffr.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
-    private void llenarTabla() {
-        List<TramiteDTO> tramites = this.reporteTramitesBO.consultarTramites();
+
+    private void btnGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarReporteActionPerformed
+        /* Output file location to create report in pdf form */
+        String outputFile = "C:\\Users\\f_aco\\Downloads\\" + "Tramites.pdf";
+
+        if (this.listaTramites == null) {
+            JOptionPane.showMessageDialog(this, "No hay tramites");
+            return;
+        }
+
+
+        /* Convert List to JRBeanCollectionDataSource */
+        JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(this.listaTramites);
+
+        /* Map to hold Jasper report Parameters */
+        Map<String, Object> parameters = new HashMap<String, Object>();
+        parameters.put("CollectionBeanParam", itemsJRBean);
+
+        //read jrxml file and creating jasperdesign object
+        InputStream input = null;
+        try {
+            input = new FileInputStream(new File("C:\\Users\\f_aco\\Downloads\\ReportesTramites.jrxml"));
+
+            JasperDesign jasperDesign = JRXmlLoader.load(input);
+
+            /*compiling jrxml with help of JasperReport class*/
+            JasperReport jasperReport = JasperCompileManager.compileReport(jasperDesign);
+
+            /* Using jasperReport object to generate PDF */
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
+
+            OutputStream outputStream = new FileOutputStream(new File(outputFile));
+
+            JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
+
+            /*call jasper engine to display report in jasperviewer window*/
+            JasperViewer.viewReport(jasperPrint);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FormReporteTramites.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JRException ex) {
+            Logger.getLogger(FormReporteTramites.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnGenerarReporteActionPerformed
+    private void llenarTabla(List<TramiteDTO> listaTramites) {
         DefaultTableModel modelo = (DefaultTableModel) tabConsultas.getModel();
 
-        if (tramites != null) {
-            tramites.forEach(t -> modelo.addRow(new Object[]{t.getTipo(), t.getFecha().getTime(), t.getNombre(), t.getCosto()}));
+        if (listaTramites != null) {
+            listaTramites.forEach(t -> modelo.addRow(new Object[]{t.getTipo(), t.getFecha(), t.getNombre(), t.getCosto()}));
         }
 
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
+    private javax.swing.JButton btnGenerarReporte;
     private javax.swing.JLabel imgLogo;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panEntrar;
