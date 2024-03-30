@@ -18,9 +18,12 @@ import com.mycompany.agenciafiscaldominio.Tramite;
 import com.mycompany.agenciafiscaldtos.ClienteDTO;
 import com.mycompany.agenciafiscaldtos.LicenciaDTO;
 import com.mycompany.agenciafiscaldtos.LicenciaNuevaDTO;
+import com.mycompany.agenciafiscalutileria.Encriptacion;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -105,7 +108,12 @@ public class TramitarLicenciaBO implements ITramitarLicenciaBO {
         if (cliente == null) {
             return null;
         }
-        ClienteDTO clienteDTO = new ClienteDTO(cliente.getRfc(), cliente.getNombre(), cliente.getApellido_paterno(), cliente.getApellido_materno(), cliente.getDiscapacitado(), cliente.getFecha_nacimiento(), cliente.getTelefono());
+        ClienteDTO clienteDTO = null;
+        try {
+            clienteDTO = new ClienteDTO(cliente.getRfc(), cliente.getNombre(), cliente.getApellido_paterno(), cliente.getApellido_materno(), cliente.getDiscapacitado(), cliente.getFecha_nacimiento(), Encriptacion.decrypt(cliente.getTelefono()));
+        } catch (Exception ex) {
+            Logger.getLogger(TramitarLicenciaBO.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return clienteDTO;
     }
 
