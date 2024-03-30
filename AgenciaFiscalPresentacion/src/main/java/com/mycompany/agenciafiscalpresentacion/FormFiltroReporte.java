@@ -4,12 +4,14 @@
  */
 package com.mycompany.agenciafiscalpresentacion;
 
+import com.github.lgooddatepicker.components.DatePickerSettings;
 import com.mycompany.agenciafiscaldtos.FiltroReporteTramitesDTO;
 import com.mycompany.agenciafiscalnegocio.IReporteTramitesBO;
 import com.mycompany.agenciafiscalnegocio.ReporteTramitesBO;
 import java.time.LocalDate;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  *
@@ -25,6 +27,7 @@ public class FormFiltroReporte extends javax.swing.JFrame {
     public FormFiltroReporte() {
         initComponents();
         reporteTramitesBO = new ReporteTramitesBO();
+        settingsFechas();
     }
 
     /**
@@ -240,7 +243,7 @@ public class FormFiltroReporte extends javax.swing.JFrame {
                 desde.set(dateDesde.getYear(), dateDesde.getMonthValue() - 1, dateDesde.getDayOfMonth());
                 filtroReportes.setDesde(desde);
 
-                LocalDate dateHasta = datePickerDesde.getDate();
+                LocalDate dateHasta = datePickerHasta.getDate();
                 Calendar hasta = Calendar.getInstance();
                 hasta.clear();
                 hasta.set(dateHasta.getYear(), dateHasta.getMonthValue() - 1, dateHasta.getDayOfMonth());
@@ -253,8 +256,13 @@ public class FormFiltroReporte extends javax.swing.JFrame {
         frp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed
-    public void disenoFechas() {
-        System.out.println(datePickerDesde.getText());
+    public void settingsFechas() {
+
+        JTextField jTextFieldDesde = datePickerDesde.getComponentDateTextField();
+        JTextField jTextFieldHasta = datePickerHasta.getComponentDateTextField();
+        jTextFieldDesde.setEditable(false);
+        jTextFieldHasta.setEditable(false);
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
