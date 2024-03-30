@@ -203,7 +203,7 @@ public class FormReporteTramites extends javax.swing.JFrame {
 
     private void btnGenerarReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGenerarReporteActionPerformed
         /* Output file location to create report in pdf form */
-        String outputFile = "C:\\Users\\f_aco\\Downloads\\" + "Tramites.pdf";
+        String outputFile = System.getProperty("user.home") + "\\Downloads\\" + "Tramites.pdf";
 
         if (this.listaTramites == null) {
             JOptionPane.showMessageDialog(this, "No hay tramites");
@@ -221,7 +221,7 @@ public class FormReporteTramites extends javax.swing.JFrame {
         //read jrxml file and creating jasperdesign object
         InputStream input = null;
         try {
-            input = new FileInputStream(new File("C:\\Users\\f_aco\\Downloads\\ReportesTramites.jrxml"));
+            input = new FileInputStream(new File("src\\main\\resources\\JasperFile\\ReportesTramites.jrxml"));
 
             JasperDesign jasperDesign = JRXmlLoader.load(input);
 
