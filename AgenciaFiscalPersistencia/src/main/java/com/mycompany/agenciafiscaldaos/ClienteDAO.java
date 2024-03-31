@@ -5,6 +5,7 @@
 package com.mycompany.agenciafiscaldaos;
 
 import com.mycompany.agenciafiscaldominio.Cliente;
+import java.util.Calendar;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -61,6 +62,49 @@ public class ClienteDAO implements IClienteDAO {
             cliente = null;
         }
         return cliente;
+    }
+
+    @Override
+    public List<Cliente> consultarClienteFiltro(String nombre, String rfc, Calendar fecha_nacimiento) {
+        //aun no jala aslñkjdñalk
+        EntityManager entityManager = conexion.obtenerConexion();
+        entityManager.getTransaction().begin();
+
+        StringBuilder jpqlBuilder = new StringBuilder("SELECT c FROM Cliente c");
+        StringBuilder filtro = new StringBuilder();
+        if (!nombre.isBlank()) {
+            filtro.append(" AND c.nombre LIKE :nombre");
+        }
+        if (!rfc.isBlank()) {
+            filtro.append(" AND c.rfc = :rfc");
+        }
+        if (fecha_nacimiento != null) {
+            filtro.append(" AND c.fechaNacimiento = :fechaNacimiento");
+        }
+
+        if (!filtro.toString().isBlank()) {
+            jpqlBuilder.append("WHERE TRUE");
+            jpqlBuilder.append(filtro);
+        }
+        TypedQuery<Cliente> query = entityManager.createQuery(jpqlBuilder.toString(), Cliente.class);
+
+        if (!nombre.isBlank()) {
+            query.setParameter("nombre", "%" + nombre + "%");
+        }
+        if (!rfc.isBlank()) {
+            query.setParameter("rfc", rfc);
+        }
+        if (fecha_nacimiento != null) {
+            query.setParameter("fechaNacimiento", fecha_nacimiento);
+        }
+
+        List<Cliente> clientes = query.getResultList();
+
+        entityManager.getTransaction().commit();
+        entityManager.close();
+
+        return clientes;
+
     }
 
 }

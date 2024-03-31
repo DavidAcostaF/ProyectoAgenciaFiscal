@@ -5,19 +5,25 @@
 package com.mycompany.agenciafiscalpresentacion;
 
 import com.mycompany.agenciafiscaldtos.ClienteDTO;
-
+import com.mycompany.agenciafiscalnegocio.ConsultasBO;
+import com.mycompany.agenciafiscalnegocio.IConsultasBO;
+import java.time.LocalDate;
+import java.util.Calendar;
 
 /**
  *
  * @author Berry
  */
 public class FormConsultas extends javax.swing.JFrame {
-    
+
+    private IConsultasBO consultasBO;
+
     /**
      * Creates new form FormConsultas
      */
     public FormConsultas() {
         initComponents();
+        this.consultasBO = new ConsultasBO();
     }
 
     /**
@@ -29,19 +35,23 @@ public class FormConsultas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        datePickerDesde = new com.github.lgooddatepicker.components.DatePicker();
         panFondoBlanco = new javax.swing.JPanel();
         panHeader = new javax.swing.JPanel();
         imgLogo = new javax.swing.JLabel();
         txtTitulo = new javax.swing.JLabel();
         btnCerrar = new javax.swing.JButton();
         panEntrar = new javax.swing.JPanel();
-        txfFechaNacimiento = new javax.swing.JTextField();
         txfRfc = new javax.swing.JTextField();
         txfNombre = new javax.swing.JTextField();
         txtNombre = new javax.swing.JLabel();
         txtFechaNacimiento = new javax.swing.JLabel();
         txtRfc = new javax.swing.JLabel();
         btnAceptar = new javax.swing.JButton();
+        datePickerNacimiento = new com.github.lgooddatepicker.components.DatePicker();
+
+        datePickerDesde.setName(""); // NOI18N
+        datePickerDesde.setToolTipText("");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -93,8 +103,6 @@ public class FormConsultas extends javax.swing.JFrame {
 
         panEntrar.setBackground(new java.awt.Color(236, 236, 236));
 
-        txfFechaNacimiento.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-
         txfRfc.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
 
         txfNombre.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
@@ -116,6 +124,9 @@ public class FormConsultas extends javax.swing.JFrame {
             }
         });
 
+        datePickerNacimiento.setName(""); // NOI18N
+        datePickerNacimiento.setToolTipText("");
+
         javax.swing.GroupLayout panEntrarLayout = new javax.swing.GroupLayout(panEntrar);
         panEntrar.setLayout(panEntrarLayout);
         panEntrarLayout.setHorizontalGroup(
@@ -132,10 +143,11 @@ public class FormConsultas extends javax.swing.JFrame {
                                 .addComponent(txtFechaNacimiento))
                             .addComponent(txtRfc))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txfRfc, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txfFechaNacimiento, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(txfRfc, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 459, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(datePickerNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(panEntrarLayout.createSequentialGroup()
                         .addGap(297, 297, 297)
                         .addComponent(btnAceptar)))
@@ -155,8 +167,8 @@ public class FormConsultas extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFechaNacimiento)
-                    .addComponent(txfFechaNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
+                    .addComponent(datePickerNacimiento, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 166, Short.MAX_VALUE)
                 .addComponent(btnAceptar)
                 .addGap(16, 16, 16))
         );
@@ -202,32 +214,45 @@ public class FormConsultas extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        FormConsultasFiltradas fcf = new FormConsultasFiltradas(empaquetarDatos());
+        this.consultasBO.setFiltroCliente(empaquetarDatos());
+        FormConsultasFiltradas fcf = new FormConsultasFiltradas(consultasBO);
         fcf.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed
 
-    public ClienteDTO empaquetarDatos(){
+    public ClienteDTO empaquetarDatos() {
         ClienteDTO clienteDTO = new ClienteDTO();
-        if(txfNombre!= null)
+        clienteDTO.setRfc("");
+        clienteDTO.setFecha_nacimiento(null);
+        clienteDTO.setNombre("");
+
+        if (txfNombre != null) {
             clienteDTO.setNombre(txfNombre.getText());
-        if(txfRfc!= null)
+        }
+        if (txfRfc != null) {
             clienteDTO.setRfc(txfRfc.getText());
-//        TENGO Q HACER QUE SEA UN CALENDAR, ñonga       
-//        if(txfFechaNacimiento!= null)
-//            clienteDTO.setFecha_nacimiento(txfFechaNacimiento.getText());
-        
+        }
+        if (!datePickerNacimiento.getText().isBlank()) {
+            LocalDate nacimiento = datePickerNacimiento.getDate();
+            Calendar fecha = Calendar.getInstance();
+            fecha.clear();
+            fecha.set(nacimiento.getYear(), nacimiento.getMonthValue() - 1, nacimiento.getDayOfMonth());
+
+            clienteDTO.setFecha_nacimiento(fecha);
+        }
+
         return clienteDTO;
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCerrar;
+    private com.github.lgooddatepicker.components.DatePicker datePickerDesde;
+    private com.github.lgooddatepicker.components.DatePicker datePickerNacimiento;
     private javax.swing.JLabel imgLogo;
     private javax.swing.JPanel panEntrar;
     private javax.swing.JPanel panFondoBlanco;
     private javax.swing.JPanel panHeader;
-    private javax.swing.JTextField txfFechaNacimiento;
     private javax.swing.JTextField txfNombre;
     private javax.swing.JTextField txfRfc;
     private javax.swing.JLabel txtFechaNacimiento;

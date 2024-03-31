@@ -66,7 +66,6 @@ public class ReporteTramitesBO implements IReporteTramitesBO {
 
                 String fechaHoraFormateada = formatoFechaHora.format(tramite.getFecha_expedicion().getTime());
 
-                System.out.println(fechaHoraFormateada);
                 TramiteDTO reporte = new TramiteDTO(tramite.getCliente().getNombre(), tramite.getClass().getSimpleName(), fechaHoraFormateada, tramite.getCosto());
 
                 tramitesFiltrados.add(reporte);

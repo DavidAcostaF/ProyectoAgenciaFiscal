@@ -5,6 +5,7 @@
 package com.mycompany.agenciafiscaldaos;
 
 import com.mycompany.agenciafiscaldominio.Cliente;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -18,4 +19,6 @@ public interface IClienteDAO {
     public List<Cliente> consultarClientes();
 
     public Cliente consultar(String rfc);
+    
+    public List<Cliente> consultarClienteFiltro(String nombre,String rfc,Calendar fecha_nacimiento);
 }

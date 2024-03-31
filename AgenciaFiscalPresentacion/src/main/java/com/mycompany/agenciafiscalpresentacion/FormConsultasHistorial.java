@@ -4,6 +4,7 @@
  */
 package com.mycompany.agenciafiscalpresentacion;
 
+import com.mycompany.agenciafiscalnegocio.IConsultasBO;
 
 /**
  *
@@ -11,11 +12,15 @@ package com.mycompany.agenciafiscalpresentacion;
  */
 public class FormConsultasHistorial extends javax.swing.JFrame {
 
+    private IConsultasBO consultasBO;
+
     /**
      * Creates new form FormConsultasHistorial
      */
-    public FormConsultasHistorial() {
+    public FormConsultasHistorial(IConsultasBO consultasBO) {
         initComponents();
+        this.consultasBO = consultasBO;
+        txtRfc.setText("de "+consultasBO.getClienteDTO().getRfc());
     }
 
     /**
@@ -34,6 +39,12 @@ public class FormConsultasHistorial extends javax.swing.JFrame {
         btnCerrar = new javax.swing.JButton();
         txtRfc = new javax.swing.JLabel();
         panEntrar = new javax.swing.JPanel();
+        scrollLicencias = new javax.swing.JScrollPane();
+        tableLicencias = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        scrollPlacas = new javax.swing.JScrollPane();
+        tablePlacas = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -92,15 +103,61 @@ public class FormConsultasHistorial extends javax.swing.JFrame {
 
         panEntrar.setBackground(new java.awt.Color(236, 236, 236));
 
+        tableLicencias.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        scrollLicencias.setViewportView(tableLicencias);
+
+        jLabel1.setText("Historial de licencias");
+
+        jLabel2.setText("Historial de placas");
+
+        tablePlacas.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        scrollPlacas.setViewportView(tablePlacas);
+
         javax.swing.GroupLayout panEntrarLayout = new javax.swing.GroupLayout(panEntrar);
         panEntrar.setLayout(panEntrarLayout);
         panEntrarLayout.setHorizontalGroup(
             panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGroup(panEntrarLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(scrollPlacas)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(scrollLicencias, javax.swing.GroupLayout.DEFAULT_SIZE, 687, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panEntrarLayout.setVerticalGroup(
             panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 365, Short.MAX_VALUE)
+            .addGroup(panEntrarLayout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(scrollLicencias, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(scrollPlacas, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout panFondoBlancoLayout = new javax.swing.GroupLayout(panFondoBlanco);
@@ -146,9 +203,15 @@ public class FormConsultasHistorial extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
     private javax.swing.JLabel imgLogo;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel panEntrar;
     private javax.swing.JPanel panFondoBlanco;
     private javax.swing.JPanel panHeader;
+    private javax.swing.JScrollPane scrollLicencias;
+    private javax.swing.JScrollPane scrollPlacas;
+    private javax.swing.JTable tableLicencias;
+    private javax.swing.JTable tablePlacas;
     private javax.swing.JLabel txtRfc;
     private javax.swing.JLabel txtTitulo;
     // End of variables declaration//GEN-END:variables

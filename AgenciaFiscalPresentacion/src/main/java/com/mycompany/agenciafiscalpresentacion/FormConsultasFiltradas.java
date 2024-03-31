@@ -5,31 +5,63 @@
 package com.mycompany.agenciafiscalpresentacion;
 
 import com.mycompany.agenciafiscaldtos.ClienteDTO;
-import com.mycompany.agenciafiscalnegocio.ConsultasBO;
 import com.mycompany.agenciafiscalnegocio.IConsultasBO;
+import java.awt.Color;
+import java.awt.Component;
+import java.text.SimpleDateFormat;
 import java.util.List;
-import javax.swing.table.DefaultTableModel;
-
+import javax.swing.BorderFactory;
+import javax.swing.DefaultListCellRenderer;
+import javax.swing.DefaultListModel;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.ListCellRenderer;
+import javax.swing.border.Border;
+import javax.swing.event.ListSelectionEvent;
 
 /**
  *
  * @author Berry
  */
 public class FormConsultasFiltradas extends javax.swing.JFrame {
-    
-    private ClienteDTO clienteDTO;
+
     private IConsultasBO consultasBO;
-    
+    List<ClienteDTO> clientesDTO;
+
     /**
      * Creates new form FormConsultasFiltradas
      */
-    public FormConsultasFiltradas(ClienteDTO clienteDTO) {
-        this.clienteDTO = clienteDTO;
-        this.consultasBO = new ConsultasBO();
+    public FormConsultasFiltradas(IConsultasBO consultasBO) {
         initComponents();
-        
-        actualizarTabla(consultasBO.buscarListaCliente(clienteDTO));
-        
+        this.consultasBO = consultasBO;
+        this.clientesDTO = consultasBO.buscarListaCliente();
+        if (clientesDTO != null) {
+            lblInfor.setText("Selecciona al cliente que deseas consultar");
+        } else {
+            lblInfor.setText("No hay clientes para consultar");
+        }
+        llenarLista();
+        listaClientes.addListSelectionListener((ListSelectionEvent e) -> {
+            if (!e.getValueIsAdjusting()) {
+                int index = listaClientes.getSelectedIndex();
+                if (index != -1) {
+                    String elementoSeleccionado = listaClientes.getModel().getElementAt(index);
+
+                    // Dividir la cadena para obtener los valores individuales
+                    String[] partes = elementoSeleccionado.split(", ");
+
+                    // Extraer los valores individuales
+                    String rfc = partes[1].substring(partes[1].indexOf(":") + 2); // Eliminar "RFC: " y espacios adicionales
+
+                    consultasBO.setClienteDTO(new ClienteDTO(rfc));
+                    FormConsultasHistorial fc = new FormConsultasHistorial(consultasBO);
+                    fc.setVisible(true);
+                    this.dispose();
+                }
+            }
+        });
+
+//actualizarTabla(consultasBO.buscarListaCliente(clienteDTO));
     }
 
     /**
@@ -47,9 +79,9 @@ public class FormConsultasFiltradas extends javax.swing.JFrame {
         txtTitulo = new javax.swing.JLabel();
         btnCerrar = new javax.swing.JButton();
         panEntrar = new javax.swing.JPanel();
-        btnAceptar = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tabConsultas = new javax.swing.JTable();
+        scrollLista = new javax.swing.JScrollPane();
+        listaClientes = new javax.swing.JList<>();
+        lblInfor = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,11 +91,11 @@ public class FormConsultasFiltradas extends javax.swing.JFrame {
 
         imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/multimedia/AgenciaFiscal.png"))); // NOI18N
 
-        txtTitulo.setFont(new java.awt.Font("Comic Sans MS", 0, 36)); // NOI18N
         txtTitulo.setText("Consultas");
+        txtTitulo.setFont(new java.awt.Font("Comic Sans MS", 0, 36)); // NOI18N
 
-        btnCerrar.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnCerrar.setText("Atras");
+        btnCerrar.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnCerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCerrarActionPerformed(evt);
@@ -79,7 +111,7 @@ public class FormConsultasFiltradas extends javax.swing.JFrame {
                 .addComponent(imgLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 319, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 321, Short.MAX_VALUE)
                 .addComponent(btnCerrar)
                 .addGap(22, 22, 22))
         );
@@ -101,49 +133,29 @@ public class FormConsultasFiltradas extends javax.swing.JFrame {
 
         panEntrar.setBackground(new java.awt.Color(236, 236, 236));
 
-        btnAceptar.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
-        btnAceptar.setText("Aceptar");
-        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAceptarActionPerformed(evt);
-            }
-        });
+        scrollLista.setViewportView(listaClientes);
 
-        tabConsultas.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
-        tabConsultas.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Nombre", "RFC", "Fecha de Nacimiento", "Telefono"
-            }
-        ));
-        jScrollPane1.setViewportView(tabConsultas);
+        lblInfor.setText("Selecciona al cliente que deseas!");
 
         javax.swing.GroupLayout panEntrarLayout = new javax.swing.GroupLayout(panEntrar);
         panEntrar.setLayout(panEntrarLayout);
         panEntrarLayout.setHorizontalGroup(
             panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panEntrarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 723, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(panEntrarLayout.createSequentialGroup()
-                .addGap(305, 305, 305)
-                .addComponent(btnAceptar)
+                .addGap(83, 83, 83)
+                .addGroup(panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollLista, javax.swing.GroupLayout.PREFERRED_SIZE, 563, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblInfor, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         panEntrarLayout.setVerticalGroup(
             panEntrarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panEntrarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnAceptar)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(lblInfor, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addComponent(scrollLista, javax.swing.GroupLayout.PREFERRED_SIZE, 237, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(83, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout panFondoBlancoLayout = new javax.swing.GroupLayout(panFondoBlanco);
@@ -186,33 +198,65 @@ public class FormConsultasFiltradas extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
 
-    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
-        FormConsultasHistorial fch = new FormConsultasHistorial();
-        fch.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnAceptarActionPerformed
+    public void llenarLista() {
 
-    public void actualizarTabla(List<ClienteDTO> clientesDTO){
-        String[] columnas = {"Nombre", "RFC", "Fecha de Nacimiento", "Telefono"};
-        DefaultTableModel modeloTabla = new DefaultTableModel(columnas, 0);
+        DefaultListModel modeloLista = new DefaultListModel();
 
-        for (ClienteDTO cliente : clientesDTO) {
-            Object[] fila = {cliente.getNombre(), cliente.getRfc(), cliente.getFecha_nacimiento()};
-            modeloTabla.addRow(fila);
+        if (this.clientesDTO != null) {
+            for (ClienteDTO cliente : this.clientesDTO) {
+                SimpleDateFormat formatoFechaHora = new SimpleDateFormat("yyyy-MM-dd");
+
+                String fechaHoraFormateada = formatoFechaHora.format(cliente.getFecha_nacimiento().getTime());
+                Object[] fila = {cliente.getNombre(), cliente.getRfc(), fechaHoraFormateada, cliente.getTelefono()};
+                modeloLista.addElement("Nombres: " + cliente.getNombre() + ", RFC: " + cliente.getRfc() + ", Nacimiento: " + fechaHoraFormateada + ", Telefono: " + cliente.getTelefono());
+            }
+            listaClientes.setCellRenderer(new DefaultListCellRenderer() {
+                private static final long serialVersionUID = 1L;
+                private Border border = BorderFactory.createLineBorder(Color.BLACK);
+
+                @Override
+                public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+                    super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+                    setBorder(border); // Aplicar borde al componente
+                    return this;
+                }
+            });
+            listaClientes.setModel(modeloLista);
+            scrollLista.setViewportView(listaClientes);
         }
-        tabConsultas.setModel(modeloTabla);
-        
+
     }
-    
+
+    class ClienteCellRenderer extends JLabel implements ListCellRenderer<ClienteDTO> {
+
+        public ClienteCellRenderer() {
+            setOpaque(true);
+        }
+
+        @Override
+        public Component getListCellRendererComponent(JList<? extends ClienteDTO> list, ClienteDTO cliente, int index, boolean isSelected, boolean cellHasFocus) {
+            setText(cliente.getNombre() + " - " + cliente.getRfc() + " - " + cliente.getFecha_nacimiento() + " -F " + cliente.getTelefono());
+
+            if (isSelected) {
+                setBackground(list.getSelectionBackground());
+                setForeground(list.getSelectionForeground());
+            } else {
+                setBackground(list.getBackground());
+                setForeground(list.getForeground());
+            }
+
+            return this;
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCerrar;
     private javax.swing.JLabel imgLogo;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblInfor;
+    private javax.swing.JList<String> listaClientes;
     private javax.swing.JPanel panEntrar;
     private javax.swing.JPanel panFondoBlanco;
     private javax.swing.JPanel panHeader;
-    private javax.swing.JTable tabConsultas;
+    private javax.swing.JScrollPane scrollLista;
     private javax.swing.JLabel txtTitulo;
     // End of variables declaration//GEN-END:variables
 }

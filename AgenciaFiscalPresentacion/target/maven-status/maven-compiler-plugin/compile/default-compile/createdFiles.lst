@@ -34,6 +34,7 @@ com\mycompany\agenciafiscalpresentacion\FormMenuPrincipal.class
 com\mycompany\agenciafiscalpresentacion\FormConsultasHistorial$1.class
 com\mycompany\agenciafiscalpresentacion\FormLicencias$1.class
 com\mycompany\agenciafiscalpresentacion\FormReporteTramites$1.class
+com\mycompany\agenciafiscalpresentacion\FormConsultasFiltradas$ClienteCellRenderer.class
 com\mycompany\agenciafiscalpresentacion\FormFiltroReporte$2.class
 com\mycompany\agenciafiscalpresentacion\FormMenuPrincipal$5.class
 com\mycompany\agenciafiscalpresentacion\FormPlacasCarroSinRegistrar$1.class

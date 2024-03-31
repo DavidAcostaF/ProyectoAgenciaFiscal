@@ -12,7 +12,12 @@ import java.util.List;
  * @author Berry
  */
 public interface IConsultasBO {
+
+    public List<ClienteDTO> buscarListaCliente();
+
+    public void setFiltroCliente(ClienteDTO filtroCliente);
     
-    public List<ClienteDTO> buscarListaCliente(ClienteDTO clienteDTO);
+    public void setClienteDTO(ClienteDTO clienteDtO);
     
+    public ClienteDTO getClienteDTO();
 }
