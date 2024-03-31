@@ -188,6 +188,9 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
     public Vehiculo agregarVehiculo(Placa placa) {
         Automovil automovil = new Automovil(vehiculoDTO.getSerie(), vehiculoDTO.getMarca(), vehiculoDTO.getColor(), vehiculoDTO.getLinea(), vehiculoDTO.getModelo());
         automovil.setPlaca(placa);
+        if(this.vehiculo!=null){
+            return null;
+        }
         Automovil automovilAgregado = automovilDAO.agregar(automovil);
         return automovilAgregado;
     }
