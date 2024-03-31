@@ -65,14 +65,16 @@ public class PlacaDAO implements IPlacaDAO {
     public Placa consultar(String serie) {
         EntityManager entityManager = conexion.obtenerConexion();
 
-        Query query = entityManager.createNativeQuery("SELECT * FROM placas WHERE serie = ?", Placa.class);
-        query.setParameter(1, serie);
+        Query query = entityManager.createQuery("SELECT p FROM Placa p JOIN Tramite t ON p.id = t.id WHERE p.serie = :serie", Placa.class);
+        query.setParameter("serie", serie);
 
         Placa placa = null;
         try {
             placa = (Placa) query.getSingleResult();
         } catch (NoResultException e) {
             placa = null;
+        } finally {
+            entityManager.close();
         }
         return placa;
     }

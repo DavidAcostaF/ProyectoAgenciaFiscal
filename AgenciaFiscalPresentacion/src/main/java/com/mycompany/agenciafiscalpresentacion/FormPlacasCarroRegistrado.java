@@ -231,10 +231,16 @@ public class FormPlacasCarroRegistrado extends javax.swing.JFrame {
             return;
         }
         try {
-            if (validarPlaca(placaSerie) == null) {
+            PlacaDTO placaDTO = validarPlaca(placaSerie);
+            if (placaDTO == null) {
                 JOptionPane.showMessageDialog(this, "No existe la placa");
                 return;
 
+            } else {
+                if (!placaDTO.getCliente().getRfc().equalsIgnoreCase(rfc)) {
+                    JOptionPane.showMessageDialog(this, "El cliente con el rfc " + rfc + " no es propietario de las placas");
+                    return;
+                }
             }
         } catch (ExcepcionConsultarVehiculo ex) {
             JOptionPane.showMessageDialog(this, "No se ha podido consultar la placa");

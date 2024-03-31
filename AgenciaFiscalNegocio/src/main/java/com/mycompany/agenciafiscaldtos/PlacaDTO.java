@@ -4,6 +4,7 @@
  */
 package com.mycompany.agenciafiscaldtos;
 
+import com.mycompany.agenciafiscaldominio.Cliente;
 import com.mycompany.agenciafiscaldominio.Vehiculo;
 import java.util.Calendar;
 
@@ -24,6 +25,8 @@ public class PlacaDTO {
     private Boolean estado;
 
     private Vehiculo vehiculo;
+    
+    private Cliente cliente;
 
     public PlacaDTO(String serie, Calendar fecha_emision, Float costo, Boolean estado, Vehiculo vehiculo) {
         this.serie = serie;
@@ -71,6 +74,14 @@ public class PlacaDTO {
 
     public Calendar getFecha_recepcion() {
         return fecha_recepcion;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
     public void setFecha_recepcion(Calendar fecha_recepcion) {

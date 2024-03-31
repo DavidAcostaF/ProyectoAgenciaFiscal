@@ -1,7 +1,6 @@
 com\mycompany\agenciafiscaldaos\IAutomovilDAO.class
 com\mycompany\agenciafiscaldominio\Licencia.class
 com\mycompany\agenciafiscalexcepciones\PersistenciaException.class
-pruebas\Pruebas.class
 com\mycompany\agenciafiscaldaos\ClienteDAO.class
 com\mycompany\agenciafiscaldaos\IClienteDAO.class
 com\mycompany\agenciafiscaldaos\PlacaDAO.class
