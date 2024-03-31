@@ -237,7 +237,8 @@ public class FormReporteTramites extends javax.swing.JFrame {
             JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
 
             /*call jasper engine to display report in jasperviewer window*/
-            JasperViewer.viewReport(jasperPrint);
+            JasperViewer.viewReport(jasperPrint,false);
+            
         } catch (FileNotFoundException ex) {
             Logger.getLogger(FormReporteTramites.class.getName()).log(Level.SEVERE, null, ex);
         } catch (JRException ex) {
