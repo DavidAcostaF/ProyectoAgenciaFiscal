@@ -1,36 +1,38 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * Automovil.java
  */
 package com.mycompany.agenciafiscaldominio;
 
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 /**
+ * Clase que representa un automóvil y extiende la clase Vehiculo.
  *
- * @author af_da
  */
 @Entity
 @Table(name = "automoviles")
 @DiscriminatorValue(value = "automovil")
-
 public class Automovil extends Vehiculo implements Serializable {
 
+    /**
+     * Constructor por defecto de la clase Automovil.
+     */
     public Automovil() {
     }
 
+    /**
+     * Constructor de la clase Automovil que recibe parámetros.
+     *
+     * @param serie El número de serie del automóvil.
+     * @param marca La marca del automóvil.
+     * @param color El color del automóvil.
+     * @param linea La línea del automóvil.
+     * @param modelo El modelo del automóvil.
+     */
     public Automovil(String serie, String marca, String color, String linea, String modelo) {
         super(serie, marca, color, linea, modelo);
     }
-    
 }
