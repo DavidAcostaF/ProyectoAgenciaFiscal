@@ -54,6 +54,7 @@ public class FormPlacasCarroRegistrado extends javax.swing.JFrame {
         btnAceptar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Formulario carro registrado");
 
         panFondoBlanco.setBackground(new java.awt.Color(255, 255, 255));
 

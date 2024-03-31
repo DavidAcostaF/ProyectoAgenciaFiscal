@@ -56,6 +56,7 @@ public class FormFiltroReporte extends javax.swing.JFrame {
         datePickerDesde = new com.github.lgooddatepicker.components.DatePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Filtro reporte");
 
         panFondoBlanco.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -63,7 +64,7 @@ public class FormFiltroReporte extends javax.swing.JFrame {
 
         imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/multimedia/AgenciaFiscal.png"))); // NOI18N
 
-        txtTitulo.setText("Consultas");
+        txtTitulo.setText("Reporte filtro");
         txtTitulo.setFont(new java.awt.Font("Comic Sans MS", 0, 36)); // NOI18N
 
         btnCerrar.setText("Atras");

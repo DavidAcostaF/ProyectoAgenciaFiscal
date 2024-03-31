@@ -55,6 +55,7 @@ public class FormConsultasHistorial extends javax.swing.JFrame {
         tablePlacas = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Historial tramites cliente");
 
         panFondoBlanco.setBackground(new java.awt.Color(255, 255, 255));
 

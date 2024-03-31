@@ -45,6 +45,7 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
         btnReportes = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Menu principal");
 
         panFondoBlanco.setBackground(new java.awt.Color(255, 255, 255));
 

@@ -36,6 +36,7 @@ public class FormTramites extends javax.swing.JFrame {
         btnLicencias = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Tramites");
 
         panFondoBlanco.setBackground(new java.awt.Color(255, 255, 255));
 

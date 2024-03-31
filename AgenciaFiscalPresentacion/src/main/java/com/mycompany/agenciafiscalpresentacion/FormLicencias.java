@@ -78,6 +78,7 @@ public class FormLicencias extends javax.swing.JFrame {
         jScrollPane1.setViewportView(jTable1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Formulario lincencia");
 
         panFondoBlanco.setBackground(new java.awt.Color(255, 255, 255));
 

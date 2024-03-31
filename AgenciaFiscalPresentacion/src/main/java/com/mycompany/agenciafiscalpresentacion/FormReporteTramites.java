@@ -72,6 +72,7 @@ public class FormReporteTramites extends javax.swing.JFrame {
         btnGenerarReporte = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Reporte tramites realizados");
 
         panFondoBlanco.setBackground(new java.awt.Color(255, 255, 255));
 

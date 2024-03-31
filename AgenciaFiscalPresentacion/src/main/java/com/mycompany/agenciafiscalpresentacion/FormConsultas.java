@@ -54,6 +54,7 @@ public class FormConsultas extends javax.swing.JFrame {
         datePickerDesde.setToolTipText("");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Filtro consulta clientes");
 
         panFondoBlanco.setBackground(new java.awt.Color(255, 255, 255));
 

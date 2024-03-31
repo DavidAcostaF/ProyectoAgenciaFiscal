@@ -61,6 +61,7 @@ public class FormPago extends javax.swing.JFrame {
         txtMonto = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Pago");
 
         panFondoBlanco.setBackground(new java.awt.Color(255, 255, 255));
 

@@ -84,6 +84,7 @@ public class FormConsultasFiltradas extends javax.swing.JFrame {
         lblInfor = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Clientes filtrados");
 
         panFondoBlanco.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -91,7 +92,7 @@ public class FormConsultasFiltradas extends javax.swing.JFrame {
 
         imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/multimedia/AgenciaFiscal.png"))); // NOI18N
 
-        txtTitulo.setText("Consultas");
+        txtTitulo.setText("Lista clientes");
         txtTitulo.setFont(new java.awt.Font("Comic Sans MS", 0, 36)); // NOI18N
 
         btnCerrar.setText("Atras");
@@ -111,7 +112,7 @@ public class FormConsultasFiltradas extends javax.swing.JFrame {
                 .addComponent(imgLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(txtTitulo)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 321, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 253, Short.MAX_VALUE)
                 .addComponent(btnCerrar)
                 .addGap(22, 22, 22))
         );

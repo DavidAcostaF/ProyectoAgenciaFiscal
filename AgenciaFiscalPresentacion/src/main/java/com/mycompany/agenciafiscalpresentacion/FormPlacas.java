@@ -36,6 +36,7 @@ public class FormPlacas extends javax.swing.JFrame {
         btnCarroRegistrado = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Placas");
 
         panFondoBlanco.setBackground(new java.awt.Color(255, 255, 255));
 
