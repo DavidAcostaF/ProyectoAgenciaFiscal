@@ -28,33 +28,60 @@ import javax.persistence.TemporalType;
 @Table(name = "clientes")
 public class Cliente implements Serializable {
 
+    /**
+     * Identificador único del cliente.
+     */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
 
+    /**
+     * RFC (Registro Federal de Contribuyentes) del cliente.
+     */
     @Column(name = "rfc", nullable = false, length = 13)
     private String rfc;
 
+    /**
+     * Nombre del cliente.
+     */
     @Column(name = "nombre", nullable = false, length = 30)
     private String nombre;
 
+    /**
+     * Apellido paterno del cliente.
+     */
     @Column(name = "apellido_paterno", nullable = false, length = 30)
     private String apellido_paterno;
 
+    /**
+     * Apellido materno del cliente.
+     */
     @Column(name = "apellido_materno", nullable = false, length = 30)
     private String apellido_materno;
 
+    /**
+     * Indica si el cliente tiene alguna discapacidad.
+     */
     @Column(name = "discapacitado", nullable = false)
     private Boolean discapacitado;
 
+    /**
+     * Fecha de nacimiento del cliente.
+     */
     @Column(name = "fecha_nacimiento", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Calendar fecha_nacimiento;
 
+    /**
+     * Número de teléfono del cliente.
+     */
     @Column(name = "telefono", nullable = false)
     private String telefono;
 
+    /**
+     * Lista de trámites asociados a este cliente.
+     */
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "cliente")
     private List<Tramite> tramites;
 

@@ -26,7 +26,6 @@ import javax.persistence.TemporalType;
  * licencias o placas. Contiene información común a todos los trámites, como el
  * cliente asociado, la fecha de expedición y el costo del trámite.
  *
- * @author af_da
  */
 @Entity
 @Table(name = "tramites")

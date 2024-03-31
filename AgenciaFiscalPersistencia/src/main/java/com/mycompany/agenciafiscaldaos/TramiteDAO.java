@@ -16,9 +16,12 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.persistence.metamodel.EntityType;
 
 /**
+ * Implementación de {@link ITramiteDAO}.
+ *
+ * Esta clase proporciona métodos para consultar diferentes tipos de trámites y
+ * clientes asociados.
  *
  * @author af_da
  */
@@ -26,10 +29,18 @@ public class TramiteDAO implements ITramiteDAO {
 
     private IConexion conexion;
 
+    /**
+     * Constructor de TramiteDAO.
+     *
+     * @param conexion La conexión utilizada para acceder a la base de datos.
+     */
     public TramiteDAO(IConexion conexion) {
         this.conexion = conexion;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Tramite consultarLicenciaCliente(Tramite tramite) {
         EntityManager entityManager = conexion.obtenerConexion();
@@ -49,14 +60,19 @@ public class TramiteDAO implements ITramiteDAO {
         }
 
         return ultimoTramite;
-
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Tramite consultarPlacasCliente(Tramite tramite) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Tramite> consultarTramiteClientes() {
         EntityManager entityManager = conexion.obtenerConexion();
@@ -66,6 +82,9 @@ public class TramiteDAO implements ITramiteDAO {
         return query.getResultList();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Tramite> consultarTramites() {
         EntityManager entityManager = conexion.obtenerConexion();
@@ -75,6 +94,9 @@ public class TramiteDAO implements ITramiteDAO {
         return query.getResultList();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Tramite> consultarTramitesClienteNombre(String nombre) {
         EntityManager entityManager = conexion.obtenerConexion();
@@ -96,6 +118,9 @@ public class TramiteDAO implements ITramiteDAO {
         return tramites;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String obtenerTipoTramite(Tramite tramite) {
         EntityManager entityManager = conexion.obtenerConexion();
@@ -104,9 +129,11 @@ public class TramiteDAO implements ITramiteDAO {
         query.setParameter("id", tramite.getId());
         Class<?> tipo = (Class<?>) query.getSingleResult();
         return tipo.getSimpleName(); // Obtener el nombre de la clase como String
-
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Tramite> consultarTramitesConCliente() {
         EntityManager entityManager = conexion.obtenerConexion();
@@ -116,6 +143,9 @@ public class TramiteDAO implements ITramiteDAO {
         return query.getResultList();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public List<Tramite> consultarTramitesConFiltro(String tipo, String nombre, Calendar desde, Calendar hasta) {
         EntityManager entityManager = conexion.obtenerConexion();
         StringBuilder jpqlBuilder = new StringBuilder("SELECT t FROM Tramite t JOIN t.cliente c WHERE 1 = 1");

@@ -1,6 +1,5 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * ClienteDAO.java
  */
 package com.mycompany.agenciafiscaldaos;
 
@@ -13,17 +12,35 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 /**
+ * Esta clase implementa la interfaz {@link IClienteDAO} y proporciona métodos
+ * para realizar operaciones CRUD relacionadas con los clientes en la base de
+ * datos. Utiliza JPA para interactuar con la capa de persistencia y gestionar
+ * la entidad Cliente.
  *
- * @author af_da
+ * La clase ClienteDAO gestiona la persistencia de los objetos Cliente y
+ * proporciona métodos para agregar, consultar y filtrar clientes en la base de
+ * datos.
+ *
+ * Esta clase es parte del conjunto de clases DAO (Data Access Object)
+ * utilizadas para interactuar con la capa de persistencia de la aplicación.
+ *
  */
 public class ClienteDAO implements IClienteDAO {
 
     private IConexion conexion;
 
+    /**
+     * Crea una instancia de ClienteDAO con la conexión proporcionada.
+     *
+     * @param conexion La conexión utilizada para acceder a la base de datos.
+     */
     public ClienteDAO(IConexion conexion) {
         this.conexion = conexion;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Cliente agregar(Cliente cliente) {
         EntityManager entityManager = conexion.obtenerConexion();
@@ -36,6 +53,9 @@ public class ClienteDAO implements IClienteDAO {
         return cliente;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Cliente> consultarClientes() {
         EntityManager entityManager = conexion.obtenerConexion();
@@ -48,6 +68,9 @@ public class ClienteDAO implements IClienteDAO {
         return clientes;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Cliente consultar(String rfc) {
         EntityManager entityManager = conexion.obtenerConexion();
@@ -64,9 +87,11 @@ public class ClienteDAO implements IClienteDAO {
         return cliente;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public List<Cliente> consultarClienteFiltro(String nombre, String rfc, Calendar fecha_nacimiento) {
-        //aun no jala aslñkjdñalk
         EntityManager entityManager = conexion.obtenerConexion();
         entityManager.getTransaction().begin();
 

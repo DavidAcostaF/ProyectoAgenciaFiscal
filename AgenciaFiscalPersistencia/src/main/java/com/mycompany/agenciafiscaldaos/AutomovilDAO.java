@@ -1,19 +1,21 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+/**
+ * AutomovilDAO.java
  */
 package com.mycompany.agenciafiscaldaos;
 
 import com.mycompany.agenciafiscaldominio.Automovil;
-import com.mycompany.agenciafiscaldominio.Tramite;
-import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-
 /**
+ * Esta clase implementa la interfaz {@link IAutomovilDAO} y proporciona métodos
+ * para realizar operaciones CRUD relacionadas con los automóviles en la base de
+ * datos. Utiliza JPA para interactuar con la capa de persistencia y gestionar
+ * la entidad Automovil.
+ *
+ * La clase AutomovilDAO gestiona la persistencia de los objetos Automovil y
+ * proporciona métodos para agregar y consultar automóviles en la base de datos.
+ *
+ * Esta clase es parte del conjunto de clases DAO (Data Access Object)
+ * utilizadas para interactuar con la capa de persistencia de la aplicación.
  *
  * @author af_da
  */
@@ -21,10 +23,18 @@ public class AutomovilDAO implements IAutomovilDAO {
 
     private IConexion conexion;
 
+    /**
+     * Crea una instancia de AutomovilDAO con la conexión proporcionada.
+     *
+     * @param conexion La conexión utilizada para acceder a la base de datos.
+     */
     public AutomovilDAO(IConexion conexion) {
         this.conexion = conexion;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Automovil agregar(Automovil automovil) {
         EntityManager entityManager = conexion.obtenerConexion();
@@ -36,6 +46,9 @@ public class AutomovilDAO implements IAutomovilDAO {
         return automovil;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Automovil consultar(Long id) {
         EntityManager entityManager = conexion.obtenerConexion();
@@ -44,6 +57,4 @@ public class AutomovilDAO implements IAutomovilDAO {
         return automovil;
     }
 
- 
-    
 }
