@@ -19,23 +19,28 @@ import java.util.List;
  *
  * @author af_da
  */
-public class RegistroClienteBO implements IRegistroClienteBO {
+public class ClienteBO implements IClienteBO {
 
     private IClienteDAO clienteDAO;
     private IConexion conexion;
 
-    public RegistroClienteBO() {
+    public ClienteBO() {
         conexion = new Conexion();
         this.clienteDAO = new ClienteDAO(conexion);
     }
 
     @Override
-    public void poblarClientes() {
+    public Boolean poblarClientes() {
         List<Cliente> listaClientes = this.listaClientes();
 
         for (int i = 0; i < listaClientes().size(); i++) {
+            if (clienteDAO.consultar(listaClientes.get(i).getRfc()) != null) {
+                return false;
+            }
             clienteDAO.agregar(listaClientes.get(i));
+
         }
+        return true;
     }
 
     @Override

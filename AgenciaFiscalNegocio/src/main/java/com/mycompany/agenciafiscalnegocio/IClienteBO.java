@@ -12,8 +12,9 @@ import java.util.List;
  *
  * @author af_da
  */
-public interface IRegistroClienteBO {
+public interface IClienteBO {
 
-    public void poblarClientes();
+    public Boolean poblarClientes();
+
     public List<Cliente> listaClientes();
 }

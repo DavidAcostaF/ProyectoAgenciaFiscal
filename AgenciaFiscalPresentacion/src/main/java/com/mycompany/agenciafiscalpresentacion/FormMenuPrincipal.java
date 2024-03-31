@@ -4,9 +4,9 @@
  */
 package com.mycompany.agenciafiscalpresentacion;
 
-import com.mycompany.agenciafiscalnegocio.IRegistroClienteBO;
-import com.mycompany.agenciafiscalnegocio.RegistroClienteBO;
+import com.mycompany.agenciafiscalnegocio.ClienteBO;
 import javax.swing.JOptionPane;
+import com.mycompany.agenciafiscalnegocio.IClienteBO;
 
 /**
  *
@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  */
 public class FormMenuPrincipal extends javax.swing.JFrame {
 
-    private IRegistroClienteBO registroClienteBo;
+    private IClienteBO registroClienteBo;
 
     /**
      * Creates new form FromMenuPrincipal
@@ -199,10 +199,15 @@ public class FormMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCerrarActionPerformed
 
     private void btnAgregarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarClientesActionPerformed
-        this.registroClienteBo = new RegistroClienteBO();
+        this.registroClienteBo = new ClienteBO();
 
-        registroClienteBo.poblarClientes();
-        JOptionPane.showMessageDialog(this, "Se han agregado clientes");
+        if (!registroClienteBo.poblarClientes()) {
+            JOptionPane.showMessageDialog(this, "Los clientes ya está registrados");
+
+        } else {
+            JOptionPane.showMessageDialog(this, "Se han agregado los clientes");
+        }
+
     }//GEN-LAST:event_btnAgregarClientesActionPerformed
 
     private void btnConsultasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConsultasActionPerformed
