@@ -70,7 +70,7 @@ public class ClienteDAO implements IClienteDAO {
         EntityManager entityManager = conexion.obtenerConexion();
         entityManager.getTransaction().begin();
 
-        StringBuilder jpqlBuilder = new StringBuilder("SELECT c FROM Cliente c");
+        StringBuilder jpqlBuilder = new StringBuilder("SELECT c FROM Cliente c ");
         StringBuilder filtro = new StringBuilder();
         if (!nombre.isBlank()) {
             filtro.append(" AND c.nombre LIKE :nombre");
@@ -79,11 +79,11 @@ public class ClienteDAO implements IClienteDAO {
             filtro.append(" AND c.rfc = :rfc");
         }
         if (fecha_nacimiento != null) {
-            filtro.append(" AND c.fechaNacimiento = :fechaNacimiento");
+            filtro.append(" AND FUNCTION('DATE', c.fecha_nacimiento) = FUNCTION('DATE', :fechaNacimiento)");
         }
 
         if (!filtro.toString().isBlank()) {
-            jpqlBuilder.append("WHERE TRUE");
+            jpqlBuilder.append("WHERE 1=1");
             jpqlBuilder.append(filtro);
         }
         TypedQuery<Cliente> query = entityManager.createQuery(jpqlBuilder.toString(), Cliente.class);
