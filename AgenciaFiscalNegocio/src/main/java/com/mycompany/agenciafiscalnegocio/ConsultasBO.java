@@ -9,13 +9,17 @@ import com.mycompany.agenciafiscaldaos.Conexion;
 import com.mycompany.agenciafiscaldaos.IClienteDAO;
 import com.mycompany.agenciafiscaldaos.IConexion;
 import com.mycompany.agenciafiscaldaos.ILicenciaDAO;
+import com.mycompany.agenciafiscaldaos.IPlacaDAO;
 import com.mycompany.agenciafiscaldaos.ITramiteDAO;
 import com.mycompany.agenciafiscaldaos.LicenciaDAO;
+import com.mycompany.agenciafiscaldaos.PlacaDAO;
 import com.mycompany.agenciafiscaldaos.TramiteDAO;
 import com.mycompany.agenciafiscaldominio.Cliente;
 import com.mycompany.agenciafiscaldominio.Licencia;
+import com.mycompany.agenciafiscaldominio.Placa;
 import com.mycompany.agenciafiscaldtos.ClienteDTO;
 import com.mycompany.agenciafiscaldtos.LicenciaDTO;
+import com.mycompany.agenciafiscaldtos.PlacaDTO;
 import com.mycompany.agenciafiscalutileria.Encriptacion;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +36,7 @@ public class ConsultasBO implements IConsultasBO {
     private IClienteDAO clienteDAO;
     private ILicenciaDAO licenciaDAO;
     private ITramiteDAO tramiteDAO;
+    private IPlacaDAO placaDAO;
     private ClienteDTO filtroClienteDTO;
     private Cliente cliente;
 
@@ -42,6 +47,7 @@ public class ConsultasBO implements IConsultasBO {
         this.clienteDAO = new ClienteDAO(conexion);
         licenciaDAO = new LicenciaDAO(conexion);
         tramiteDAO = new TramiteDAO(conexion);
+        placaDAO = new PlacaDAO(conexion);
     }
 
     @Override
@@ -102,5 +108,25 @@ public class ConsultasBO implements IConsultasBO {
         }
 
         return licenciasDTO;
+    }
+
+    @Override
+    public List<PlacaDTO> placasCliente() {
+        List<Placa> placas = placaDAO.consultarPlacasCliente(clienteDTO.getRfc());
+        List<PlacaDTO> placasDTO = new ArrayList<>();
+        if (placas != null) {
+            for (Placa placa : placas) {
+                PlacaDTO placaDTO = new PlacaDTO();
+                placaDTO.setCosto(placa.getCosto());
+                placaDTO.setFecha_emision(placa.getFecha_expedicion());
+                placaDTO.setFecha_recepcion(placa.getFecha_recepcion());
+                placaDTO.setEstado(placa.getEstado());
+                placaDTO.setSerie(placa.getSerie());
+                placasDTO.add(placaDTO);
+            }
+        }
+
+        return placasDTO;
+
     }
 }

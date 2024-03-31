@@ -207,7 +207,7 @@ public class FormConsultasFiltradas extends javax.swing.JFrame {
                 SimpleDateFormat formatoFechaHora = new SimpleDateFormat("yyyy-MM-dd");
 
                 String fechaHoraFormateada = formatoFechaHora.format(cliente.getFecha_nacimiento().getTime());
-                Object[] fila = {cliente.getNombre(), cliente.getRfc(), fechaHoraFormateada, cliente.getTelefono()};
+                Object[] fila = {cliente.getNombre() + " " + cliente.getApellido_paterno(), cliente.getRfc(), fechaHoraFormateada, cliente.getTelefono()};
                 modeloLista.addElement("Nombres: " + cliente.getNombre() + ", RFC: " + cliente.getRfc() + ", Nacimiento: " + fechaHoraFormateada + ", Telefono: " + cliente.getTelefono());
             }
             listaClientes.setCellRenderer(new DefaultListCellRenderer() {

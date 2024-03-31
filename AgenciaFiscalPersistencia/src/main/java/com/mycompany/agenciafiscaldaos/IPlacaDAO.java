@@ -24,4 +24,6 @@ public interface IPlacaDAO {
 
     public List<Placa> consultarTramitePeriodo(Calendar desde, Calendar hasta);
 
+    public List<Placa> consultarPlacasCliente(String rfc);
+
 }

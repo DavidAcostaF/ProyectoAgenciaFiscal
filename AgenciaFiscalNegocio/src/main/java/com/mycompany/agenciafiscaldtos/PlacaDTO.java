@@ -33,6 +33,9 @@ public class PlacaDTO {
         this.vehiculo = vehiculo;
     }
 
+    public PlacaDTO() {
+    }
+
     public PlacaDTO(String serie, Calendar fecha_emision, Calendar fecha_recepcion, Float costo, Boolean estado, Vehiculo vehiculo) {
         this.serie = serie;
         this.fecha_emision = fecha_emision;

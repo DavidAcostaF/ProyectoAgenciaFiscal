@@ -4,12 +4,14 @@
  */
 package com.mycompany.agenciafiscaldaos;
 
+import com.mycompany.agenciafiscaldominio.Licencia;
 import com.mycompany.agenciafiscaldominio.Placa;
 import java.util.Calendar;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -71,6 +73,17 @@ public class PlacaDAO implements IPlacaDAO {
     @Override
     public List<Placa> consultarTramitePeriodo(Calendar desde, Calendar hasta) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public List<Placa> consultarPlacasCliente(String rfc) {
+
+        EntityManager entityManager = conexion.obtenerConexion();
+
+        String jpql = "SELECT l FROM Placa l JOIN Tramite t ON l.id = t.id WHERE t.cliente.rfc = :rfcCliente";
+        TypedQuery<Placa> query = entityManager.createQuery(jpql, Placa.class);
+        query.setParameter("rfcCliente", rfc);
+        return query.getResultList();
     }
 
 }

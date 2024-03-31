@@ -6,9 +6,9 @@ package pruebas;
 
 import com.mycompany.agenciafiscaldaos.Conexion;
 import com.mycompany.agenciafiscaldaos.IConexion;
-import com.mycompany.agenciafiscaldaos.ILicenciaDAO;
-import com.mycompany.agenciafiscaldaos.LicenciaDAO;
-import com.mycompany.agenciafiscaldominio.Licencia;
+import com.mycompany.agenciafiscaldaos.IPlacaDAO;
+import com.mycompany.agenciafiscaldaos.PlacaDAO;
+import com.mycompany.agenciafiscaldominio.Placa;
 
 /**
  *
@@ -21,9 +21,9 @@ public class Pruebas {
      */
     public static void main(String[] args) {
         IConexion conexion = new Conexion();
-        ILicenciaDAO licenciaDAO = new LicenciaDAO(conexion);
-        for (Licencia licencia:licenciaDAO.consultarLicenciasCliente("DEF789012GHI")) {
-            System.out.println(licencia.getCosto());
+        IPlacaDAO placaDAO = new PlacaDAO(conexion);
+        for (Placa placa :placaDAO.consultarPlacasCliente("DEF789012GHI")) {
+            System.out.println(placa.getCosto());
         }
     }
 

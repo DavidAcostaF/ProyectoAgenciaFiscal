@@ -5,6 +5,7 @@
 package com.mycompany.agenciafiscalpresentacion;
 
 import com.mycompany.agenciafiscaldtos.LicenciaDTO;
+import com.mycompany.agenciafiscaldtos.PlacaDTO;
 import com.mycompany.agenciafiscalnegocio.IConsultasBO;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -27,6 +28,7 @@ public class FormConsultasHistorial extends javax.swing.JFrame {
         this.consultasBO = consultasBO;
         txtRfc.setText("de " + consultasBO.getClienteDTO().getRfc());
         llenarTablaLicencias();
+        llenarTablaPlacas();
     }
 
     /**
@@ -195,9 +197,9 @@ public class FormConsultasHistorial extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCerrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCerrarActionPerformed
-//        FormConsultasFiltradas fcf = new FormConsultasFiltradas();
-//        fcf.setVisible(true);
-//        this.dispose();
+        FormConsultasFiltradas fcf = new FormConsultasFiltradas(consultasBO);
+        fcf.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
     private void llenarTablaLicencias() {
         List<LicenciaDTO> listaLicencias = consultasBO.licenciasCliente();
@@ -212,9 +214,24 @@ public class FormConsultasHistorial extends javax.swing.JFrame {
         }
     }
 
+    private void llenarTablaPlacas() {
+        List<PlacaDTO> listaPlacas = consultasBO.placasCliente();
+        DefaultTableModel modelo = (DefaultTableModel) tablePlacas.getModel();
+
+        if (listaPlacas != null) {
+            for (PlacaDTO placaDTO : listaPlacas) {
+                modelo.addRow(new Object[]{placaDTO.getSerie(), placaDTO.getCosto(), formatoFecha(placaDTO.getFecha_emision()), formatoFecha(placaDTO.getFecha_recepcion()), mostrarEstado(placaDTO.getEstado())});
+
+            }
+
+        }
+    }
+
     private String formatoFecha(Calendar fecha) {
 
-// Formatear el Calendar al formato "dd/mm/aaaa"
+        if(fecha==null){
+            return "";
+        }
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         String fechaFormateada = sdf.format(fecha.getTime());
         return fechaFormateada;
