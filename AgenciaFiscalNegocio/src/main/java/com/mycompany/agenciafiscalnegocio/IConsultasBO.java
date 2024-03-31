@@ -5,6 +5,7 @@
 package com.mycompany.agenciafiscalnegocio;
 
 import com.mycompany.agenciafiscaldtos.ClienteDTO;
+import com.mycompany.agenciafiscaldtos.LicenciaDTO;
 import java.util.List;
 
 /**
@@ -20,4 +21,6 @@ public interface IConsultasBO {
     public void setClienteDTO(ClienteDTO clienteDtO);
     
     public ClienteDTO getClienteDTO();
+    
+    public  List<LicenciaDTO> licenciasCliente();
 }

@@ -8,6 +8,7 @@ import com.mycompany.agenciafiscaldominio.Licencia;
 import java.util.Calendar;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -54,6 +55,17 @@ public class LicenciaDAO implements ILicenciaDAO {
         entityManager.getTransaction().commit();
         entityManager.close();
         return licencia;
+    }
+
+    @Override
+    public List<Licencia> consultarLicenciasCliente(String rfc) {
+        EntityManager entityManager = conexion.obtenerConexion();
+
+        String jpql = "SELECT l FROM Licencia l JOIN Tramite t ON l.id = t.id WHERE t.cliente.rfc = :rfcCliente";
+        TypedQuery<Licencia> query = entityManager.createQuery(jpql, Licencia.class);
+        query.setParameter("rfcCliente", rfc);
+        return query.getResultList();
+
     }
 
 }

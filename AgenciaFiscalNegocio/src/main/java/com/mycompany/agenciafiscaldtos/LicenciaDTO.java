@@ -19,6 +19,7 @@ public class LicenciaDTO {
     private String vigencia;
 
     private Float Costo;
+    private Boolean estado;
 
     public LicenciaDTO(Calendar fecha_vencimiento) {
         this.fecha_vencimiento = fecha_vencimiento;
@@ -58,6 +59,13 @@ public class LicenciaDTO {
     public void setCosto(Float Costo) {
         this.Costo = Costo;
     }
-    
-    
+
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public void setEstado(Boolean estado) {
+        this.estado = estado;
+    }
+
 }

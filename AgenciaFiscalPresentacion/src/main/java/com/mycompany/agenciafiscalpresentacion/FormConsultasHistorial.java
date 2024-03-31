@@ -4,7 +4,12 @@
  */
 package com.mycompany.agenciafiscalpresentacion;
 
+import com.mycompany.agenciafiscaldtos.LicenciaDTO;
 import com.mycompany.agenciafiscalnegocio.IConsultasBO;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -20,7 +25,8 @@ public class FormConsultasHistorial extends javax.swing.JFrame {
     public FormConsultasHistorial(IConsultasBO consultasBO) {
         initComponents();
         this.consultasBO = consultasBO;
-        txtRfc.setText("de "+consultasBO.getClienteDTO().getRfc());
+        txtRfc.setText("de " + consultasBO.getClienteDTO().getRfc());
+        llenarTablaLicencias();
     }
 
     /**
@@ -105,13 +111,10 @@ public class FormConsultasHistorial extends javax.swing.JFrame {
 
         tableLicencias.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Vigencia", "Costo", "Fecha expedicion", "Fecha vencimiento", "Estado"
             }
         ));
         scrollLicencias.setViewportView(tableLicencias);
@@ -122,13 +125,10 @@ public class FormConsultasHistorial extends javax.swing.JFrame {
 
         tablePlacas.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Serie", "Costo", "Fecha emision", "Fecha recepcion", "Estado"
             }
         ));
         scrollPlacas.setViewportView(tablePlacas);
@@ -199,7 +199,35 @@ public class FormConsultasHistorial extends javax.swing.JFrame {
 //        fcf.setVisible(true);
 //        this.dispose();
     }//GEN-LAST:event_btnCerrarActionPerformed
+    private void llenarTablaLicencias() {
+        List<LicenciaDTO> listaLicencias = consultasBO.licenciasCliente();
+        DefaultTableModel modelo = (DefaultTableModel) tableLicencias.getModel();
 
+        if (listaLicencias != null) {
+            for (LicenciaDTO licenciaDTO : listaLicencias) {
+                modelo.addRow(new Object[]{licenciaDTO.getVigencia(), licenciaDTO.getCosto(), formatoFecha(licenciaDTO.getFecha_expedicion()), formatoFecha(licenciaDTO.getFecha_vencimiento()), mostrarEstado(licenciaDTO.getEstado())});
+
+            }
+
+        }
+    }
+
+    private String formatoFecha(Calendar fecha) {
+
+// Formatear el Calendar al formato "dd/mm/aaaa"
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        String fechaFormateada = sdf.format(fecha.getTime());
+        return fechaFormateada;
+    }
+
+    private String mostrarEstado(Boolean estado) {
+        if (estado == true) {
+            return "Activo";
+        } else if (estado == false) {
+            return "Inactivo";
+        }
+        return null;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCerrar;
     private javax.swing.JLabel imgLogo;

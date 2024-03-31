@@ -8,17 +8,19 @@ import com.mycompany.agenciafiscaldaos.ClienteDAO;
 import com.mycompany.agenciafiscaldaos.Conexion;
 import com.mycompany.agenciafiscaldaos.IClienteDAO;
 import com.mycompany.agenciafiscaldaos.IConexion;
+import com.mycompany.agenciafiscaldaos.ILicenciaDAO;
+import com.mycompany.agenciafiscaldaos.ITramiteDAO;
+import com.mycompany.agenciafiscaldaos.LicenciaDAO;
+import com.mycompany.agenciafiscaldaos.TramiteDAO;
 import com.mycompany.agenciafiscaldominio.Cliente;
+import com.mycompany.agenciafiscaldominio.Licencia;
 import com.mycompany.agenciafiscaldtos.ClienteDTO;
-import com.mycompany.agenciafiscaldtos.LicenciaNuevaDTO;
+import com.mycompany.agenciafiscaldtos.LicenciaDTO;
 import com.mycompany.agenciafiscalutileria.Encriptacion;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 
 /**
  *
@@ -27,15 +29,19 @@ import javax.persistence.TypedQuery;
 public class ConsultasBO implements IConsultasBO {
 
     private IConexion conexion;
+    private IClienteDAO clienteDAO;
+    private ILicenciaDAO licenciaDAO;
+    private ITramiteDAO tramiteDAO;
     private ClienteDTO filtroClienteDTO;
     private Cliente cliente;
-    private IClienteDAO clienteDAO;
 
     private ClienteDTO clienteDTO;
 
     public ConsultasBO() {
         this.conexion = new Conexion();
         this.clienteDAO = new ClienteDAO(conexion);
+        licenciaDAO = new LicenciaDAO(conexion);
+        tramiteDAO = new TramiteDAO(conexion);
     }
 
     @Override
@@ -77,5 +83,24 @@ public class ConsultasBO implements IConsultasBO {
     @Override
     public ClienteDTO getClienteDTO() {
         return this.clienteDTO;
+    }
+
+    @Override
+    public List<LicenciaDTO> licenciasCliente() {
+        List<Licencia> licencias = licenciaDAO.consultarLicenciasCliente(clienteDTO.getRfc());
+        List<LicenciaDTO> licenciasDTO = new ArrayList<>();
+        if (licencias != null) {
+            for (Licencia licencia : licencias) {
+                LicenciaDTO licenciaDTO = new LicenciaDTO();
+                licenciaDTO.setCosto(licencia.getCosto());
+                licenciaDTO.setFecha_expedicion(licencia.getFecha_expedicion());
+                licenciaDTO.setFecha_vencimiento(licencia.getFecha_vencimiento());
+                licenciaDTO.setVigencia(licencia.getVigencia());
+                licenciaDTO.setEstado(licencia.getEstado());
+                licenciasDTO.add(licenciaDTO);
+            }
+        }
+
+        return licenciasDTO;
     }
 }

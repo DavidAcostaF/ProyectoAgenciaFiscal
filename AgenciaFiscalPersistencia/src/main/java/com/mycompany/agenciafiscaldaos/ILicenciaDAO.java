@@ -22,4 +22,5 @@ public interface ILicenciaDAO {
 
     public Licencia actualizar(Licencia licencia);
 
+    public List<Licencia> consultarLicenciasCliente(String rfc);
 }
