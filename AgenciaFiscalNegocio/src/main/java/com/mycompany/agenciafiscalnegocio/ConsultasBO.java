@@ -1,6 +1,5 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
+ * ConsultasBO.java
  */
 package com.mycompany.agenciafiscalnegocio;
 
@@ -27,8 +26,11 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
+ * Esta clase representa un objeto de negocio para realizar consultas
+ * relacionadas con clientes. Implementa la interfaz IConsultasBO.
  *
- * @author Berry
+ *
+ * @see IConsultasBO
  */
 public class ConsultasBO implements IConsultasBO {
 
@@ -39,9 +41,12 @@ public class ConsultasBO implements IConsultasBO {
     private IPlacaDAO placaDAO;
     private ClienteDTO filtroClienteDTO;
     private Cliente cliente;
-
     private ClienteDTO clienteDTO;
 
+    /**
+     * Constructor de la clase ConsultasBO. Inicializa la conexión y los DAO
+     * necesarios para realizar las consultas.
+     */
     public ConsultasBO() {
         this.conexion = new Conexion();
         this.clienteDAO = new ClienteDAO(conexion);
@@ -50,6 +55,12 @@ public class ConsultasBO implements IConsultasBO {
         placaDAO = new PlacaDAO(conexion);
     }
 
+    /**
+     * Método para buscar una lista de clientes según un filtro especificado.
+     *
+     * @return Una lista de objetos ClienteDTO que cumplen con el filtro
+     * especificado.
+     */
     @Override
     public List<ClienteDTO> buscarListaCliente() {
         List<Cliente> clientes = clienteDAO.consultarClienteFiltro(filtroClienteDTO.getNombre(), filtroClienteDTO.getRfc(), filtroClienteDTO.getFecha_nacimiento());
@@ -73,24 +84,44 @@ public class ConsultasBO implements IConsultasBO {
             }
         }
         return clientesDTO;
-
     }
 
+    /**
+     * Método para establecer el filtro de cliente utilizado en las consultas.
+     *
+     * @param filtroCliente El objeto ClienteDTO que contiene los criterios de
+     * filtro.
+     */
     @Override
     public void setFiltroCliente(ClienteDTO filtroCliente) {
         this.filtroClienteDTO = filtroCliente;
     }
 
+    /**
+     * Método para establecer el objeto ClienteDTO actual.
+     *
+     * @param clienteDTO El objeto ClienteDTO que se establecerá como el actual.
+     */
     @Override
     public void setClienteDTO(ClienteDTO clienteDTO) {
         this.clienteDTO = clienteDTO;
     }
 
+    /**
+     * Método para obtener el objeto ClienteDTO actual.
+     *
+     * @return El objeto ClienteDTO actual.
+     */
     @Override
     public ClienteDTO getClienteDTO() {
         return this.clienteDTO;
     }
 
+    /**
+     * Método para obtener la lista de licencias asociadas a un cliente.
+     *
+     * @return Una lista de objetos LicenciaDTO asociados al cliente actual.
+     */
     @Override
     public List<LicenciaDTO> licenciasCliente() {
         List<Licencia> licencias = licenciaDAO.consultarLicenciasCliente(clienteDTO.getRfc());
@@ -110,6 +141,11 @@ public class ConsultasBO implements IConsultasBO {
         return licenciasDTO;
     }
 
+    /**
+     * Método para obtener la lista de placas asociadas a un cliente.
+     *
+     * @return Una lista de objetos PlacaDTO asociados al cliente actual.
+     */
     @Override
     public List<PlacaDTO> placasCliente() {
         List<Placa> placas = placaDAO.consultarPlacasCliente(clienteDTO.getRfc());
@@ -127,6 +163,5 @@ public class ConsultasBO implements IConsultasBO {
         }
 
         return placasDTO;
-
     }
 }

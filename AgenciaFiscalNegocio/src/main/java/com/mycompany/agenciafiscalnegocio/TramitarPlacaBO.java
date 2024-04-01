@@ -1,6 +1,5 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * TramitarPlacaBO.java
  */
 package com.mycompany.agenciafiscalnegocio;
 
@@ -36,30 +35,33 @@ import java.util.Map;
 import java.util.Random;
 
 /**
+ * Clase que implementa la lógica de negocio para tramitar placas vehiculares.
  *
- * @author af_da
  */
 public class TramitarPlacaBO implements ITramitarPlacaBO {
-    
+
     private IConexion conexion;
-    
+
     private IClienteDAO clienteDAO;
     private IVehiculoDAO vehiculoDAO;
     private IPlacaDAO placaDAO;
     private IAutomovilDAO automovilDAO;
     private ITramiteDAO tramiteDAO;
     private ILicenciaDAO licenciaDAO;
-    
+
     private VehiculoDTO vehiculoDTO;
     private PlacaDTO placaDTO;
     private ClienteDTO clienteDTO;
-    
+
     private Placa placa;
     private Cliente cliente;
     private Vehiculo vehiculo;
     private Float costoTramite;
     private String tipoTramitePlaca;
-    
+
+    /**
+     * Constructor de la clase TramitarPlacaBO.
+     */
     public TramitarPlacaBO() {
         this.conexion = new Conexion();
         this.clienteDAO = new ClienteDAO(conexion);
@@ -69,17 +71,32 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
         this.tramiteDAO = new TramiteDAO(conexion);
         this.licenciaDAO = new LicenciaDAO(conexion);
     }
-    
+
+    /**
+     * Establece la placa a tramitar.
+     *
+     * @param placa la placa a tramitar
+     */
     @Override
     public void setPlaca(PlacaDTO placa) {
         this.placaDTO = placa;
     }
-    
+
+    /**
+     * Establece el vehículo asociado a la placa.
+     *
+     * @param vehiculo el vehículo asociado a la placa
+     */
     @Override
     public void setVehiculo(VehiculoDTO vehiculo) {
         this.vehiculoDTO = vehiculo;
     }
-    
+
+    /**
+     * Solicita una nueva placa para un vehículo.
+     *
+     * @return la placa generada para el vehículo
+     */
     @Override
     public PlacaDTO solicitarPlacaVehiculo() {
         Calendar fecha = Calendar.getInstance();
@@ -94,14 +111,24 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
         }
         return convertirAPlacaDTO(placaNueva);
     }
-    
+
+    /**
+     * Actualiza el estado de una placa.
+     *
+     * @param placa la placa a actualizar
+     */
     private void actualizarPlaca(Placa placa) {
         Calendar fechaActual = Calendar.getInstance();
         placa.setFecha_recepcion(fechaActual);
         placa.setEstado(false);
         placaDAO.actualizar(placa);
     }
-    
+
+    /**
+     * Genera una serie aleatoria para una placa.
+     *
+     * @return la serie generada para la placa
+     */
     private String generarSeriePlaca() {
         // Generador de letras aleatorias
         String letras = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -125,25 +152,39 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
             char numero = numeros.charAt(random.nextInt(numeros.length()));
             sb.append(numero);
         }
-        
+
         return sb.toString();
-        
     }
-    
+
+    /**
+     * Convierte una placa a un objeto PlacaDTO.
+     *
+     * @param placa la placa a convertir
+     * @return el objeto PlacaDTO correspondiente
+     */
     private PlacaDTO convertirAPlacaDTO(Placa placa) {
         PlacaDTO placaDTO = new PlacaDTO(placa.getSerie(), placa.getFecha_expedicion(), placa.getCosto(), placa.getEstado(), vehiculo);
         placaDTO.setCliente(placa.getCliente());
         return placaDTO;
     }
-    
+
+    /**
+     * Establece el cliente asociado a la placa.
+     *
+     * @param cliente el cliente asociado a la placa
+     */
     @Override
     public void setCliente(ClienteDTO cliente) {
         this.clienteDTO = cliente;
     }
-    
+
+    /**
+     * Consulta un cliente por su RFC.
+     *
+     * @return el objeto ClienteDTO correspondiente al cliente consultado
+     */
     @Override
     public ClienteDTO consultarCliente() {
-        
         this.cliente = clienteDAO.consultar(clienteDTO.getRfc());
         if (cliente == null) {
             return null;
@@ -151,12 +192,18 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
         ClienteDTO clienteDTO = new ClienteDTO(cliente.getRfc(), cliente.getNombre(), cliente.getApellido_paterno(), cliente.getApellido_materno(), cliente.getDiscapacitado(), cliente.getFecha_nacimiento(), cliente.getTelefono());
         return clienteDTO;
     }
-    
+
+    /**
+     * Consulta un vehículo por su placa.
+     *
+     * @return el objeto VehiculoDTO correspondiente al vehículo consultado
+     * @throws ExcepcionConsultarVehiculo si no se encuentra el vehículo
+     */
     @Override
     public VehiculoDTO consultarVehiculoPorPlaca() throws ExcepcionConsultarVehiculo {
         try {
             this.vehiculo = vehiculoDAO.consultarPorPlaca(placaDTO.getSerie());
-            
+
         } catch (PersistenciaException pe) {
             throw new ExcepcionConsultarVehiculo("No se ha encontrado el vehiculo");
         }
@@ -166,7 +213,12 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
         vehiculoDTO = new VehiculoDTO(vehiculo.getSerie(), vehiculo.getMarca(), vehiculo.getColor(), vehiculo.getLinea(), vehiculo.getModelo());
         return vehiculoDTO;
     }
-    
+
+    /**
+     * Valida la existencia de la licencia del cliente.
+     *
+     * @return el objeto LicenciaDTO correspondiente a la licencia del cliente
+     */
     @Override
     public LicenciaDTO validacionLicenciaExistencia() {
         Tramite tramiteCliente = new Tramite();
@@ -176,7 +228,7 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
             return null;
         }
         Licencia licenciaConsultatada = licenciaDAO.consultar(tramiteConsultado.getId());
-        
+
         LicenciaDTO licenciaDTO = new LicenciaDTO();
         licenciaDTO.setCosto(licenciaConsultatada.getCosto());
         licenciaDTO.setFecha_expedicion(licenciaConsultatada.getFecha_expedicion());
@@ -184,7 +236,13 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
         licenciaDTO.setVigencia(licenciaConsultatada.getVigencia());
         return licenciaDTO;
     }
-    
+
+    /**
+     * Agrega un vehículo asociado a una placa.
+     *
+     * @param placa la placa asociada al vehículo
+     * @return el vehículo agregado
+     */
     @Override
     public Vehiculo agregarVehiculo(Placa placa) {
         Automovil automovil = new Automovil(vehiculoDTO.getSerie(), vehiculoDTO.getMarca(), vehiculoDTO.getColor(), vehiculoDTO.getLinea(), vehiculoDTO.getModelo());
@@ -195,7 +253,13 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
         Automovil automovilAgregado = automovilDAO.agregar(automovil);
         return automovilAgregado;
     }
-    
+
+    /**
+     * Calcula el costo del trámite de acuerdo al estado del vehículo.
+     *
+     * @param estado el estado del vehículo
+     * @return el costo del trámite
+     */
     @Override
     public Float CalcularCosto(String estado) {
         Map<String, Float> costosNormal = new HashMap<String, Float>() {
@@ -207,42 +271,73 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
         costoTramite = costosNormal.get(estado);
         return costoTramite;
     }
-    
+
+    /**
+     * Obtiene el vehículo asociado a la placa.
+     *
+     * @return el vehículo asociado a la placa
+     */
     @Override
     public VehiculoDTO getVehiculo() {
         return vehiculoDTO;
     }
-    
+
+    /**
+     * Obtiene el cliente asociado a la placa.
+     *
+     * @return el cliente asociado a la placa
+     */
     @Override
     public ClienteDTO getCliente() {
         return clienteDTO;
     }
-    
+
+    /**
+     * Consulta una placa por su serie.
+     *
+     * @return la placa consultada
+     */
     @Override
     public PlacaDTO consultarPlaca() {
         this.placa = placaDAO.consultar(placaDTO.getSerie());
         if (placa == null) {
             return null;
         }
-        
+
         return convertirAPlacaDTO(placa);
     }
-    
+
+    /**
+     * Obtiene la placa asociada al trámite.
+     *
+     * @return la placa asociada al trámite
+     */
     @Override
     public PlacaDTO getPlaca() {
         return this.placaDTO;
     }
-    
+
+    /**
+     * Obtiene el costo del trámite.
+     *
+     * @return el costo del trámite
+     */
     @Override
     public Float getCostoTramite() {
         return costoTramite;
     }
-    
+
+    /**
+     * Consulta un vehículo por su serie.
+     *
+     * @return el vehículo consultado
+     * @throws ExcepcionConsultarVehiculo si no se encuentra el vehículo
+     */
     @Override
     public VehiculoDTO consultarVehiculo() throws ExcepcionConsultarVehiculo {
         try {
             this.vehiculo = vehiculoDAO.consultar(vehiculoDTO.getSerie());
-            
+
         } catch (PersistenciaException pe) {
             throw new ExcepcionConsultarVehiculo("No se ha encontrado el vehiculo");
         }
@@ -252,15 +347,25 @@ public class TramitarPlacaBO implements ITramitarPlacaBO {
         vehiculoDTO = new VehiculoDTO(vehiculo.getSerie(), vehiculo.getMarca(), vehiculo.getColor(), vehiculo.getLinea(), vehiculo.getModelo());
         return vehiculoDTO;
     }
-    
+
+    /**
+     * Establece el tipo de trámite de la placa.
+     *
+     * @param tipoTramite el tipo de trámite de la placa
+     */
     @Override
     public void setTipoTramitePlaca(String tipoTramite) {
         this.tipoTramitePlaca = tipoTramite;
     }
-    
+
+    /**
+     * Obtiene el tipo de trámite de la placa.
+     *
+     * @return el tipo de trámite de la placa
+     */
     @Override
     public String getTipoTramitePlaca() {
         return tipoTramitePlaca;
     }
-    
+
 }

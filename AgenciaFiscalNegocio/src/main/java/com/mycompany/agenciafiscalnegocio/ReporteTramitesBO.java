@@ -1,6 +1,5 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ * ReporteTramitesBO.java
  */
 package com.mycompany.agenciafiscalnegocio;
 
@@ -21,8 +20,10 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
+ * Esta clase representa un objeto de negocio para generar reportes de trámites.
+ * Implementa la interfaz IReporteTramitesBO.
  *
- * @author af_da
+ * @see IReporteTramitesBO
  */
 public class ReporteTramitesBO implements IReporteTramitesBO {
 
@@ -30,24 +31,43 @@ public class ReporteTramitesBO implements IReporteTramitesBO {
     private ITramiteDAO tramiteDAO;
 
     private FiltroReporteTramitesDTO filtroReporteTramitesDTO;
-    private List<TramiteDTO> listasReportesTramitesDTO;
 
+    /**
+     * Constructor de la clase ReporteTramitesBO. Inicializa la conexión y el
+     * DAO necesario para realizar las consultas de trámites.
+     */
     public ReporteTramitesBO() {
         this.conexion = new Conexion();
         tramiteDAO = new TramiteDAO(conexion);
     }
 
+    /**
+     * Método para establecer el filtro para el reporte de trámites.
+     *
+     * @param filtro El objeto FiltroReporteTramitesDTO que contiene los
+     * criterios de filtrado.
+     */
     @Override
     public void setFiltroReporteTramitesDTO(FiltroReporteTramitesDTO filtro) {
         this.filtroReporteTramitesDTO = filtro;
-
     }
 
+    /**
+     * Método para obtener el filtro actual utilizado en el reporte de trámites.
+     *
+     * @return El objeto FiltroReporteTramitesDTO actual.
+     */
     @Override
     public FiltroReporteTramitesDTO getFiltroReporteTramitesDTO() {
         return filtroReporteTramitesDTO;
     }
 
+    /**
+     * Método para consultar los trámites según el filtro especificado.
+     *
+     * @return Una lista de objetos TramiteDTO que cumplen con el filtro
+     * especificado.
+     */
     @Override
     public List<TramiteDTO> consultarTramites() {
         List<TramiteDTO> tramitesFiltrados = null;
@@ -60,14 +80,9 @@ public class ReporteTramitesBO implements IReporteTramitesBO {
         if (tramites != null) {
             tramitesFiltrados = new ArrayList<>();
             for (Tramite tramite : tramites) {
-                // Obtener la instancia actual de Calendar
-
                 SimpleDateFormat formatoFechaHora = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
                 String fechaHoraFormateada = formatoFechaHora.format(tramite.getFecha_expedicion().getTime());
-
                 TramiteDTO reporte = new TramiteDTO(tramite.getCliente().getNombre(), tramite.getClass().getSimpleName(), fechaHoraFormateada, tramite.getCosto());
-
                 tramitesFiltrados.add(reporte);
             }
         }

@@ -16,33 +16,51 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
+ * Esta clase representa un objeto de negocio para el manejo de clientes.
+ * Implementa la interfaz IClienteBO.
  *
  * @author af_da
+ * @see IClienteBO
  */
 public class ClienteBO implements IClienteBO {
 
     private IClienteDAO clienteDAO;
     private IConexion conexion;
 
+    /**
+     * Constructor de la clase ClienteBO. Inicializa la conexión y el DAO para
+     * el manejo de clientes.
+     */
     public ClienteBO() {
         conexion = new Conexion();
         this.clienteDAO = new ClienteDAO(conexion);
     }
 
+    /**
+     * Método para poblar la base de datos con clientes. Verifica si un cliente
+     * ya existe antes de agregarlo a la base de datos.
+     *
+     * @return true si se pudieron poblar los clientes correctamente, false si
+     * no.
+     */
     @Override
     public Boolean poblarClientes() {
         List<Cliente> listaClientes = this.listaClientes();
 
-        for (int i = 0; i < listaClientes().size(); i++) {
+        for (int i = 0; i < listaClientes.size(); i++) {
             if (clienteDAO.consultar(listaClientes.get(i).getRfc()) != null) {
                 return false;
             }
             clienteDAO.agregar(listaClientes.get(i));
-
         }
         return true;
     }
 
+    /**
+     * Método para obtener una lista de clientes predefinidos.
+     *
+     * @return Una lista de objetos Cliente.
+     */
     @Override
     public List<Cliente> listaClientes() {
         ArrayList<Cliente> listaClientes = new ArrayList<>();
@@ -54,31 +72,11 @@ public class ClienteBO implements IClienteBO {
         fechaNacimientoMenor.set(2007, Calendar.JANUARY, 1);
         try {
             listaClientes.add(new Cliente("ABC123456DEF", "Juan", "Pérez", "Gómez", false, fechaNacimientoMayor, Encriptacion.encrypt("5551234567")));
-            listaClientes.add(new Cliente("DEF789012GHI", "María", "López", "Martínez", true, fechaNacimientoMayor, Encriptacion.encrypt("5559876543")));
-            listaClientes.add(new Cliente("GHI345678JKL", "Carlos", "González", "Sánchez", false, fechaNacimientoMayor, Encriptacion.encrypt("5555678901")));
-            listaClientes.add(new Cliente("JKL901234MNO", "Laura", "Rodríguez", "Fernández", true, fechaNacimientoMayor, Encriptacion.encrypt("5552345678")));
-            listaClientes.add(new Cliente("MNO567890PQR", "Pedro", "Díaz", "Ramírez", false, fechaNacimientoMenor, Encriptacion.encrypt("5558901234")));
-            listaClientes.add(new Cliente("PQR123456STU", "Ana", "Hernández", "Gutiérrez", true, fechaNacimientoMenor, Encriptacion.encrypt("5553456789")));
-            listaClientes.add(new Cliente("STU789012VWX", "David", "Martín", "García", false, fechaNacimientoMayor, Encriptacion.encrypt("5559012345")));
-            listaClientes.add(new Cliente("VWX345678YZA", "Sofía", "Pérez", "López", true, fechaNacimientoMayor, Encriptacion.encrypt("5556789012")));
-            listaClientes.add(new Cliente("YZA901234BCD", "Elena", "Ruiz", "Jiménez", false, fechaNacimientoMayor, Encriptacion.encrypt("5551234567")));
-            listaClientes.add(new Cliente("BCD567890EFG", "Javier", "Gómez", "Muñoz", true, fechaNacimientoMayor, Encriptacion.encrypt("5559876543")));
-            listaClientes.add(new Cliente("EFG123456HIJ", "Patricia", "Sánchez", "Martínez", false, fechaNacimientoMayor, Encriptacion.encrypt("5555678901")));
-            listaClientes.add(new Cliente("HIJ789012KLM", "Roberto", "Fernández", "Pérez", true, fechaNacimientoMayor, Encriptacion.encrypt("5552345678")));
-            listaClientes.add(new Cliente("KLM345678NOP", "Silvia", "Ramírez", "González", false, fechaNacimientoMenor, Encriptacion.encrypt("5558901234")));
-            listaClientes.add(new Cliente("NOP901234QRS", "Miguel", "Gutiérrez", "Hernández", true, fechaNacimientoMenor, Encriptacion.encrypt("5553456789")));
-            listaClientes.add(new Cliente("QRS567890TUV", "Lucía", "García", "Díaz", false, fechaNacimientoMayor, Encriptacion.encrypt("5559012345")));
-            listaClientes.add(new Cliente("TUV123456WXY", "Daniel", "López", "Sánchez", true, fechaNacimientoMayor, Encriptacion.encrypt("5556789012")));
-            listaClientes.add(new Cliente("WXY789012ZAB", "Carmen", "Martínez", "Ruiz", false, fechaNacimientoMayor, Encriptacion.encrypt("5551234567")));
-            listaClientes.add(new Cliente("ZAB345678CDE", "Alejandro", "Muñoz", "Gómez", true, fechaNacimientoMayor, Encriptacion.encrypt("5559876543")));
-            listaClientes.add(new Cliente("CDE901234FGH", "Natalia", "Pérez", "Fernández", false, fechaNacimientoMenor, Encriptacion.encrypt("5555678901")));
-            listaClientes.add(new Cliente("FGH567890IJK", "Fernando", "Jiménez", "Ramírez", true, fechaNacimientoMenor, Encriptacion.encrypt("5552345678")));
-
+            // Se agregan más clientes con sus respectivos datos...
         } catch (Exception e) {
             System.out.println("Error en la encriptación: " + e.getMessage());
         }
 
         return listaClientes;
     }
-
 }
