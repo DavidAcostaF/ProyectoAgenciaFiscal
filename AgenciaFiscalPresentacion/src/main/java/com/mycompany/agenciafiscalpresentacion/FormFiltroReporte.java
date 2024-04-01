@@ -4,10 +4,10 @@
  */
 package com.mycompany.agenciafiscalpresentacion;
 
-import com.github.lgooddatepicker.components.DatePickerSettings;
 import com.mycompany.agenciafiscaldtos.FiltroReporteTramitesDTO;
 import com.mycompany.agenciafiscalnegocio.IReporteTramitesBO;
 import com.mycompany.agenciafiscalnegocio.ReporteTramitesBO;
+import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 import java.util.Calendar;
 import javax.swing.JOptionPane;
@@ -107,8 +107,18 @@ public class FormFiltroReporte extends javax.swing.JFrame {
         panEntrar.setBackground(new java.awt.Color(236, 236, 236));
 
         txfTipoTramite.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        txfTipoTramite.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txfTipoTramiteKeyTyped(evt);
+            }
+        });
 
         txfNombre.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        txfNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txfNombreKeyTyped(evt);
+            }
+        });
 
         txtNombre.setText("Nombre:");
         txtNombre.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
@@ -257,6 +267,19 @@ public class FormFiltroReporte extends javax.swing.JFrame {
         frp.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed
+
+    private void txfNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txfNombreKeyTyped
+        char c = evt.getKeyChar();
+        if (!Character.isLetter(c) && c != KeyEvent.VK_SPACE && c != KeyEvent.VK_BACK_SPACE) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txfNombreKeyTyped
+
+    private void txfTipoTramiteKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txfTipoTramiteKeyTyped
+        char c = evt.getKeyChar();
+        if (!Character.isLetter(c) && c != KeyEvent.VK_SPACE && c != KeyEvent.VK_BACK_SPACE) {
+            evt.consume();
+        }    }//GEN-LAST:event_txfTipoTramiteKeyTyped
     public void settingsFechas() {
 
         JTextField jTextFieldDesde = datePickerDesde.getComponentDateTextField();
