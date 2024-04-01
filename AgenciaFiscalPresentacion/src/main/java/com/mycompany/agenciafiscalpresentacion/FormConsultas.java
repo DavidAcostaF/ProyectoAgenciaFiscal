@@ -7,8 +7,10 @@ package com.mycompany.agenciafiscalpresentacion;
 import com.mycompany.agenciafiscaldtos.ClienteDTO;
 import com.mycompany.agenciafiscalnegocio.ConsultasBO;
 import com.mycompany.agenciafiscalnegocio.IConsultasBO;
+import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 import java.util.Calendar;
+import javax.swing.JTextField;
 
 /**
  *
@@ -24,6 +26,7 @@ public class FormConsultas extends javax.swing.JFrame {
     public FormConsultas() {
         initComponents();
         this.consultasBO = new ConsultasBO();
+        settingsFechas();
     }
 
     /**
@@ -35,7 +38,6 @@ public class FormConsultas extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        datePickerDesde = new com.github.lgooddatepicker.components.DatePicker();
         panFondoBlanco = new javax.swing.JPanel();
         panHeader = new javax.swing.JPanel();
         imgLogo = new javax.swing.JLabel();
@@ -50,9 +52,6 @@ public class FormConsultas extends javax.swing.JFrame {
         btnAceptar = new javax.swing.JButton();
         datePickerNacimiento = new com.github.lgooddatepicker.components.DatePicker();
 
-        datePickerDesde.setName(""); // NOI18N
-        datePickerDesde.setToolTipText("");
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Filtro consulta clientes");
 
@@ -62,11 +61,11 @@ public class FormConsultas extends javax.swing.JFrame {
 
         imgLogo.setIcon(new javax.swing.ImageIcon(getClass().getResource("/multimedia/AgenciaFiscal.png"))); // NOI18N
 
-        txtTitulo.setFont(new java.awt.Font("Comic Sans MS", 0, 36)); // NOI18N
         txtTitulo.setText("Consultas");
+        txtTitulo.setFont(new java.awt.Font("Comic Sans MS", 0, 36)); // NOI18N
 
-        btnCerrar.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnCerrar.setText("Atras");
+        btnCerrar.setFont(new java.awt.Font("Comic Sans MS", 0, 14)); // NOI18N
         btnCerrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCerrarActionPerformed(evt);
@@ -107,18 +106,23 @@ public class FormConsultas extends javax.swing.JFrame {
         txfRfc.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
 
         txfNombre.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
+        txfNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txfNombreKeyTyped(evt);
+            }
+        });
 
-        txtNombre.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
         txtNombre.setText("Nombre:");
+        txtNombre.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
 
-        txtFechaNacimiento.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
         txtFechaNacimiento.setText("Fecha de Nacimiento:");
+        txtFechaNacimiento.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
 
-        txtRfc.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
         txtRfc.setText("RFC:");
+        txtRfc.setFont(new java.awt.Font("Comic Sans MS", 0, 24)); // NOI18N
 
-        btnAceptar.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
         btnAceptar.setText("Aceptar");
+        btnAceptar.setFont(new java.awt.Font("Comic Sans MS", 0, 18)); // NOI18N
         btnAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAceptarActionPerformed(evt);
@@ -221,6 +225,13 @@ public class FormConsultas extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnAceptarActionPerformed
 
+    private void txfNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txfNombreKeyTyped
+        char c = evt.getKeyChar();
+        if (!Character.isLetter(c) && c != KeyEvent.VK_BACK_SPACE && c != KeyEvent.VK_DELETE) {
+            evt.consume();
+        }
+    }//GEN-LAST:event_txfNombreKeyTyped
+
     public ClienteDTO empaquetarDatos() {
         ClienteDTO clienteDTO = new ClienteDTO();
         clienteDTO.setRfc("");
@@ -245,10 +256,15 @@ public class FormConsultas extends javax.swing.JFrame {
         return clienteDTO;
     }
 
+    public void settingsFechas() {
+
+        JTextField jTextFieldNacimiento = datePickerNacimiento.getComponentDateTextField();
+        jTextFieldNacimiento.setEditable(false);
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCerrar;
-    private com.github.lgooddatepicker.components.DatePicker datePickerDesde;
     private com.github.lgooddatepicker.components.DatePicker datePickerNacimiento;
     private javax.swing.JLabel imgLogo;
     private javax.swing.JPanel panEntrar;
